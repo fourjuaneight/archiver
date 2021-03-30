@@ -1,2 +1,3 @@
-# archiver
-🚚 Lambda function to upload bookmark files to S3.
+# 🚚 Archiver
+
+Lambda function to upload bookmark files to S3.
