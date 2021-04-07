@@ -22,25 +22,28 @@ const getArticle = async (url) => {
   const article = reader.parse();
   // convert to MD
   const markdown = turndownService.turndown(article.content);
+  // convert to buffer
   const buffer = new Buffer(markdown, "utf8");
 
   return buffer;
 };
 
 /**
- * Get image file from comic url.
+ * Get media file from source url.
  * @function
  *
- * @param {string} url comic url
+ * @param {string} url file url
  * @returns {Buffer} file buffer
  */
-const getImage = async (url) => {
+const getMedia = async (url) => {
+  // get file
   const response = await fetch(url);
   const data = await response.blob();
+  // convert to buffer
   const buffer = new Buffer(data, "binary");
 
   return buffer;
 };
 
 exports.getArticle = getArticle;
-exports.getImage = getImage;
+exports.getMedia = getMedia;
