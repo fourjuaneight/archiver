@@ -10,7 +10,7 @@ const turndownService = new TurndownService();
  * @function
  *
  * @param {string} url article url
- * @returns {string} markdown article
+ * @returns {Buffer} markdown article
  */
 const getArticle = async (url) => {
   // get doc
@@ -22,8 +22,9 @@ const getArticle = async (url) => {
   const article = reader.parse();
   // convert to MD
   const markdown = turndownService.turndown(article.content);
+  const buffer = new Buffer(markdown, "utf8");
 
-  return markdown;
+  return buffer;
 };
 
 /**
