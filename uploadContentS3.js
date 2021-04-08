@@ -18,7 +18,7 @@ const s3 = new AWS.S3({
  * @param {string} name file name
  * @returns {object} upload response code and message
  */
-const uploadContent = async (data, type, name) => {
+const uploadContent = async (data, type, name, base) => {
   const params = {
     Bucket: BUCKET_NAME,
     Key: name,
@@ -27,10 +27,12 @@ const uploadContent = async (data, type, name) => {
   };
   const body = await s3.putObject(params).promise();
   const response = body.$response.httpResponse;
-  const success = `File uploaded successfully at https:/${BUCKET_NAME}.s3.amazonaws.com/Bookmarks/${name}`;
+  const permalink = `https:/${BUCKET_NAME}.s3.amazonaws.com/Bookmarks/${base}/${name}`;
+  const success = `File uploaded successfully at ${permalink}`;
   const result = {
     code: response.statusCode,
     message: response.statusCode === 200 ? success : response.statusMessage,
+    permalink,
   };
 
   return result;
