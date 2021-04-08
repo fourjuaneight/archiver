@@ -23,7 +23,7 @@ const getArticle = async (url) => {
   // convert to MD
   const markdown = turndownService.turndown(article.content);
   // convert to buffer
-  const buffer = new Buffer(markdown, "utf8");
+  const buffer = Buffer.from(markdown, "utf8");
 
   return buffer;
 };
@@ -40,7 +40,7 @@ const getMedia = async (url) => {
   const response = await fetch(url);
   const data = await response.blob();
   // convert to buffer
-  const buffer = new Buffer(data, "binary");
+  const buffer = Buffer.from(data, "binary");
 
   return buffer;
 };
