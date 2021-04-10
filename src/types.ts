@@ -1,4 +1,9 @@
-import { String } from 'aws-sdk/clients/cloudtrail';
+export interface CFReqBody {
+  base: string;
+  name: string;
+  type: string;
+  url: string;
+}
 
 export interface B2AuthResp {
   absoluteMinimumPartSize: number;
