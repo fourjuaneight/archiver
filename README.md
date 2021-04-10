@@ -1,3 +1,3 @@
 # 🚚 Archiver
 
-Lambda function to upload bookmark files to S3 and B2.
+Cloudflare Worker to upload bookmarked media to S3 or B2.
