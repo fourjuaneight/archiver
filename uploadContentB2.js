@@ -1,6 +1,8 @@
-const fetch = require("node-fetch");
-const { createHash } = require("crypto");
-require("dotenv").config();
+import fetch from "node-fetch";
+import { createHash } from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const APP_KEY_ID = process.env.B2_APP_KEY_ID;
 const APP_KEY = process.env.B2_APP_KEY;
@@ -125,4 +127,4 @@ const uploadToB2 = async (data, name, type) => {
   }
 };
 
-exports.uploadToB2 = uploadToB2;
+export default uploadToB2;

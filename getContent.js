@@ -1,8 +1,8 @@
-const fetch = require("node-fetch");
-const ytdl = require("ytdl-core");
-const TurndownService = require("turndown");
-const { JSDOM } = require("jsdom");
-const { Readability } = require("@mozilla/readability");
+import fetch from "node-fetch";
+import ytdl from "ytdl-core";
+import TurndownService from "turndown";
+import { JSDOM } from "jsdom";
+import { Readability } from "@mozilla/readability";
 
 const turndownService = new TurndownService();
 
@@ -13,7 +13,7 @@ const turndownService = new TurndownService();
  * @param {string} url article url
  * @returns {Buffer} markdown article
  */
-const getArticle = async (url) => {
+export const getArticle = async (url) => {
   // get doc
   const response = await fetch(url);
   const data = await response.text();
@@ -36,7 +36,7 @@ const getArticle = async (url) => {
  * @param {string} url file url
  * @returns {Buffer} file buffer
  */
-const getMedia = async (url) => {
+export const getMedia = async (url) => {
   // get file
   const response = await fetch(url);
   const data = await response.blob();
@@ -54,7 +54,7 @@ const getMedia = async (url) => {
  * @param {string} url video link
  * @returns {Buffer} file buffer
  */
-const getYTVid = async (url) => {
+export const getYTVid = async (url) => {
   /**
    * Create buffer from readable stream.
    * @function
@@ -78,7 +78,3 @@ const getYTVid = async (url) => {
 
   return buffer;
 };
-
-exports.getArticle = getArticle;
-exports.getMedia = getMedia;
-exports.getYTVid = getYTVid;

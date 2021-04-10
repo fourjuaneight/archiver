@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Lambda function to upload bookmark files to S3.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "run": "node index.js"
   },

@@ -1,4 +1,7 @@
-const AWS = require("aws-sdk");
+import AWS from "aws-sdk";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const ID = process.env.AWS_ID;
 const SECRET = process.env.AWS_SECRET;
@@ -38,4 +41,4 @@ const uploadContent = async (data, type, name, base) => {
   return result;
 };
 
-module.exports = uploadContent;
+export default uploadContent;
