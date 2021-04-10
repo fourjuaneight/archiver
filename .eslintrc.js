@@ -7,22 +7,29 @@ module.exports = {
     node: true,
   },
   extends: [
-    'airbnb/base', 'prettier'
+    'airbnb/base',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
     tw: true,
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020,
     ecmaFeatures: {
-      impliedStrict: true,
       classes: true,
+      impliedStrict: true,
+      jsx: true,
     },
     sourceType: 'module',
   },
-  plugins: ['prettier'],
+  plugins: ['prettier', '@typescript-eslint'],
   rules: {
     'id-length': [
       2,
@@ -39,5 +46,11 @@ module.exports = {
     'no-case-declarations': 0,
     'no-nested-ternary': 0,
     'prettier/prettier': ['error', prettierConf],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/no-useless-constructor': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 };
