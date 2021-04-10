@@ -7,8 +7,7 @@
     "build": "webpack",
     "dev": "NODE_ENV=development npm run build",
     "format": "prettier --write \"src/*.ts\"",
-    "lint": "eslint --fix \"src/*.ts\"",
-    "transpile": "tsc --project ./test"
+    "lint": "eslint --fix \"src/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -50,7 +49,11 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4",
     "webpack": "^5.31.2",
-    "webpack-cli": "^4.6.0"
+    "webpack-cli": "^4.6.0",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "browser": {
+    "crypto": false
   },
   "lint-staged": {
     "*.ts": [

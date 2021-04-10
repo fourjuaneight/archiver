@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 
 const mode = process.env.NODE_ENV || 'production';
@@ -10,13 +10,14 @@ module.exports = {
   },
   mode,
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.js'],
     plugins: [],
   },
+  externals: [ nodeExternals() ],
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
