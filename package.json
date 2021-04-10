@@ -1,19 +1,21 @@
 {
   "name": "archiver",
   "version": "1.0.0",
-  "description": "Lambda function to upload bookmark files to S3.",
+  "description": "Lambda function to upload bookmark files to S3 and B2.",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
+    "dev": "NODE_ENV=development npm run build",
     "format": "prettier --write \"src/*.ts\"",
     "lint": "eslint --fix \"src/*.ts\"",
-    "run": "node index.js"
+    "transpile": "tsc --project ./test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fourjuaneight/archiver.git"
   },
   "author": "Juan Villela",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fourjuaneight/archiver/issues"
   },
@@ -44,8 +46,11 @@
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "webpack": "^5.31.2",
+    "webpack-cli": "^4.6.0"
   },
   "lint-staged": {
     "*.ts": [
