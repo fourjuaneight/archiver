@@ -46,6 +46,8 @@ const uploadContent = async (
     return `https:/${BUCKET_NAME}.s3.amazonaws.com/Bookmarks/${base}/${name}`;
   } catch (error) {
     console.error(error);
+
+    return error;
   }
 };
 

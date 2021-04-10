@@ -143,6 +143,8 @@ const uploadToB2 = async (
     return `${authData.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
     console.error(error);
+
+    return error;
   }
 };
 
