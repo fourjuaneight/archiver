@@ -1,6 +1,15 @@
-import fetch from "node-fetch";
-import { createHash } from "crypto";
-import dotenv from "dotenv";
+import fetch from 'node-fetch';
+import { createHash } from 'crypto';
+import dotenv from 'dotenv';
+
+import {
+  B2AuthResp,
+  B2AuthTokens,
+  B2Error,
+  B2UploadResp,
+  B2UploadTokens,
+  B2UpUrlResp,
+} from './types';
 
 dotenv.config();
 
@@ -14,26 +23,28 @@ const BUCKET_NAME = process.env.B2_BUCKET_NAME;
  * docs: https://www.backblaze.com/b2/docs/b2_authorize_account.html
  * @function
  *
- * @returns {object} api endpoint, auth token, and download url
+ * @returns {B2AuthTokens} api endpoint, auth token, and download url
  */
-const authTokens = async () => {
-  const token = Buffer.from(`${APP_KEY_ID}:${APP_KEY}`).toString("base64");
+const authTokens = async (): B2AuthTokens => {
+  const token = Buffer.from(`${APP_KEY_ID}:${APP_KEY}`).toString('base64');
 
   try {
     const response = await fetch(
-      "https://api.backblazeb2.com/b2api/v2/b2_authorize_account",
+      'https://api.backblazeb2.com/b2api/v2/b2_authorize_account',
       {
         headers: {
           Authorization: `Basic ${token}`,
         },
       }
     );
-    const results = await response.json();
 
     if (response.status !== 200) {
+      const results: B2Error = await response.json();
+
       throw new Error(`${results.status}: ${results.code}`);
     }
 
+    const results: B2AuthResp = await response.json();
     const data = {
       apiUrl: results.apiUrl,
       authorizationToken: results.authorizationToken,
@@ -52,15 +63,15 @@ const authTokens = async () => {
  * docs: https://www.backblaze.com/b2/docs/b2_get_upload_url.html
  * @function
  *
- * @returns {object} upload endpoint, auth token, and download url
+ * @returns {B2UploadTokens} upload endpoint, auth token, and download url
  */
-const getUploadUrl = async () => {
+const getUploadUrl = async (): B2UploadTokens => {
   try {
     const authData = await authTokens();
     const response = await fetch(
       `${authData.apiUrl}/b2api/v1/b2_get_upload_url`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: authData.authorizationToken,
         },
@@ -69,12 +80,14 @@ const getUploadUrl = async () => {
         }),
       }
     );
-    const results = await response.json();
 
     if (response.status !== 200) {
-      throw new Error(`${results.status}: ${results.code}`);
+      const results: B2Error = await response.json();
+
+      throw new Error(`${response.status}: ${results.code}`);
     }
 
+    const results: B2UpUrlResp = await response.json();
     const endpoint = results.uploadUrl;
     const authToken = results.authorizationToken;
 
@@ -98,28 +111,34 @@ const getUploadUrl = async () => {
  * @param {string} [type] file type
  * @returns {string} file public url
  */
-const uploadToB2 = async (data, name, type) => {
+const uploadToB2 = async (
+  data: Buffer,
+  name: string,
+  type?: string
+): string => {
   try {
     const authData = await getUploadUrl();
-    const hash = createHash("sha1").update(data).digest("hex");
-
+    const hash = createHash('sha1').update(data).digest('hex');
     const response = await fetch(authData.endpoint, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: authData.authToken,
-        "X-Bz-File-Name": name,
-        "Content-Type": type || "b2/x-auto",
-        "Content-Length": data.length,
-        "X-Bz-Content-Sha1": hash,
-        "X-Bz-Info-Author": "cf-worker",
+        'X-Bz-File-Name': name,
+        'Content-Type': type || 'b2/x-auto',
+        'Content-Length': data.length,
+        'X-Bz-Content-Sha1': hash,
+        'X-Bz-Info-Author': 'cf-worker',
       },
       body: data,
     });
-    const results = await response.json();
 
     if (response.status !== 200) {
+      const results: B2Error = await response.json();
+
       throw new Error(`${results.status}: ${results.code}`);
     }
+
+    const results: B2UploadResp = await response.json();
 
     return `${authData.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
