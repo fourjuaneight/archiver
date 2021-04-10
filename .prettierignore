@@ -1,0 +1,10 @@
+.DS_Store
+.env
+*.log
+*.pid
+*.seed
+coverage
+dist
+lib-cov
+logs
+node_modules
