@@ -87,7 +87,7 @@ const uploadToB2 = async (data, name, type) => {
         "Content-Type": type || "b2/x-auto",
         "Content-Length": data.length,
         "X-Bz-Content-Sha1": hash,
-        "X-Bz-Info-Author": "unknown",
+        "X-Bz-Info-Author": "cf-worker",
       },
       body: data,
     });
