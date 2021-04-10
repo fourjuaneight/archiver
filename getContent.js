@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const ytdl = require("ytdl-core");
 const TurndownService = require("turndown");
 const { JSDOM } = require("jsdom");
 const { Readability } = require("@mozilla/readability");
@@ -46,5 +47,38 @@ const getMedia = async (url) => {
   return buffer;
 };
 
+/**
+ * Get YouTube file from url.
+ * @function
+ *
+ * @param {string} url video link
+ * @returns {Buffer} file buffer
+ */
+const getYTVid = async (url) => {
+  /**
+   * Create buffer from readable stream.
+   * @function
+   * 
+   * @param {ReadableStream} stream 
+   * @returns {Buffer} video buffer
+   */
+  const createBuffer = async (stream) => {
+    const chunks = [];
+
+    for await (let chunk of stream) {
+      chunks.push(chunk);
+    }
+
+    return Buffer.concat(chunks);
+  };
+  // get file
+  const data = ytdl(url);
+  // convert to buffer
+  const buffer = await createBuffer(data);
+
+  return buffer;
+};
+
 exports.getArticle = getArticle;
 exports.getMedia = getMedia;
+exports.getYTVid = getYTVid;
