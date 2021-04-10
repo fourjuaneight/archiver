@@ -23,6 +23,7 @@ const getData = async (url: string, type: string): Promise<Buffer> => {
 
 /**
  * Get and upload media data to B2.
+ * docs: https://developers.cloudflare.com/workers/get-started/guide#5-write-code
  * @function
  *
  * @param request request data
