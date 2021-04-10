@@ -40,7 +40,8 @@ const getMedia = async (url) => {
   const response = await fetch(url);
   const data = await response.blob();
   // convert to buffer
-  const buffer = Buffer.from(data, "binary");
+  const arrayBuffer = await data.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer, "binary");
 
   return buffer;
 };
