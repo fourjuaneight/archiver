@@ -4,3 +4,4 @@ transpiled
 worker
 .env
 .env.*
+index.js
