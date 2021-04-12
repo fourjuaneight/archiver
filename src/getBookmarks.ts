@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 
-import { AirtableResp, Bases, Record } from './types';
+import { AirtableResp, Bases, List, Record } from './types';
 
 dotenv.config();
 
@@ -16,6 +16,22 @@ export const baseQueries: Bases = {
     Tweets: [],
     Videos: [],
   },
+};
+
+/**
+ * Chunk list of records into array of arrays.
+ * @function
+ *
+ * @param array list of records
+ * @param size amount to chunk by
+ * @returns {Record[][]} chunked list of records
+ */
+const chunkRecords = (array: Record[], size: number): Record[][] => {
+  if (array.length <= size) {
+    return [array];
+  }
+
+  return [array.slice(0, size), ...chunkRecords(array.slice(size), size)];
 };
 
 /**
@@ -46,7 +62,7 @@ export const getBookmarksWithOffset = async (
 
   try {
     return fetch(url, config)
-      .then((response: Response) => response.json())
+      .then(response => response.json())
       .then((airtableRes: AirtableResp) => {
         baseQueries[base][list] = [
           ...baseQueries[base][list],
@@ -71,33 +87,45 @@ export const getBookmarksWithOffset = async (
  * @function
  *
  * @param {string} list database list
- * @param {Record[]} data records to update
- * @returns {Promise<Record[]>} updated records
+ * @returns {Promise<void>}
  */
-export const updateBookmarks = async (
-  list: string,
-  data: Record[]
-): Promise<Record[]> => {
-  const body: AirtableResp = {
-    records: data,
-  };
+export const updateBookmarks = (list: string): Promise<void> => {
   const config = {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${AIRTABLE_API}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body),
   };
   const url = `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
+  // update only those that do not have a file
+  const cleanList = baseQueries.Bookmarks[list].filter(
+    record => !record.fields.file
+  );
 
-  try {
-    const response = await fetch(url, config);
-    const results: AirtableResp = await response.json();
+  if (cleanList > 0) {
+    // break up into arrays of 10 records (Airtable limit)
+    const recordsChunk = chunkRecords(cleanList, 10);
 
-    return results.records;
-  } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    try {
+      for (let set of recordsChunk) {
+        const body: AirtableResp = {
+          records: set,
+        };
+        const updatedConfig = {
+          ...config,
+          body: JSON.stringify(body),
+        };
+        const response = await fetch(url, updatedConfig);
+        const results: AirtableResp = await response.json();
+
+        console.info(`${list} records updated:`, results.records);
+      }
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  } else {
+    console.info(`No records to update in ${list}`);
   }
 };
