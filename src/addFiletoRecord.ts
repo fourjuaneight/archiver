@@ -1,10 +1,6 @@
 import uploadToB2 from './uploadContentB2';
 import { getArticle, getMedia, getYTVid } from './getContent';
-import {
-  baseQueries,
-  getBookmarksWithOffset,
-  updateBookmarks,
-} from './getBookmarks';
+import { baseQueries } from './getBookmarks';
 import { Record } from './types';
 
 const bookmarksList = Object.keys(baseQueries.Bookmarks);
@@ -36,7 +32,10 @@ const getData = async (url: string, type: string): Promise<Buffer> => {
  * @param {Record} record record to update
  * @returns {Promise<Record>} updated record
  */
-const getFileArchive = async (list: string, record: Record): Promise<Record> => {
+const addFiletoRecord = async (
+  list: string,
+  record: Record
+): Promise<Record> => {
   const name: string = (record.fields.title as string).replace(' ', '_');
   const type: string = list.toLowerCase();
 
@@ -53,3 +52,5 @@ const getFileArchive = async (list: string, record: Record): Promise<Record> => 
     throw new Error(error);
   }
 };
+
+export default addFiletoRecord;
