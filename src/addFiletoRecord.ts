@@ -3,8 +3,6 @@ import { getArticle, getMedia, getYTVid } from './getContent';
 import { baseQueries } from './getBookmarks';
 import { Record } from './types';
 
-const bookmarksList = Object.keys(baseQueries.Bookmarks);
-
 /**
  * Determine media type and get buffer data.
  * @function
@@ -45,7 +43,10 @@ const addFiletoRecord = async (
 
     return {
       ...record,
-      file: publicUlr,
+      fields: {
+        ...record.fields,
+        file: publicUlr,
+      },
     };
   } catch (error) {
     console.error(error);
