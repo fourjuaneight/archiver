@@ -146,7 +146,6 @@ const uploadToB2 = async (
   } catch (error) {
     console.error(error);
     throw new Error(error);
-    return error;
   }
 };
 

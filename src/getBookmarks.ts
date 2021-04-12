@@ -8,7 +8,7 @@ dotenv.config();
 const AIRTABLE_API = process.env.AIRTABLE_API;
 const AIRTABLE_BOOKMARKS_ENDPOINT = process.env.AIRTABLE_BOOKMARKS_ENDPOINT;
 
-const baseQueries: Bases = {
+export const baseQueries: Bases = {
   Bookmarks: {
     Articles: [],
     Comics: [],
@@ -62,7 +62,6 @@ export const getBookmarksWithOffset = async (
   } catch (error) {
     console.error(error);
     throw new Error(error);
-    return error;
   }
 };
 
@@ -100,6 +99,5 @@ export const updateBookmarks = async (
   } catch (error) {
     console.error(error);
     throw new Error(error);
-    return error;
   }
 };
