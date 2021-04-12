@@ -1,5 +1,53 @@
-import handler from './handler';
+import uploadToB2 from './uploadContentB2';
+import { getArticle, getMedia, getYTVid } from './getContent';
+import {
+  baseQueries,
+  getBookmarksWithOffset,
+  updateBookmarks,
+} from './getBookmarks';
+import { Record } from './types';
 
-addEventListener('fetch', event => {
-  event.respondWith(handler(event.request));
-});
+const bookmarksList = Object.keys(baseQueries.Bookmarks);
+
+/**
+ * Determine media type and get buffer data.
+ * @function
+ *
+ * @param {string} url media endpoint
+ * @param {string} type media type
+ * @returns {Promise<Buffer>} media buffer
+ */
+const getData = async (url: string, type: string): Promise<Buffer> => {
+  switch (true) {
+    case type === 'articles':
+      return getArticle(url);
+    case type === 'videos':
+      return getYTVid(url);
+    default:
+      return getMedia(url);
+  }
+};
+
+/**
+ * Get Airtable bookmarks, archive media, then update record.
+ * @function
+ *
+ * @returns {Promise<Record>}
+ */
+const getFileArchive = async (list: string, record: Record): Promise<Record> => {
+  const name: string = (record.fields.title as string).replace(' ', '_');
+  const type: string = list.toLowerCase();
+
+  try {
+    const data = await getData(record.fields.url, type);
+    const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
+
+    return {
+      ...record,
+      file: publicUlr,
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+};
