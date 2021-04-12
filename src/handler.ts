@@ -30,7 +30,7 @@ const getData = async (url: string, type: string): Promise<Buffer> => {
  * @returns {Promise<Response>} operation response
  */
 const handler = async (request: Request): Promise<Response> => {
-  const eventBody: CFReqBody = request.body;
+  const eventBody: CFReqBody = await request.json();
 
   try {
     const data = await getData(eventBody.url, eventBody.type);
@@ -38,26 +38,22 @@ const handler = async (request: Request): Promise<Response> => {
       data,
       `Bookmarks/${eventBody.base}/${eventBody.name}`
     );
+    const json = JSON.stringify({ url: publicUlr }, null, 2);
 
-    return new Response(
-      { url: publicUlr },
-      {
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-        },
-      }
-    );
+    return new Response(json, {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8',
+      },
+    });
   } catch (error) {
+    const json = JSON.stringify({ error }, null, 2);
     console.error(error);
 
-    return new Response(
-      { error },
-      {
-        headers: {
-          'content-type': 'application/json;charset=UTF-8',
-        },
-      }
-    );
+    return new Response(json, {
+      headers: {
+        'content-type': 'application/json;charset=UTF-8',
+      },
+    });
   }
 };
 

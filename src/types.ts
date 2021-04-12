@@ -54,7 +54,7 @@ export interface B2AuthTokens {
   apiUrl: string;
   authorizationToken: string;
   downloadUrl: string;
-  recommendedPartSize: string;
+  recommendedPartSize: number;
 }
 
 export interface B2UploadTokens {

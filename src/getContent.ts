@@ -3,6 +3,7 @@ import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
+import { Readable } from 'stream';
 
 const turndownService = new TurndownService();
 
@@ -11,9 +12,9 @@ const turndownService = new TurndownService();
  * @function
  *
  * @param {string} url article url
- * @returns {Buffer} markdown article
+ * @returns {Promise<Buffer>} markdown article
  */
-export const getArticle = async (url: sring): Buffer => {
+export const getArticle = async (url: string): Promise<Buffer> => {
   // get doc
   const response = await fetch(url);
   const data = await response.text();
@@ -22,7 +23,7 @@ export const getArticle = async (url: sring): Buffer => {
   const reader = new Readability(doc.window.document);
   const article = reader.parse();
   // convert to MD
-  const markdown = turndownService.turndown(article.content);
+  const markdown = turndownService.turndown(article?.content ?? '');
   // convert to buffer
   const buffer = Buffer.from(markdown, 'utf8');
 
@@ -34,17 +35,14 @@ export const getArticle = async (url: sring): Buffer => {
  * @function
  *
  * @param {string} url file url
- * @returns {Buffer} file buffer
+ * @returns {Promise<Buffer>} file buffer
  */
-export const getMedia = async (url: string): Buffer => {
+export const getMedia = async (url: string): Promise<Buffer> => {
   // get file
   const response = await fetch(url);
-  const data = await response.blob();
-  // convert to buffer
-  const arrayBuffer: ArrayBuffer = await data.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer, 'binary');
+  const data = await response.buffer();
 
-  return buffer;
+  return data;
 };
 
 /**
@@ -52,17 +50,17 @@ export const getMedia = async (url: string): Buffer => {
  * @function
  *
  * @param {string} url video link
- * @returns {Buffer} file buffer
+ * @returns {Promise<Buffer>} file buffer
  */
-export const getYTVid = async (url: string): Buffer => {
+export const getYTVid = async (url: string): Promise<Buffer> => {
   /**
    * Create buffer from readable stream.
    * @function
    *
-   * @param {ReadableStream} stream
+   * @param {Readable} stream
    * @returns {Promise<Buffer>} video buffer
    */
-  const createBuffer = async (stream: ReadableStream): Promise<Buffer> => {
+  const createBuffer = async (stream: Readable): Promise<Buffer> => {
     const chunks = [];
 
     for await (let chunk of stream) {

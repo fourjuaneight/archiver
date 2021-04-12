@@ -23,9 +23,9 @@ const BUCKET_NAME = process.env.B2_BUCKET_NAME;
  * docs: https://www.backblaze.com/b2/docs/b2_authorize_account.html
  * @function
  *
- * @returns {B2AuthTokens} api endpoint, auth token, and download url
+ * @returns {Promise<B2AuthTokens>} api endpoint, auth token, and download url
  */
-const authTokens = async (): B2AuthTokens => {
+const authTokens = async (): Promise<B2AuthTokens | undefined> => {
   const token = Buffer.from(`${APP_KEY_ID}:${APP_KEY}`).toString('base64');
 
   try {
@@ -40,12 +40,12 @@ const authTokens = async (): B2AuthTokens => {
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
-
       throw new Error(`${results.status}: ${results.code}`);
+      return;
     }
 
     const results: B2AuthResp = await response.json();
-    const data = {
+    const data: B2AuthTokens = {
       apiUrl: results.apiUrl,
       authorizationToken: results.authorizationToken,
       downloadUrl: results.downloadUrl,
@@ -63,17 +63,17 @@ const authTokens = async (): B2AuthTokens => {
  * docs: https://www.backblaze.com/b2/docs/b2_get_upload_url.html
  * @function
  *
- * @returns {B2UploadTokens} upload endpoint, auth token, and download url
+ * @returns {Promise<B2UploadTokens>} upload endpoint, auth token, and download url
  */
-const getUploadUrl = async (): B2UploadTokens => {
+const getUploadUrl = async (): Promise<B2UploadTokens | undefined> => {
   try {
     const authData = await authTokens();
     const response = await fetch(
-      `${authData.apiUrl}/b2api/v1/b2_get_upload_url`,
+      `${authData?.apiUrl}/b2api/v1/b2_get_upload_url`,
       {
         method: 'POST',
         headers: {
-          Authorization: authData.authorizationToken,
+          Authorization: authData?.authorizationToken ?? '',
         },
         body: JSON.stringify({
           bucketId: BUCKET_ID,
@@ -83,8 +83,8 @@ const getUploadUrl = async (): B2UploadTokens => {
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
-
       throw new Error(`${response.status}: ${results.code}`);
+      return;
     }
 
     const results: B2UpUrlResp = await response.json();
@@ -94,7 +94,7 @@ const getUploadUrl = async (): B2UploadTokens => {
     return {
       endpoint,
       authToken,
-      downloadUrl: authData.downloadUrl,
+      downloadUrl: authData?.downloadUrl ?? '',
     };
   } catch (error) {
     console.error(error);
@@ -109,23 +109,23 @@ const getUploadUrl = async (): B2UploadTokens => {
  * @param {Buffer} data file buffer
  * @param {string} name file name with extension
  * @param {string} [type] file type
- * @returns {string} file public url
+ * @returns {Promise<string>} file public url
  */
 const uploadToB2 = async (
   data: Buffer,
   name: string,
   type?: string
-): string => {
+): Promise<string | undefined> => {
   try {
     const authData = await getUploadUrl();
     const hash = createHash('sha1').update(data).digest('hex');
-    const response = await fetch(authData.endpoint, {
+    const response = await fetch(authData?.endpoint ?? '', {
       method: 'POST',
       headers: {
-        Authorization: authData.authToken,
+        Authorization: authData?.authToken ?? '',
         'X-Bz-File-Name': name,
         'Content-Type': type || 'b2/x-auto',
-        'Content-Length': data.length,
+        'Content-Length': `${data.length}`,
         'X-Bz-Content-Sha1': hash,
         'X-Bz-Info-Author': 'cf-worker',
       },
@@ -134,13 +134,13 @@ const uploadToB2 = async (
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
-
       throw new Error(`${results.status}: ${results.code}`);
+      return;
     }
 
     const results: B2UploadResp = await response.json();
 
-    return `${authData.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
+    return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
     console.error(error);
 

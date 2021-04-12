@@ -20,16 +20,16 @@ const s3 = new AWS.S3({
  * @param {string} type file type
  * @param {string} name file name
  * @param {string} base database name
- * @returns {string} upload response code and message
+ * @returns {Promise<string>} upload response code and message
  */
 const uploadContent = async (
   data: Buffer,
   type: string,
   name: string,
   base: string
-): string => {
+): Promise<string> => {
   const params = {
-    Bucket: BUCKET_NAME,
+    Bucket: BUCKET_NAME ?? '',
     Key: name,
     Body: data,
     ContentType: type,
