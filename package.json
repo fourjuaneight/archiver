@@ -4,15 +4,12 @@
   "description": "Lambda function to upload bookmark files to S3 and B2.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "build:ts": "tsup src/index.ts --env.NODE_ENV production --minify",
-    "build:prod": "NODE_ENV=production webpack",
+    "archive": "node dist/index.js",
+    "build": "tsup src/index.ts --env.NODE_ENV production --minify",
+    "build:dev": "tsup src/index.ts",
     "clean": "rm -rf dist",
-    "dev": "NODE_ENV=development npm run build",
     "format": "prettier --write \"src/*.ts\"",
-    "lint": "eslint --fix \"src/*.ts\"",
-    "publish": "NODE_ENV=production wrangler publish",
-    "tsc": "tsc"
+    "lint": "eslint --fix \"src/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -36,7 +33,6 @@
     "ytdl-core": "^4.5.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^2.2.1",
     "@types/jsdom": "^16.2.10",
     "@types/node": "^14.14.37",
     "@types/node-fetch": "^2.5.10",
@@ -54,9 +50,7 @@
     "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
     "tsup": "^4.8.21",
-    "typescript": "^4.2.4",
-    "webpack": "^5.31.2",
-    "webpack-cli": "^4.6.0"
+    "typescript": "^4.2.4"
   },
   "browser": {
     "crypto": false

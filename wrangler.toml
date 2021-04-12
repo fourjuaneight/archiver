@@ -1,5 +1,0 @@
-name = "archiver"
-type = "webpack"
-account_id = ""
-workers_dev = true
-webpack_config = "webpack.config.js"
