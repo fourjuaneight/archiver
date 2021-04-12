@@ -32,7 +32,9 @@ const getData = async (url: string, type: string): Promise<Buffer> => {
  * Get Airtable bookmarks, archive media, then update record.
  * @function
  *
- * @returns {Promise<Record>}
+ * @param {string} list database list
+ * @param {Record} record record to update
+ * @returns {Promise<Record>} updated record
  */
 const getFileArchive = async (list: string, record: Record): Promise<Record> => {
   const name: string = (record.fields.title as string).replace(' ', '_');
