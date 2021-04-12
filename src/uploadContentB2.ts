@@ -55,6 +55,7 @@ const authTokens = async (): Promise<B2AuthTokens | undefined> => {
     return data;
   } catch (error) {
     console.error(error);
+    throw new Error(error);
   }
 };
 
@@ -98,6 +99,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens | undefined> => {
     };
   } catch (error) {
     console.error(error);
+    throw new Error(error);
   }
 };
 
@@ -143,7 +145,7 @@ const uploadToB2 = async (
     return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
     console.error(error);
-
+    throw new Error(error);
     return error;
   }
 };
