@@ -29,7 +29,7 @@ const baseQueries: Bases = {
  * @param {[string]} offset param to request remainding records
  * @return {Promise<AirtableResp >}
  */
-const getBookmarksWithOffset = async (
+export const getBookmarksWithOffset = async (
   base: string,
   list: string,
   offset?: string
@@ -75,7 +75,7 @@ const getBookmarksWithOffset = async (
  * @param {Record[]} data records to update
  * @returns {Promise<Record[]>} updated records
  */
-const updateBookmarks = async (
+export const updateBookmarks = async (
   list: string,
   data: Record[]
 ): Promise<Record[]> => {
