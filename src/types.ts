@@ -62,3 +62,39 @@ export interface B2UploadTokens {
   authToken: string;
   downloadUrl: string;
 }
+
+export interface BKWebFields {
+  creator: string;
+  title: string;
+  url: string;
+  tags: string[];
+}
+
+export interface BKTweetFields {
+  creator: string;
+  tweet: string;
+  url: string;
+  tags: string[];
+}
+
+export type Fields = BKWebFields | BKTweetFields;
+
+export interface Record {
+  id: string;
+  fields: Fields;
+  createdTime: string;
+}
+
+export interface AirtableResp {
+  records: Record[];
+  offset?: string;
+}
+
+export interface List {
+  [key: string]: Record[];
+}
+
+export interface Bases {
+  Bookmarks: List;
+  [key: string]: List;
+}
