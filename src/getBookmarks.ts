@@ -87,9 +87,13 @@ export const getBookmarksWithOffset = async (
  * @function
  *
  * @param {string} list database list
+ * @param {Record[]} data database list clean from already archived items
  * @returns {Promise<void>}
  */
-export const updateBookmarks = (list: string): Promise<void> => {
+export const updateBookmarks = (
+  list: string,
+  data: Record[]
+): Promise<void> => {
   const config = {
     method: 'PATCH',
     headers: {
@@ -98,34 +102,26 @@ export const updateBookmarks = (list: string): Promise<void> => {
     },
   };
   const url = `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
-  // update only those that do not have a file
-  const cleanList = baseQueries.Bookmarks[list].filter(
-    record => !record.fields.file
-  );
 
-  if (cleanList > 0) {
-    // break up into arrays of 10 records (Airtable limit)
-    const recordsChunk = chunkRecords(cleanList, 10);
+  // break up into arrays of 10 records (Airtable limit)
+  const recordsChunk = chunkRecords(data, 10);
 
-    try {
-      for (let set of recordsChunk) {
-        const body: AirtableResp = {
-          records: set,
-        };
-        const updatedConfig = {
-          ...config,
-          body: JSON.stringify(body),
-        };
-        const response = await fetch(url, updatedConfig);
-        const results: AirtableResp = await response.json();
+  try {
+    for (let set of recordsChunk) {
+      const body: AirtableResp = {
+        records: set,
+      };
+      const updatedConfig = {
+        ...config,
+        body: JSON.stringify(body),
+      };
+      const response = await fetch(url, updatedConfig);
+      const results: AirtableResp = await response.json();
 
-        console.info(`${list} records updated:`, results.records);
-      }
-    } catch (error) {
-      console.error(error);
-      throw new Error(error);
+      console.info(`${list} records updated:`, results.records);
     }
-  } else {
-    console.info(`No records to update in ${list}`);
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
   }
 };
