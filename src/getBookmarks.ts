@@ -13,7 +13,6 @@ export const baseQueries: Bases = {
     Articles: [],
     Comics: [],
     Podcasts: [],
-    Tweets: [],
     Videos: [],
   },
 };
