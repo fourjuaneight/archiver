@@ -20,13 +20,14 @@ import { Record } from './types';
     // Update bookmarks missing file archive
     for (const list of bookmarksList) {
       // update only those that do not have a file
-      const cleanList = baseQueries.Bookmarks[list].filter(
+      const cleanRecords = baseQueries.Bookmarks[list].filter(
         record => !record.fields.file
       );
 
       if (cleanList > 0) {
-        await addFiletoRecord(list, cleanList);
-        await updateBookmarks(list, cleanList);
+        const updatedRecords = await addFiletoRecord(list, cleanRecords);
+
+        await updateBookmarks(list, updatedRecords);
       } else {
         console.info(`No records to update in ${list}.`);
       }

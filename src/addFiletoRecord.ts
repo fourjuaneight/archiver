@@ -28,12 +28,12 @@ const getData = async (url: string, type: string): Promise<Buffer> => {
  *
  * @param {string} list database list
  * @param {Record[]} records records to archive
- * @returns {Promise<Record>} updated record
+ * @returns {Promise<Record[]>} updated record
  */
 const addFiletoRecord = async (
   list: string,
   records: Record[]
-): Promise<Record> => {
+): Promise<Record[]> => {
   const type: string = list.toLowerCase();
   const updatedRecords: any[] = [];
 
@@ -52,7 +52,7 @@ const addFiletoRecord = async (
       });
     }
 
-    return updatedRecords;
+    return updatedRecords as Record[];
   } catch (error) {
     console.error(error);
     throw new Error(error);
