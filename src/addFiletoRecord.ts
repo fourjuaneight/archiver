@@ -27,27 +27,32 @@ const getData = async (url: string, type: string): Promise<Buffer> => {
  * @function
  *
  * @param {string} list database list
- * @param {Record} record record to update
+ * @param {Record[]} records records to archive
  * @returns {Promise<Record>} updated record
  */
 const addFiletoRecord = async (
   list: string,
-  record: Record
+  records: Record[]
 ): Promise<Record> => {
-  const name: string = (record.fields.title as string).replace(' ', '_');
   const type: string = list.toLowerCase();
+  const updatedRecords: any[] = [];
 
   try {
-    const data = await getData(record.fields.url, type);
-    const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
+    for (let item of records) {
+      const name: string = (item.fields.title as string).replace(' ', '_');
+      const data = await getData(item.fields.url, type);
+      const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
 
-    return {
-      ...record,
-      fields: {
-        ...record.fields,
-        file: publicUlr,
-      },
-    };
+      updatedRecords.push({
+        ...item,
+        fields: {
+          ...item.fields,
+          file: publicUlr,
+        },
+      });
+    }
+
+    return updatedRecords;
   } catch (error) {
     console.error(error);
     throw new Error(error);
