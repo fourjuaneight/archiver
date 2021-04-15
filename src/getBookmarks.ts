@@ -105,8 +105,8 @@ export const updateBookmarks = async (
   // break up into arrays of 10 records (Airtable limit)
   const recordsChunk = chunkRecords(data, 10);
 
-  try {
-    for (let set of recordsChunk) {
+  for (let set of recordsChunk) {
+    try {
       const body: AirtableResp = {
         records: set,
       };
@@ -118,9 +118,9 @@ export const updateBookmarks = async (
       const results: AirtableResp = await response.json();
 
       console.info(`${list} records updated:`, results.records);
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
     }
-  } catch (error) {
-    console.error(error);
-    throw new Error(error);
   }
 };

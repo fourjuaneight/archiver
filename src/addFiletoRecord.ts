@@ -37,8 +37,8 @@ const addFiletoRecord = async (
   const type: string = list.toLowerCase();
   const updatedRecords: any[] = [];
 
-  try {
-    for (let item of records) {
+  for (let item of records) {
+    try {
       const name: string = (item.fields.title as string).replace(' ', '_');
       const data = await getData(item.fields.url, type);
       const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
@@ -50,13 +50,13 @@ const addFiletoRecord = async (
           file: publicUlr,
         },
       });
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
     }
-
-    return updatedRecords as Record[];
-  } catch (error) {
-    console.error(error);
-    throw new Error(error);
   }
+
+  return updatedRecords as Record[];
 };
 
 export default addFiletoRecord;
