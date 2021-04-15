@@ -86,7 +86,7 @@ export const getBookmarksWithOffset = async (
  * @function
  *
  * @param {string} list database list
- * @param {Record[]} data database list clean from already archived items
+ * @param {Record[]} data clean records not yet archived
  * @returns {Promise<void>}
  */
 export const updateBookmarks = (
