@@ -89,7 +89,7 @@ export const getBookmarksWithOffset = async (
  * @param {Record[]} data clean records not yet archived
  * @returns {Promise<void>}
  */
-export const updateBookmarks = (
+export const updateBookmarks = async (
   list: string,
   data: Record[]
 ): Promise<void> => {
