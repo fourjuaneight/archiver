@@ -5,3 +5,5 @@ worker
 .env
 .env.*
 index.js
+test.js
+src/test.ts
