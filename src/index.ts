@@ -34,9 +34,12 @@ const archiveRecord = async (
     // update bookmarks missing file archive
     for (const list of Object.keys(bookmarks)) {
       // update only those that do not have a file archive
-      const cleanRecords = bookmarks[list].filter(
-        record => !record.fields.archive
-      );
+      const cleanRecords = bookmarks[list]
+        .filter(record => !record.fields.archive)
+        .map(record => ({
+          id: record.id,
+          fields: record.fields,
+        }));
 
       if (cleanRecords.length > 0) {
         await archiveRecord(list, cleanRecords);
