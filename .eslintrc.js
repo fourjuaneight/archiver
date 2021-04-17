@@ -12,7 +12,6 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:react/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   globals: {
     Atomics: 'readonly',
@@ -37,6 +36,8 @@ module.exports = {
         exceptions: ['_', 'a', 'b', 'c', 'i', 'x', 'y', 'z'],
       },
     ],
+    'import/extensions': 0,
+    'import/no-unresolved': [2, { caseSensitive: false }],
     'no-console': [
       'error',
       {
@@ -45,6 +46,12 @@ module.exports = {
     ],
     'no-case-declarations': 0,
     'no-nested-ternary': 0,
+    'no-restricted-syntax': [
+      'error',
+      'FunctionExpression',
+      'WithStatement',
+      "BinaryExpression[operator='in']",
+    ],
     'prettier/prettier': ['error', prettierConf],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -52,5 +59,12 @@ module.exports = {
     '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
   },
 };
