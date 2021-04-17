@@ -20,7 +20,7 @@ export const getArticle = async (
   name: string,
   url: string
 ): Promise<Buffer> => {
-  console.info(chalk.yellow('[INFO]'), `Generating '${name}' archive file.`);
+  console.info(chalk.yellow('[INFO]'), `Downloading '${name}' archive file.`);
 
   try {
     // get doc
@@ -50,7 +50,7 @@ export const getArticle = async (
  * @returns {Promise<Buffer>} file buffer
  */
 export const getMedia = async (name: string, url: string): Promise<Buffer> => {
-  console.info(chalk.yellow('[INFO]'), `Generating '${name}' archive file.`);
+  console.info(chalk.yellow('[INFO]'), `Downloading '${name}' archive file.`);
 
   try {
     // get file
@@ -72,7 +72,7 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  * @returns {Promise<Buffer>} file buffer
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
-  console.info(chalk.yellow('[INFO]'), `Generating '${name}' archive file.`);
+  console.info(chalk.yellow('[INFO]'), `Downloading '${name}' archive file.`);
 
   /**
    * Create buffer from readable stream.

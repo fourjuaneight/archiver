@@ -60,8 +60,6 @@ export const getBookmarksWithOffset = async (
     ? `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}?offset=${offset}`
     : `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
 
-  console.info(chalk.yellow('[INFO]'), `Getting ${base} records.`);
-
   try {
     return fetch(url, config)
       .then(response => response.json())
@@ -90,6 +88,8 @@ export const getBookmarksWithOffset = async (
  */
 export const getRecords = async (): Promise<List> => {
   const bookmarksList = Object.keys(baseQueries.Bookmarks);
+
+  console.info(chalk.yellow('[INFO]'), `Getting ${base} records.`);
 
   // get latest bookmarks
   for (const list of bookmarksList) {
