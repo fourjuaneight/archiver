@@ -6,8 +6,7 @@ import { AirtableResp, Bases, List, Record } from './types';
 
 dotenv.config();
 
-const AIRTABLE_API = process.env.AIRTABLE_API;
-const AIRTABLE_BOOKMARKS_ENDPOINT = process.env.AIRTABLE_BOOKMARKS_ENDPOINT;
+const { AIRTABLE_API, AIRTABLE_BOOKMARKS_ENDPOINT } = process.env;
 
 export const baseQueries: Bases = {
   Bookmarks: {
@@ -55,9 +54,9 @@ export const getBookmarksWithOffset = async (
 
         if (airtableRes.offset) {
           return getBookmarksWithOffset(base, list, airtableRes.offset);
-        } else {
-          return airtableRes;
         }
+
+        return airtableRes;
       });
   } catch (error) {
     throw new Error(`Getting books for ${base} - ${list}: \n ${error}`);
@@ -71,14 +70,17 @@ export const getBookmarksWithOffset = async (
  * @returns {Promise<List>} bookmark records
  */
 export const getRecords = async (): Promise<List> => {
+  const results = [];
   const bookmarksList = Object.keys(baseQueries.Bookmarks);
 
   console.info(chalk.yellow('[INFO]'), 'Getting Bookmarks.');
 
   // get latest bookmarks
   for (const list of bookmarksList) {
-    await getBookmarksWithOffset('Bookmarks', list);
+    results.push(getBookmarksWithOffset('Bookmarks', list));
   }
+
+  await Promise.all(results);
 
   return baseQueries.Bookmarks;
 };

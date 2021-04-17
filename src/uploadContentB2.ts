@@ -26,7 +26,7 @@ const BUCKET_NAME = process.env.B2_BUCKET_NAME;
  *
  * @returns {Promise<B2AuthTokens>} api endpoint, auth token, and download url
  */
-const authTokens = async (): Promise<B2AuthTokens | undefined> => {
+const authTokens = async (): Promise<B2AuthTokens> => {
   const token = Buffer.from(`${APP_KEY_ID}:${APP_KEY}`).toString('base64');
 
   try {
@@ -46,7 +46,6 @@ const authTokens = async (): Promise<B2AuthTokens | undefined> => {
       throw new Error(
         `Getting B2 authentication keys: \n ${results.status}: ${msg}`
       );
-      return;
     }
 
     const results: B2AuthResp = await response.json();
@@ -70,7 +69,7 @@ const authTokens = async (): Promise<B2AuthTokens | undefined> => {
  *
  * @returns {Promise<B2UploadTokens>} upload endpoint, auth token, and download url
  */
-const getUploadUrl = async (): Promise<B2UploadTokens | undefined> => {
+const getUploadUrl = async (): Promise<B2UploadTokens> => {
   try {
     const authData = await authTokens();
     const response = await fetch(
@@ -90,10 +89,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens | undefined> => {
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(
-        `Getting B2 upload URL: \n ${response.status}: ${msg}`
-      );
-      return;
+      throw new Error(`Getting B2 upload URL: \n ${response.status}: ${msg}`);
     }
 
     const results: B2UpUrlResp = await response.json();
@@ -124,7 +120,7 @@ const uploadToB2 = async (
   data: Buffer,
   name: string,
   type?: string
-): Promise<string | undefined> => {
+): Promise<string> => {
   try {
     const authData = await getUploadUrl();
     const hash = createHash('sha1').update(data).digest('hex');
@@ -151,7 +147,6 @@ const uploadToB2 = async (
       throw new Error(
         `Uploading file to B2 - ${name}: \n ${results.status}: ${msg}`
       );
-      return;
     }
 
     const results: B2UploadResp = await response.json();

@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 
 import uploadToB2 from './uploadContentB2';
-import { baseQueries } from './getBookmarks';
 import { FileTypes, Record } from './types';
 import { fileNameFmt, getData } from './util';
 
