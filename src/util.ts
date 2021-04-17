@@ -81,7 +81,7 @@ export const fileNameFmt = (name: string): string => {
     .replace(/\s—\s/g, '-')
     .replace(/[-|\\]+/g, '-')
     .replace(/\s&\s/g, 'and')
-    .replace(/&/g, '-')
+    .replace(/&/g, 'n')
     .replace(/[!@#$%^*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
     .replace(/\s/g, '_')
     .normalize('NFD')
