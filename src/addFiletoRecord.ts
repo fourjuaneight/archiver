@@ -55,7 +55,8 @@ const addFiletoRecord = async (
       .replace(/,\s/g, '-')
       .replace(/:\s/g, '-')
       .replace(/\s-\s/g, '-')
-      .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/g, '')
+      .replace(/[-|\\]+/g, '-')
+      .replace(/[!@#$%^&*()+=\[\]{};':",\.<>\/?]+/g, '')
       .replace(/\s/g, '_');
     const data = await getData(record.fields.title, record.fields.url, type);
     const publicUlr = await uploadToB2(
