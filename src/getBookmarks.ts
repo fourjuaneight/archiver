@@ -129,7 +129,7 @@ export const updateBookmark = async (
     const response = await fetch(url, updatedConfig);
     const results: AirtableResp = await response.json();
 
-    console.info(`${list} record updated:`, results);
+    console.info(`${list} record updated:`, results.records[0].fields.title);
   } catch (error) {
     throw new Error(
       `Error updating record for ${list} - ${record.fields.title}: \n ${error}`

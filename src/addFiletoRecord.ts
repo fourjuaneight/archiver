@@ -1,7 +1,7 @@
 import uploadToB2 from './uploadContentB2';
 import { getArticle, getMedia, getYTVid } from './getContent';
 import { baseQueries } from './getBookmarks';
-import { Record } from './types';
+import { FileTypes, Record } from './types';
 
 /**
  * Determine media type and get buffer data.
@@ -42,6 +42,12 @@ const addFiletoRecord = async (
   record: Record
 ): Promise<Record> => {
   const type: string = list.toLowerCase();
+  const fileType: FileTypes = {
+    articles: { file: 'html', mime: 'text/html' },
+    comics: { file: 'html', mime: 'text/html' },
+    podcasts: { file: 'mp3', mime: 'audio/mpeg' },
+    videos: { file: 'mp4', mime: 'video/mp4' },
+  };
 
   try {
     const name: string = record.fields.title
@@ -52,7 +58,11 @@ const addFiletoRecord = async (
       .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/g, '')
       .replace(/\s/g, '_');
     const data = await getData(record.fields.title, record.fields.url, type);
-    const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
+    const publicUlr = await uploadToB2(
+      data,
+      `Bookmarks/${list}/${name}.${fileType[type].file}`,
+      fileType[type].mime
+    );
 
     return {
       ...record,

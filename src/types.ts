@@ -74,7 +74,7 @@ export interface Fields {
 export interface Record {
   id: string;
   fields: Fields;
-  createdTime: string;
+  createdTime?: string;
 }
 
 export interface AirtableResp {
@@ -89,4 +89,18 @@ export interface List {
 export interface Bases {
   Bookmarks: List;
   [key: string]: List;
+}
+
+export interface FileTypeOps {
+  file: string;
+  mime: string;
+  [key: string]: List;
+}
+
+export interface FileTypes {
+  articles: FileTypeOps;
+  comics: FileTypeOps;
+  podcasts: FileTypeOps;
+  videos: FileTypeOps;
+  [key: string]: FileTypeOps;
 }
