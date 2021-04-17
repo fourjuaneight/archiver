@@ -1,34 +1,9 @@
 import chalk from 'chalk';
+
 import uploadToB2 from './uploadContentB2';
-import { getArticle, getMedia, getYTVid } from './getContent';
 import { baseQueries } from './getBookmarks';
 import { FileTypes, Record } from './types';
-
-/**
- * Determine media type and get buffer data.
- * @function
- *
- * @param {string} title media name
- * @param {string} url media endpoint
- * @param {string} type media type
- * @returns {Promise<Buffer>} media buffer
- */
-const getData = async (
-  name: string,
-  url: string,
-  type: string
-): Promise<Buffer> => {
-  switch (true) {
-    case type === 'articles':
-      return getArticle(name, url);
-    case type === 'comics':
-      return getArticle(name, url);
-    case type === 'videos':
-      return getYTVid(name, url);
-    default:
-      return getMedia(name, url);
-  }
-};
+import { fileNameFmt, getData } from './util';
 
 /**
  * Get Airtable bookmarks, archive media, then update record.
@@ -51,25 +26,11 @@ const addFiletoRecord = async (
   };
 
   try {
-    const name: string = record.fields.title
-      .replace(/\.\s/g, '-')
-      .replace(/,\s/g, '-')
-      .replace(/\s::\s/g, '-')
-      .replace(/\s:\s/g, '-')
-      .replace(/:\s/g, '-')
-      .replace(/\s-\s/g, '-')
-      .replace(/\s–\s/g, '-')
-      .replace(/\s—\s/g, '-')
-      .replace(/[-|\\]+/g, '-')
-      .replace(/\s&\s/g, 'and')
-      .replace(/[!@#$%^*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
-      .replace(/\s/g, '_')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
+    const fileName = fileNameFmt(record.fields.title);
     const data = await getData(record.fields.title, record.fields.url, type);
     const publicUlr = await uploadToB2(
       data,
-      `Bookmarks/${list}/${name}.${fileType[type].file}`,
+      `Bookmarks/${list}/${fileName}.${fileType[type].file}`,
       fileType[type].mime
     );
 

@@ -4,7 +4,8 @@ import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
-import { Readable } from 'stream';
+
+import { createBuffer } from './util';
 
 const turndownService = new TurndownService();
 
@@ -73,23 +74,6 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
   console.info(chalk.yellow('[INFO]'), `Downloading '${name}' archive file.`);
-
-  /**
-   * Create buffer from readable stream.
-   * @function
-   *
-   * @param {Readable} stream
-   * @returns {Promise<Buffer>} video buffer
-   */
-  const createBuffer = async (stream: Readable): Promise<Buffer> => {
-    const chunks = [];
-
-    for await (let chunk of stream) {
-      chunks.push(chunk);
-    }
-
-    return Buffer.concat(chunks);
-  };
 
   try {
     // get file

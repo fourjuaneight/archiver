@@ -19,22 +19,6 @@ export const baseQueries: Bases = {
 };
 
 /**
- * Chunk list of records into array of arrays.
- * @function
- *
- * @param array list of records
- * @param size amount to chunk by
- * @returns {Record[][]} chunked list of records
- */
-export const chunkRecords = (array: Record[], size: number): Record[][] => {
-  if (array.length <= size) {
-    return [array];
-  }
-
-  return [array.slice(0, size), ...chunkRecords(array.slice(size), size)];
-};
-
-/**
  * Get bookmarks list from Airtable.
  * Request can be recursive is there is more than 100 records.
  * docs: https://airtable.com/appjsUcLH0oo4HHAq/api/docs#curl/table:articles:list
