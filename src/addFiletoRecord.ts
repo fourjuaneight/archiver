@@ -34,41 +34,40 @@ const getData = async (
  * @function
  *
  * @param {string} list database list
- * @param {Record[]} records records to archive
- * @returns {Promise<Record[]>} updated record
+ * @param {Record} record record to archive
+ * @returns {Promise<Record>} updated record
  */
 const addFiletoRecord = async (
   list: string,
-  records: Record[]
-): Promise<Record[]> => {
+  record: Record
+): Promise<Record> => {
   const type: string = list.toLowerCase();
-  const updatedRecords: any[] = [];
 
-  for (let item of records) {
-    try {
-      const name: string = (item.fields.title as string).replace(' ', '_');
-      const data = await getData(item.fields.url, type);
-      const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
+  try {
+    const name: string = record.fields.title
+      .replace(/\.\s/g, '-')
+      .replace(/,\s/g, '-')
+      .replace(/:\s/g, '-')
+      .replace(/\s-\s/g, '-')
+      .replace(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/g, '')
+      .replace(/\s/g, '_');
+    const data = await getData(record.fields.title, record.fields.url, type);
+    const publicUlr = await uploadToB2(data, `Bookmarks/${list}/${name}`);
 
-      updatedRecords.push({
-        ...item,
-        fields: {
-          ...item.fields,
-          file: publicUlr,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-      throw new Error(error);
-    }
+    return {
+      ...record,
+      fields: {
+        ...record.fields,
+        archive: publicUlr,
+      },
+    };
+    console.info('Record updated:', record.fields.title);
   } catch (error) {
     throw new Error(
       `Error uploading file for ${list} - ${record.fields.title}:`,
       error
     );
   }
-
-  return updatedRecords as Record[];
 };
 
 export default addFiletoRecord;
