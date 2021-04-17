@@ -76,7 +76,7 @@ export const getBookmarksWithOffset = async (
         }
       });
   } catch (error) {
-    throw new Error(`Error getting books for ${base} - ${list}: \n ${error}`);
+    throw new Error(`Getting books for ${base} - ${list}: \n ${error}`);
   }
 };
 
@@ -139,7 +139,7 @@ export const updateBookmark = async (
     );
   } catch (error) {
     throw new Error(
-      `Error updating record for ${list} - ${record.fields.title}: \n ${error}`
+      `Updating record for ${list} - ${record.fields.title}: \n ${error}`
     );
   }
 };

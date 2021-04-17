@@ -87,7 +87,7 @@ const addFiletoRecord = async (
     };
   } catch (error) {
     throw new Error(
-      `Error uploading file for ${list} - ${record.fields.title}: \n ${error}`
+      `Uploading file for ${list} - ${record.fields.title}: \n ${error}`
     );
   }
 };
