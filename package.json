@@ -2,11 +2,11 @@
   "name": "archiver",
   "version": "1.0.0",
   "description": "Lambda function to upload bookmark files to S3 and B2.",
-  "main": "index.js",
+  "main": "dist/archiver.js",
   "scripts": {
-    "archive": "node dist/index.js",
-    "build": "tsup src/index.ts --env.NODE_ENV production --minify",
-    "build:dev": "tsup src/index.ts",
+    "archive": "node dist/archiver.js",
+    "build": "tsup src/archiver.ts --env.NODE_ENV production --minify",
+    "build:dev": "tsup src/archiver.ts",
     "clean": "rm -rf dist",
     "format": "prettier --write \"src/*.ts\"",
     "lint": "eslint --fix \"src/*.ts\""
