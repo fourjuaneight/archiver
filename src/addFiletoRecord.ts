@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import uploadToB2 from './uploadContentB2';
 import { getArticle, getMedia, getYTVid } from './getContent';
 import { baseQueries } from './getBookmarks';
@@ -53,16 +54,26 @@ const addFiletoRecord = async (
     const name: string = record.fields.title
       .replace(/\.\s/g, '-')
       .replace(/,\s/g, '-')
+      .replace(/\s::\s/g, '-')
+      .replace(/\s:\s/g, '-')
       .replace(/:\s/g, '-')
       .replace(/\s-\s/g, '-')
+      .replace(/\s–\s/g, '-')
+      .replace(/\s—\s/g, '-')
       .replace(/[-|\\]+/g, '-')
-      .replace(/[!@#$%^&*()+=\[\]{};':",\.<>\/?]+/g, '')
+      .replace(/[!@#$%^&*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
       .replace(/\s/g, '_');
     const data = await getData(record.fields.title, record.fields.url, type);
     const publicUlr = await uploadToB2(
       data,
       `Bookmarks/${list}/${name}.${fileType[type].file}`,
       fileType[type].mime
+    );
+
+    console.info(
+      chalk.green('[SUCCESS]'),
+      'Record updated:',
+      record.fields.title
     );
 
     return {
@@ -72,7 +83,6 @@ const addFiletoRecord = async (
         archive: publicUlr,
       },
     };
-    console.info('Record updated:', record.fields.title);
   } catch (error) {
     throw new Error(
       `Error uploading file for ${list} - ${record.fields.title}: \n ${error}`

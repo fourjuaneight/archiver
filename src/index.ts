@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 import addFiletoRecord from './addFiletoRecord';
 import uploadToB2 from './addFiletoRecord';
 import {
@@ -44,11 +46,11 @@ const archiveRecord = async (
       if (cleanRecords.length > 0) {
         await archiveRecord(list, cleanRecords);
       } else {
-        console.info(`No records to update in ${list}.`);
+        console.info(chalk.yellow('[INFO]'), `No records to update in ${list}.`);
       }
     }
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red('[ERROR]'), error);
     throw new Error(error);
   }
 })();

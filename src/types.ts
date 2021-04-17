@@ -94,7 +94,6 @@ export interface Bases {
 export interface FileTypeOps {
   file: string;
   mime: string;
-  [key: string]: List;
 }
 
 export interface FileTypes {

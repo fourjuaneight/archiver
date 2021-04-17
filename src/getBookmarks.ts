@@ -1,5 +1,6 @@
-import fetch from 'node-fetch';
+import chalk from 'chalk';
 import dotenv from 'dotenv';
+import fetch from 'node-fetch';
 
 import { AirtableResp, Bases, List, Record } from './types';
 
@@ -58,6 +59,8 @@ export const getBookmarksWithOffset = async (
   const url = offset
     ? `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}?offset=${offset}`
     : `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
+
+  console.info(chalk.yellow('[INFO]'), `Getting ${base} records.`);
 
   try {
     return fetch(url, config)
@@ -129,7 +132,11 @@ export const updateBookmark = async (
     const response = await fetch(url, updatedConfig);
     const results: AirtableResp = await response.json();
 
-    console.info(`${list} record updated:`, results.records[0].fields.title);
+    console.info(
+      chalk.green('[SUCCESS]'),
+      `${list} record updated:`,
+      results.records[0].fields.title
+    );
   } catch (error) {
     throw new Error(
       `Error updating record for ${list} - ${record.fields.title}: \n ${error}`

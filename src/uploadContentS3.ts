@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk';
+import chalk from 'chalk';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -34,6 +35,8 @@ const uploadContent = async (
     Body: data,
     ContentType: type,
   };
+
+  console.info(chalk.yellow('[INFO]'), `Uploading '${name}' to S3.`);
 
   try {
     const body = await s3.putObject(params).promise();

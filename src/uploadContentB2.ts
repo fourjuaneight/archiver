@@ -1,6 +1,7 @@
+import chalk from 'chalk';
+import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 import { createHash } from 'crypto';
-import dotenv from 'dotenv';
 
 import {
   B2AuthResp,
@@ -127,6 +128,9 @@ const uploadToB2 = async (
   try {
     const authData = await getUploadUrl();
     const hash = createHash('sha1').update(data).digest('hex');
+
+    console.info(chalk.yellow('[INFO]'), `Uploading '${name}'.`);
+
     const response = await fetch(authData?.endpoint ?? '', {
       method: 'POST',
       headers: {
@@ -151,6 +155,11 @@ const uploadToB2 = async (
     }
 
     const results: B2UploadResp = await response.json();
+
+    console.info(
+      chalk.green('[SUCCESS]'),
+      `Uploaded '${results.fileName}' to B2.`
+    );
 
     return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
