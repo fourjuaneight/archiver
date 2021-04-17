@@ -75,8 +75,7 @@ export const getBookmarksWithOffset = async (
         }
       });
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    throw new Error(`Error getting books for ${base} - ${list}:`, error);
   }
 };
 
@@ -117,10 +116,11 @@ export const updateBookmarks = async (
       const response = await fetch(url, updatedConfig);
       const results: AirtableResp = await response.json();
 
-      console.info(`${list} records updated:`, results.records);
-    } catch (error) {
-      console.error(error);
-      throw new Error(error);
-    }
+    console.info(`${list} record updated:`, results);
+  } catch (error) {
+    throw new Error(
+      `Error updating record for ${list} - ${record.fields.title}:`,
+      error
+    );
   }
 };

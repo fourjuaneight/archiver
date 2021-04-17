@@ -40,14 +40,15 @@ const uploadContent = async (
     const response = body.$response.httpResponse;
 
     if (response.statusCode !== 200) {
-      throw new Error(`${response.statusCode}: ${response.statusMessage}`);
+      throw new Error(
+        `Error uploading file to S3 - ${name}:`,
+        `${response.statusCode}: ${response.statusMessage}`
+      );
     }
 
     return `https:/${BUCKET_NAME}.s3.amazonaws.com/Bookmarks/${base}/${name}`;
   } catch (error) {
-    console.error(error);
-
-    return error;
+    throw new Error(`Error uploading file to S3 - ${name}:`, error);
   }
 };
 

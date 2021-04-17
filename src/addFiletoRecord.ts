@@ -7,18 +7,25 @@ import { Record } from './types';
  * Determine media type and get buffer data.
  * @function
  *
+ * @param {string} title media name
  * @param {string} url media endpoint
  * @param {string} type media type
  * @returns {Promise<Buffer>} media buffer
  */
-const getData = async (url: string, type: string): Promise<Buffer> => {
+const getData = async (
+  name: string,
+  url: string,
+  type: string
+): Promise<Buffer> => {
   switch (true) {
     case type === 'articles':
-      return getArticle(url);
+      return getArticle(name, url);
+    case type === 'comics':
+      return getArticle(name, url);
     case type === 'videos':
-      return getYTVid(url);
+      return getYTVid(name, url);
     default:
-      return getMedia(url);
+      return getMedia(name, url);
   }
 };
 
@@ -54,6 +61,11 @@ const addFiletoRecord = async (
       console.error(error);
       throw new Error(error);
     }
+  } catch (error) {
+    throw new Error(
+      `Error uploading file for ${list} - ${record.fields.title}:`,
+      error
+    );
   }
 
   return updatedRecords as Record[];

@@ -54,8 +54,7 @@ const authTokens = async (): Promise<B2AuthTokens | undefined> => {
 
     return data;
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    throw new Error('Error getting B2 authentication keys:', error);
   }
 };
 
@@ -98,8 +97,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens | undefined> => {
       downloadUrl: authData?.downloadUrl ?? '',
     };
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    throw new Error('Error getting B2 upload URL:', error);
   }
 };
 
@@ -136,7 +134,10 @@ const uploadToB2 = async (
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
-      throw new Error(`${results.status}: ${results.code}`);
+      throw new Error(
+        `Error uploading file to B2 - ${name}:`,
+        `${results.status}: ${results.message || results.code}`
+      );
       return;
     }
 
@@ -144,8 +145,7 @@ const uploadToB2 = async (
 
     return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    throw new Error(`Error uploading file to B2 - ${name}:`, error);
   }
 };
 
