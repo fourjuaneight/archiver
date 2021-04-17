@@ -61,7 +61,8 @@ const addFiletoRecord = async (
       .replace(/\s–\s/g, '-')
       .replace(/\s—\s/g, '-')
       .replace(/[-|\\]+/g, '-')
-      .replace(/[!@#$%^&*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
+      .replace(/\s&\s/g, 'and')
+      .replace(/[!@#$%^*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
       .replace(/\s/g, '_')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
