@@ -25,7 +25,7 @@ export const baseQueries: Bases = {
  * @param size amount to chunk by
  * @returns {Record[][]} chunked list of records
  */
-const chunkRecords = (array: Record[], size: number): Record[][] => {
+export const chunkRecords = (array: Record[], size: number): Record[][] => {
   if (array.length <= size) {
     return [array];
   }
@@ -102,12 +102,12 @@ export const getRecords = async (): Promise<List> => {
  * @function
  *
  * @param {string} list database list
- * @param {Record[]} data clean records not yet archived
+ * @param {Record} record clean record not yet archived
  * @returns {Promise<void>}
  */
-export const updateBookmarks = async (
+export const updateBookmark = async (
   list: string,
-  data: Record[]
+  record: Record
 ): Promise<void> => {
   const config = {
     method: 'PATCH',
@@ -118,20 +118,16 @@ export const updateBookmarks = async (
   };
   const url = `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
 
-  // break up into arrays of 10 records (Airtable limit)
-  const recordsChunk = chunkRecords(data, 10);
-
-  for (let set of recordsChunk) {
-    try {
-      const body: AirtableResp = {
-        records: set,
-      };
-      const updatedConfig = {
-        ...config,
-        body: JSON.stringify(body),
-      };
-      const response = await fetch(url, updatedConfig);
-      const results: AirtableResp = await response.json();
+  try {
+    const body: AirtableResp = {
+      records: [record],
+    };
+    const updatedConfig = {
+      ...config,
+      body: JSON.stringify(body),
+    };
+    const response = await fetch(url, updatedConfig);
+    const results: AirtableResp = await response.json();
 
     console.info(`${list} record updated:`, results);
   } catch (error) {
