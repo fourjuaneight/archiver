@@ -63,22 +63,13 @@ export interface B2UploadTokens {
   downloadUrl: string;
 }
 
-export interface FieldsBase {
+export interface Fields {
+  archive?: string;
   creator: string;
   url: string;
   tags: string[];
-  file?: string;
-}
-
-export interface BKWebFields extends FieldsBase {
   title: string;
 }
-
-export interface BKTweetFields extends FieldsBase {
-  tweet: string;
-}
-
-export type Fields = BKWebFields | BKTweetFields;
 
 export interface Record {
   id: string;
