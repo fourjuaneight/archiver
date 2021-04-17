@@ -64,8 +64,7 @@ const addFiletoRecord = async (
     console.info('Record updated:', record.fields.title);
   } catch (error) {
     throw new Error(
-      `Error uploading file for ${list} - ${record.fields.title}:`,
-      error
+      `Error uploading file for ${list} - ${record.fields.title}: \n ${error}`
     );
   }
 };
