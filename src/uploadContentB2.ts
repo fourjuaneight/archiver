@@ -40,10 +40,10 @@ const authTokens = async (): Promise<B2AuthTokens | undefined> => {
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
+      const msg = results.message || results.code;
+
       throw new Error(
-        `Error getting B2 authentication keys: \n ${results.status}: ${
-          results.message || results.code
-        }`
+        `Error getting B2 authentication keys: \n ${results.status}: ${msg}`
       );
       return;
     }
@@ -87,10 +87,10 @@ const getUploadUrl = async (): Promise<B2UploadTokens | undefined> => {
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
+      const msg = results.message || results.code;
+
       throw new Error(
-        `Error getting B2 upload URL: \n ${response.status}: ${
-          results.message || results.code
-        }`
+        `Error getting B2 upload URL: \n ${response.status}: ${msg}`
       );
       return;
     }
@@ -142,9 +142,10 @@ const uploadToB2 = async (
 
     if (response.status !== 200) {
       const results: B2Error = await response.json();
+      const msg = results.message || results.code;
+
       throw new Error(
-        `Error uploading file to B2 - ${name}:`,
-        `${results.status}: ${results.message || results.code}`
+        `Error uploading file to B2 - ${name}: \n ${results.status}: ${msg}`
       );
       return;
     }
