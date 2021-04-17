@@ -62,7 +62,9 @@ const addFiletoRecord = async (
       .replace(/\s—\s/g, '-')
       .replace(/[-|\\]+/g, '-')
       .replace(/[!@#$%^&*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
-      .replace(/\s/g, '_');
+      .replace(/\s/g, '_')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
     const data = await getData(record.fields.title, record.fields.url, type);
     const publicUlr = await uploadToB2(
       data,
