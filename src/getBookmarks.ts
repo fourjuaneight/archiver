@@ -80,6 +80,23 @@ export const getBookmarksWithOffset = async (
 };
 
 /**
+ * Get Airtable records for all Bookmark tables.
+ * @function
+ *
+ * @returns {Promise<List>} bookmark records
+ */
+export const getRecords = async (): Promise<List> => {
+  const bookmarksList = Object.keys(baseQueries.Bookmarks);
+
+  // get latest bookmarks
+  for (const list of bookmarksList) {
+    await getBookmarksWithOffset('Bookmarks', list);
+  }
+
+  return baseQueries.Bookmarks;
+};
+
+/**
  * Update records in list.
  * docs: https://airtable.com/appjsUcLH0oo4HHAq/api/docs#curl/table:articles:update
  * @function
