@@ -1,13 +1,7 @@
 import chalk from 'chalk';
 
 import addFiletoRecord from './addFiletoRecord';
-import uploadToB2 from './addFiletoRecord';
-import {
-  baseQueries,
-  getBookmarksWithOffset,
-  getRecords,
-  updateBookmark,
-} from './getBookmarks';
+import { getRecords, updateBookmark } from './getBookmarks';
 
 import { Record } from './types';
 
@@ -23,10 +17,10 @@ const archiveRecord = async (
   list: string,
   records: Record[]
 ): Promise<void> => {
-  for (let record of records) {
+  await records.forEach(async record => {
     const updatedRecord = await addFiletoRecord(list, record);
     await updateBookmark(list, updatedRecord);
-  }
+  });
 };
 
 (async () => {
@@ -34,7 +28,7 @@ const archiveRecord = async (
     const bookmarks = await getRecords();
 
     // update bookmarks missing file archive
-    for (const list of Object.keys(bookmarks)) {
+    await Object.keys(bookmarks).forEach(async list => {
       // update only those that do not have a file archive
       const cleanRecords = bookmarks[list]
         .filter(record => !record.fields.archive)
@@ -46,9 +40,12 @@ const archiveRecord = async (
       if (cleanRecords.length > 0) {
         await archiveRecord(list, cleanRecords);
       } else {
-        console.info(chalk.yellow('[INFO]'), `No records to update in ${list}.`);
+        console.info(
+          chalk.yellow('[INFO]'),
+          `No records to update in ${list}.`
+        );
       }
-    }
+    });
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     throw new Error(error);
