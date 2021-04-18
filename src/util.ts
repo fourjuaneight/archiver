@@ -39,7 +39,7 @@ export const getData = async (
 export const createBuffer = async (stream: Readable): Promise<Buffer> => {
   const chunks = [];
 
-  for await (let chunk of stream) {
+  for await (const chunk of stream) {
     chunks.push(chunk);
   }
 
@@ -82,7 +82,7 @@ export const fileNameFmt = (name: string): string => {
     .replace(/[-|\\]+/g, '-')
     .replace(/\s&\s/g, 'and')
     .replace(/&/g, 'n')
-    .replace(/[!@#$%^*()+=\[\]{};'’:"”,\.<>\/?]+/g, '')
+    .replace(/[!@#$%^*()+=[\]{};'’:"”,.<>/?]+/g, '')
     .replace(/\s/g, '_')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
