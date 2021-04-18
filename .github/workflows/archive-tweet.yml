@@ -1,0 +1,36 @@
+name: Archive Tweets
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+
+jobs:
+  archive-tweets:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile
+        run: npm run build:archive:tweets
+
+      - name: Run
+        run: npm run archive:tweets
+        env:
+          AIRTABLE_MEDIA_ENDPOINT: ${{secrets.AIRTABLE_MEDIA_ENDPOINT}}
+          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
+          TWEET_USER_ID: ${{secrets.TWEET_USER_ID}}
+          TWEET_TOKEN: ${{secrets.TWEET_TOKEN}}
