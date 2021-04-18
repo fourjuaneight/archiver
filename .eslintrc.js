@@ -38,6 +38,7 @@ module.exports = {
     ],
     'import/extensions': 0,
     'import/no-unresolved': [2, { caseSensitive: false }],
+    'no-await-in-loop': 0,
     'no-console': [
       'error',
       {

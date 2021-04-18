@@ -17,10 +17,10 @@ const archiveRecord = async (
   list: string,
   records: Record[]
 ): Promise<void> => {
-  await records.forEach(async record => {
+  for (const record of records) {
     const updatedRecord = await addFiletoRecord(list, record);
     await updateBookmark(list, updatedRecord);
-  });
+  }
 };
 
 (async () => {
@@ -28,7 +28,7 @@ const archiveRecord = async (
     const bookmarks = await getRecords();
 
     // update bookmarks missing file archive
-    await Object.keys(bookmarks).forEach(async list => {
+    for (const list of Object.keys(bookmarks)) {
       // update only those that do not have a file archive
       const cleanRecords = bookmarks[list]
         .filter(record => !record.fields.archive)
@@ -45,7 +45,7 @@ const archiveRecord = async (
           `No records to update in ${list}.`
         );
       }
-    });
+    }
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     throw new Error(error);
