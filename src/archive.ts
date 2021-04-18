@@ -1,9 +1,9 @@
 import chalk from 'chalk';
 
-import addFiletoRecord from './addFiletoRecord';
-import { getRecords, updateBookmark } from './getBookmarks';
+import addFiletoRecord from './helpers/addFiletoRecord';
+import { getRecords, updateBookmark } from './helpers/getBookmarks';
 
-import { Record } from './types';
+import { Record } from './models/archive';
 
 /**
  * Archive media to B2 and update record on Airtable.

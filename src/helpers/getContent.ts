@@ -5,7 +5,7 @@ import TurndownService from 'turndown';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
-import { createBuffer } from './util';
+import createBuffer from '../util/createBuffer';
 
 const turndownService = new TurndownService();
 

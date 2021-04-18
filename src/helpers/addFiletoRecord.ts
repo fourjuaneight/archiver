@@ -1,7 +1,7 @@
+import fileNameFmt from '../util/fileNameFmt';
 import getContent from './getContent';
 import uploadToB2 from './uploadContentB2';
-import { FileTypes, Record } from './types';
-import { fileNameFmt } from './util';
+import { FileTypes, Record } from '../models/archive';
 
 /**
  * Get Airtable bookmarks, archive media, then update record.
