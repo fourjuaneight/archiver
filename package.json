@@ -10,8 +10,8 @@
     "build:archive:tweets": "tsup src/archive-tweets.ts --env.NODE_ENV production --minify",
     "build:dev": "tsup src/archive-bookmarks.ts",
     "clean": "rm -rf dist",
-    "format": "prettier --write \"src/*.ts\"",
-    "lint": "eslint --fix \"src/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint --fix \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
