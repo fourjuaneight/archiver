@@ -14,7 +14,7 @@
     "outDir": "./dist",
     "paths": {
       "*": [
-        "./src/*"
+        "./src"
       ]
     },
     "preserveConstEnums": true,
