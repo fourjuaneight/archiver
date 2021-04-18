@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
 import { JSDOM } from 'jsdom';
