@@ -4,8 +4,10 @@
   "description": "Node script to upload bookmarked media to S3 or B2. Runs daily via cron on a GitHub Action.",
   "main": "dist/archive-bookmarks.js",
   "scripts": {
-    "archive": "node dist/archive-bookmarks.js",
-    "build": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
+    "archive:bookmarks": "node dist/archive-bookmarks.js",
+    "archive:tweets": "node dist/archive-tweets.js",
+    "build:archive:bookmarks": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
+    "build:archive:tweets": "tsup src/archive-tweets.ts --env.NODE_ENV production --minify",
     "build:dev": "tsup src/archive-bookmarks.ts",
     "clean": "rm -rf dist",
     "format": "prettier --write \"src/*.ts\"",

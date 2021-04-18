@@ -25,10 +25,10 @@ jobs:
         run: npm ci
 
       - name: Compile
-        run: npm run build
+        run: npm run build:archive:bookmarks
 
       - name: Run
-        run: npm run archive
+        run: npm run archive:bookmarks
         env:
           CI: true
           AWS_ID: ${{secrets.AWS_ID}}
