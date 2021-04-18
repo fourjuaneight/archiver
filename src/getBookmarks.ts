@@ -70,17 +70,14 @@ export const getBookmarksWithOffset = async (
  * @returns {Promise<List>} bookmark records
  */
 export const getRecords = async (): Promise<List> => {
-  const results = [];
   const bookmarksList = Object.keys(baseQueries.Bookmarks);
 
   console.info(chalk.yellow('[INFO]'), 'Getting Bookmarks.');
 
   // get latest bookmarks
-  for (const list of bookmarksList) {
-    results.push(getBookmarksWithOffset('Bookmarks', list));
-  }
-
-  await Promise.all(results);
+  await bookmarksList.forEach(async list => {
+    await getBookmarksWithOffset('Bookmarks', list);
+  });
 
   return baseQueries.Bookmarks;
 };
