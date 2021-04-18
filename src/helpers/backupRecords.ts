@@ -27,7 +27,7 @@ const backupRecords = async (
   const table: string = list.toLowerCase();
 
   try {
-    const buffer = Buffer.from(fields, 'utf8');
+    const buffer = Buffer.from(JSON.stringify(fields, undefined, 2), 'utf8');
     const backupLink = await uploadToB2(
       buffer,
       `Archive/${base}/${table}.json`,
