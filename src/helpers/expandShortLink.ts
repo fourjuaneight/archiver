@@ -26,7 +26,7 @@ const expandLinks = async (url: string): Promise<string> => {
 
     return response.url;
   } catch (error) {
-    throw new Error(`Unable to expand '${url}': \n ${error}`);
+    throw new Error(`Expanding '${url}': \n ${error}`);
   }
 };
 
