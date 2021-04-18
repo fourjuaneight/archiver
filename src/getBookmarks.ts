@@ -106,7 +106,7 @@ export const updateBookmark = async (
   console.info(
     chalk.yellow('[INFO]'),
     `Updating ${list} record:`,
-    results.records[0].fields.title
+    record.fields.title
   );
 
   try {
