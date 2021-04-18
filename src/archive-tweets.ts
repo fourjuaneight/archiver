@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import latest from './helpers/latestTweets';
 import uploadTweets from './helpers/uploadTweets';
 
-import type { LatestTweetFmt } from './models/twitter';
+import { LatestTweetFmt } from './models/twitter';
 
 // Upload latest tweets to Airtable base.
 (async () => {

@@ -6,7 +6,7 @@ import { formatISO, subDays } from 'date-fns';
 import emojiUnicode from '../util/emojiUnicode';
 import expandShortLink from './expandShortLink';
 
-import type {
+import {
   LatestTweet,
   LatestTweetFmt,
   TwitterResponse,

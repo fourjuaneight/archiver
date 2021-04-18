@@ -17,6 +17,8 @@ const backupRecords = async (
   base: string,
   list: string
 ): Promise<string> => {
+  console.info(chalk.cyan('[WORKING]'), 'Backing up tweets to Airtable.');
+
   let fields = [];
   fields = records.map((record: Record) => record.fields);
 

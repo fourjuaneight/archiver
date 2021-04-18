@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import type { AirtableResp, LatestTweetFmt } from '../models/twitter';
+import { AirtableResp, LatestTweetFmt } from '../models/twitter';
 
 dotenv.config();
 
