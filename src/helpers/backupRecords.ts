@@ -1,7 +1,8 @@
 import chalk from 'chalk';
 
 import uploadToB2 from './uploadContentB2';
-import { BKWebFields, Record } from '../models/airtable';
+
+import { Fields, Record } from '../models/airtable';
 
 /**
  * Saves Airtable record response to a local JSON file.
@@ -22,32 +23,8 @@ const backupRecords = async (
   let fields = [];
   fields = records.map((record: Record) => record.fields);
 
-  const category: string = base.toLowerCase();
+  const fields: Fields[] = records.map((record: Record) => record.fields);
   const table: string = list.toLowerCase();
-  const filter = [
-    table === 'articles',
-    table === 'comics',
-    table === 'podcasts',
-    table === 'videos',
-  ].includes(true);
-
-  if (category === 'bookmarks' && filter) {
-    console.info(
-      chalk.cyan('[WORKING]'),
-      'Removing archive link from Bookmarks.'
-    );
-
-    fields = fields.map(bkRecord => {
-      const data = bkRecord as BKWebFields;
-
-      return {
-        title: data.title,
-        creator: data.creator,
-        url: data.url,
-        tags: data.tags,
-      };
-    });
-  }
 
   try {
     const buffer = Buffer.from(fields, 'utf8');
