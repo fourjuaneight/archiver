@@ -16,11 +16,15 @@ const addFiletoRecord = async (
   list: string,
   record: Record
 ): Promise<Record> => {
+  const imgType: string =
+    list === 'Comics'
+      ? record.fields.url.replace(/^.*(png|jpg|jpeg|gif)$/g, '$1')
+      : '';
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   const type: string = list.toLowerCase();
   const fileType: FileTypes = {
     articles: { file: 'md', mime: 'text/markdown' },
-    comics: { file: 'png', mime: 'image/png' },
+    comics: { file: imgType, mime: `image/${imgType}` },
     podcasts: { file: 'mp3', mime: 'audio/mpeg' },
     videos: { file: 'mp4', mime: 'video/mp4' },
   };
