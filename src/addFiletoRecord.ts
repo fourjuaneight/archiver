@@ -16,10 +16,11 @@ const addFiletoRecord = async (
   list: string,
   record: Record
 ): Promise<Record> => {
+  // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   const type: string = list.toLowerCase();
   const fileType: FileTypes = {
     articles: { file: 'md', mime: 'text/markdown' },
-    comics: { file: 'html', mime: 'text/html' },
+    comics: { file: 'png', mime: 'image/png' },
     podcasts: { file: 'mp3', mime: 'audio/mpeg' },
     videos: { file: 'mp4', mime: 'video/mp4' },
   };
