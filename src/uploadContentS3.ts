@@ -36,7 +36,7 @@ const uploadContent = async (
     ContentType: type,
   };
 
-  console.info(chalk.yellow('[INFO]'), `Uploading '${name}' to S3.`);
+  console.info(chalk.cyan('[WORKING]'), `Uploading '${name}' to S3.`);
 
   try {
     const body = await s3.putObject(params).promise();
