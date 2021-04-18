@@ -10,7 +10,7 @@ import {
   B2UploadResp,
   B2UploadTokens,
   B2UpUrlResp,
-} from './types';
+} from '../models/archive';
 
 dotenv.config();
 
