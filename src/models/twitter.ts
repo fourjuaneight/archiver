@@ -20,3 +20,19 @@ export interface LatestTweetFmt {
   date?: string;
   url: string;
 }
+
+export interface Fields {
+  tweet: string;
+  date: string;
+  url: string;
+}
+
+export interface Records {
+  id: string;
+  fields: Fields;
+  createdTime: string;
+}
+
+export interface AirtableResp {
+  records: Records[];
+}

@@ -26,6 +26,7 @@
     "aws-sdk": "^2.875.0",
     "canvas": "^2.7.0",
     "chalk": "^4.1.0",
+    "date-fns": "^2.21.1",
     "dotenv": "^8.2.0",
     "isomorphic-fetch": "^3.0.0",
     "jsdom": "^16.5.2",
