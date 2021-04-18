@@ -1,12 +1,12 @@
 {
   "name": "archiver",
   "version": "1.0.0",
-  "description": "Lambda function to upload bookmark files to S3 and B2.",
-  "main": "dist/archiver.js",
+  "description": "Node script to upload bookmarked media to S3 or B2. Runs daily via cron on a GitHub Action.",
+  "main": "dist/archive.js",
   "scripts": {
-    "archive": "node dist/archiver.js",
-    "build": "tsup src/archiver.ts --env.NODE_ENV production --minify",
-    "build:dev": "tsup src/archiver.ts",
+    "archive": "node dist/archive.js",
+    "build": "tsup src/archive.ts --env.NODE_ENV production --minify",
+    "build:dev": "tsup src/archive.ts",
     "clean": "rm -rf dist",
     "format": "prettier --write \"src/*.ts\"",
     "lint": "eslint --fix \"src/*.ts\""
