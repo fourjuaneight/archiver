@@ -95,14 +95,14 @@ export type Fields =
   | RCClientsFields
   | RCJobsFields;
 
-export interface Records {
+export interface Record {
   id: string;
   fields: Fields;
   createdTime: string;
 }
 
 export interface AirtableResp {
-  records: Records[];
+  records: Record[];
   offset: string;
 }
 

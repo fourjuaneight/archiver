@@ -12,10 +12,10 @@ const { AIRTABLE_API, AIRTABLE_MEDIA_ENDPOINT } = process.env;
  * Upload tweet object to Airtable
  * @function
  *
- * @param {LatestTweetFmt} tweet
- * @return {Promise<string>}
+ * @param {LatestTweetFmt} tweet formatted tweet to upload
+ * @return {Promise<string>} Airtable record id
  */
-const uploader = async (tweet: LatestTweetFmt): Promise<string> => {
+const uploadTweets = async (tweet: LatestTweetFmt): Promise<string> => {
   const atOpts: RequestInit = {
     method: 'POST',
     headers: {
@@ -52,4 +52,4 @@ const uploader = async (tweet: LatestTweetFmt): Promise<string> => {
   }
 };
 
-export default uploader;
+export default uploadTweets;
