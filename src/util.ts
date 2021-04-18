@@ -1,31 +1,6 @@
 import { Readable } from 'stream';
 
-import { getArticle, getMedia, getYTVid } from './getContent';
 import { Record } from './types';
-
-/**
- * Determine media type and get buffer data.
- * @function
- *
- * @param {string} title media name
- * @param {string} url media endpoint
- * @param {string} type media type
- * @returns {Promise<Buffer>} media buffer
- */
-export const getData = async (
-  name: string,
-  url: string,
-  type: string
-): Promise<Buffer> => {
-  switch (true) {
-    case type === 'articles':
-      return getArticle(name, url);
-    case type === 'videos':
-      return getYTVid(name, url);
-    default:
-      return getMedia(name, url);
-  }
-};
 
 /**
  * Create buffer from readable stream.

@@ -1,8 +1,7 @@
-import chalk from 'chalk';
-
+import getContent from './getContent';
 import uploadToB2 from './uploadContentB2';
 import { FileTypes, Record } from './types';
-import { fileNameFmt, getData } from './util';
+import { fileNameFmt } from './util';
 
 /**
  * Get Airtable bookmarks, archive media, then update record.
@@ -31,17 +30,11 @@ const addFiletoRecord = async (
 
   try {
     const fileName = fileNameFmt(record.fields.title);
-    const data = await getData(record.fields.title, record.fields.url, type);
+    const data = await getContent(record.fields.title, record.fields.url, type);
     const publicUlr = await uploadToB2(
       data,
       `Bookmarks/${list}/${fileName}.${fileType[type].file}`,
       fileType[type].mime
-    );
-
-    console.info(
-      chalk.green('[SUCCESS]'),
-      'Record updated:',
-      record.fields.title
     );
 
     return {

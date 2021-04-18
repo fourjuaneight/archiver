@@ -103,6 +103,12 @@ export const updateBookmark = async (
   };
   const url = `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
 
+  console.info(
+    chalk.yellow('[INFO]'),
+    `Updating ${list} record:`,
+    results.records[0].fields.title
+  );
+
   try {
     const body: AirtableResp = {
       records: [record],
