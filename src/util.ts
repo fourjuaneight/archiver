@@ -20,8 +20,6 @@ export const getData = async (
   switch (true) {
     case type === 'articles':
       return getArticle(name, url);
-    case type === 'comics':
-      return getArticle(name, url);
     case type === 'videos':
       return getYTVid(name, url);
     default:
