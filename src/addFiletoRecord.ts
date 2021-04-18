@@ -18,7 +18,7 @@ const addFiletoRecord = async (
 ): Promise<Record> => {
   const type: string = list.toLowerCase();
   const fileType: FileTypes = {
-    articles: { file: 'html', mime: 'text/html' },
+    articles: { file: 'md', mime: 'text/markdown' },
     comics: { file: 'html', mime: 'text/html' },
     podcasts: { file: 'mp3', mime: 'audio/mpeg' },
     videos: { file: 'mp4', mime: 'video/mp4' },
