@@ -71,6 +71,7 @@ export const getBookmarksWithOffset = async (
  */
 export const getRecords = async (): Promise<List> => {
   const bookmarksList = Object.keys(baseQueries.Bookmarks);
+
   console.info(chalk.cyan('[WORKING]'), 'Getting Bookmarks.');
 
   // get latest bookmarks
