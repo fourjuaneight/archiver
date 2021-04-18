@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
-import { JSDOM } from 'jsdom';
+import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
 import { createBuffer } from './util';
@@ -23,12 +23,15 @@ export const getArticle = async (
 ): Promise<Buffer> => {
   console.info(chalk.yellow('[INFO]'), `Downloading '${name}' archive file.`);
 
+  const virtualConsole = new VirtualConsole();
+  virtualConsole.sendTo(console, { omitJSDOMErrors: true });
+
   try {
     // get doc
     const response = await fetch(url);
     const data = await response.text();
     // generate article
-    const doc = new JSDOM(data, { url });
+    const doc = new JSDOM(data, { url, virtualConsole });
     const reader = new Readability(doc.window.document);
     const article = reader.parse();
     // convert to MD
