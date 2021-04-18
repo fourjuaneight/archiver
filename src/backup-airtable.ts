@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import dotenv from 'dotenv';
+import fetch from 'isomorphic-fetch';
 
 import backupRecords from './helpers/backupRecords';
 
@@ -65,8 +66,6 @@ const getBookmarksWithOffset = (
   list: string,
   offset?: string
 ): Promise<AirtableResp> => {
-  console.info(chalk.cyan('[WORKING]'), 'Getting Bookmarks.');
-
   const atOpts: RequestInit = {
     headers: {
       Authorization: `Bearer ${process.env.AIRTABLE_API}`,
@@ -106,6 +105,8 @@ const getBookmarksWithOffset = (
  */
 const backup = async (base: string, list: string): Promise<void> => {
   try {
+    console.info(chalk.cyan('[WORKING]'), `Getting ${base}/${list} data.`);
+
     await getBookmarksWithOffset(base, list);
     await backupRecords(baseQueries[base][list], base, list);
   } catch (error) {
@@ -114,19 +115,21 @@ const backup = async (base: string, list: string): Promise<void> => {
   }
 };
 
-// Get all items from table and save them locally
-for (const list of bookmarksList) {
-  backup('Bookmarks', list);
-}
+(async () => {
+  // Get all items from table and save them locally
+  for (const list of bookmarksList) {
+    await backup('Bookmarks', list);
+  }
 
-for (const list of favoritesList) {
-  backup('Favorites', list);
-}
+  for (const list of favoritesList) {
+    await backup('Favorites', list);
+  }
 
-for (const list of mediaList) {
-  backup('Media', list);
-}
+  for (const list of mediaList) {
+    await backup('Media', list);
+  }
 
-for (const list of recordsList) {
-  backup('Records', list);
-}
+  for (const list of recordsList) {
+    await backup('Records', list);
+  }
+})();
