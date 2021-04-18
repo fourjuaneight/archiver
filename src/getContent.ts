@@ -56,9 +56,9 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
   try {
     // get file
     const response = await fetch(url);
-    const data = await response.buffer();
+    const data = await response.arrayBuffer();
 
-    return data;
+    return Buffer.from(data);
   } catch (error) {
     throw new Error(`Getting media for ${name}: \n ${error}`);
   }
