@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Node script to upload bookmarked media to S3 or B2. Runs daily via cron on a GitHub Action.",
   "scripts": {
-    "archive:backup:airtable": "node dist/backup-airtable.js",
+    "backup:airtable": "node dist/backup-airtable.js",
     "archive:bookmarks": "node dist/archive-bookmarks.js",
     "archive:tweets": "node dist/archive-tweets.js",
     "build:archive:bookmarks": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
