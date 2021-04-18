@@ -2,14 +2,15 @@
   "name": "archiver",
   "version": "1.0.0",
   "description": "Node script to upload bookmarked media to S3 or B2. Runs daily via cron on a GitHub Action.",
-  "main": "dist/archive-bookmarks.js",
   "scripts": {
+    "archive:backup:airtable": "node dist/backup-airtable.js",
     "archive:bookmarks": "node dist/archive-bookmarks.js",
     "archive:tweets": "node dist/archive-tweets.js",
     "build:archive:bookmarks": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
     "build:archive:tweets": "tsup src/archive-tweets.ts --env.NODE_ENV production --minify",
-    "build:dev": "tsup src/archive-bookmarks.ts",
+    "build:backup:airtable": "tsup src/backup-airtable.ts --env.NODE_ENV production --minify",
     "clean": "rm -rf dist",
+    "clean:node": "rm -rf node_modules",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix \"src/**/*.ts\""
   },
