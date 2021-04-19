@@ -2,7 +2,7 @@ name: Backup Airtable
 
 on:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '30 5 * * *'
 
 jobs:
   backup-airtable:
