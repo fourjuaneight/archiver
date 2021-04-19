@@ -111,7 +111,6 @@ const backup = async (base: string, list: string): Promise<void> => {
     await backupRecords(baseQueries[base][list], base, list);
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
-    throw new Error(error);
     process.exit(1);
   }
 };

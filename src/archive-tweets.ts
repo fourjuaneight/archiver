@@ -20,7 +20,6 @@ import { LatestTweetFmt } from './models/twitter';
           // post Airtable ID to console when uploaded
           console.info(chalk.green('[SUCCESS]'), `Tweet uploaded: ${upload}.`);
         } catch (error) {
-          console.error(chalk.red('[ERROR]'), error);
           throw new Error(error);
         }
       }
@@ -29,7 +28,6 @@ import { LatestTweetFmt } from './models/twitter';
     }
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
-    throw new Error(error);
     process.exit(1);
   }
 })();
