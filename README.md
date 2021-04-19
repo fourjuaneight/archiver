@@ -1,6 +1,8 @@
 # Archiver
 
-![badge](https://action-badges.now.sh/fourjuaneight/archiver)
+![bookmarks](https://github.com/fourjuaneight/archiver/actions/workflows/archive-bookmarks.yml/badge.svg)
+![tweets](https://github.com/fourjuaneight/archiver/actions/workflows/archive-tweet.yml/badge.svg)
+![airtable](https://github.com/fourjuaneight/archiver/actions/workflows/backup-airtable.yml/badge.svg)
 
 I like hoarding data online. These are a colletion of scripts that ensure this crap doesn't get lost. Here's what they do:
 - Upload bookmarked media to S3 or B2.
