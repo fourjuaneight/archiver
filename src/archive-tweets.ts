@@ -30,5 +30,6 @@ import { LatestTweetFmt } from './models/twitter';
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     throw new Error(error);
+    process.exit(1);
   }
 })();

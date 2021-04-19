@@ -49,5 +49,6 @@ const archiveRecord = async (
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     throw new Error(error);
+    process.exit(1);
   }
 })();
