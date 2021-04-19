@@ -31,9 +31,8 @@ jobs:
         run: npm run archive:bookmarks
         env:
           CI: true
-          AWS_ID: ${{secrets.AWS_ID}}
-          AWS_SECRET: ${{secrets.AWS_SECRET}}
-          AWS_BUCKET_NAME: ${{secrets.AWS_BUCKET_NAME}}
+          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
+          AIRTABLE_BOOKMARKS_ENDPOINT: ${{secrets.AIRTABLE_BOOKMARKS_ENDPOINT}}
           B2_APP_KEY_ID: ${{secrets.B2_APP_KEY_ID}}
           B2_APP_KEY: ${{secrets.B2_APP_KEY}}
           B2_BUCKET_ID: ${{secrets.B2_BUCKET_ID}}

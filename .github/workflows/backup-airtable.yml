@@ -35,3 +35,7 @@ jobs:
           AIRTABLE_MEDIA_ENDPOINT: ${{secrets.AIRTABLE_MEDIA_ENDPOINT}}
           AIRTABLE_RECORDS_ENDPOINT: ${{secrets.AIRTABLE_RECORDS_ENDPOINT}}
           AIRTABLE_API: ${{secrets.AIRTABLE_API}}
+          B2_APP_KEY_ID: ${{secrets.B2_APP_KEY_ID}}
+          B2_APP_KEY: ${{secrets.B2_APP_KEY}}
+          B2_BUCKET_ID: ${{secrets.B2_BUCKET_ID}}
+          B2_BUCKET_NAME: ${{secrets.B2_BUCKET_NAME}}
