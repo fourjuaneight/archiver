@@ -13,9 +13,9 @@ const { AIRTABLE_API, AIRTABLE_MEDIA_ENDPOINT } = process.env;
  * @function
  *
  * @param {LatestTweetFmt} tweet formatted tweet to upload
- * @return {Promise<string>} Airtable record id
+ * @return {Promise<void>}
  */
-const uploadTweets = async (tweet: LatestTweetFmt): Promise<string> => {
+const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
   const atOpts: RequestInit = {
     method: 'POST',
     headers: {
@@ -42,9 +42,10 @@ const uploadTweets = async (tweet: LatestTweetFmt): Promise<string> => {
     );
     const results: AirtableResp = await response.json();
 
-    console.info(chalk.green('[SUCCESS]'), 'Tweets saved to Airtable.');
-
-    return results.records[0].id;
+    console.info(
+      chalk.green('[SUCCESS]'),
+      `Tweets saved to Airtable - ${results.records[0].id}.`
+    );
   } catch (error) {
     throw new Error(`Uploading tweets to Airtable: \n ${error}`);
   }

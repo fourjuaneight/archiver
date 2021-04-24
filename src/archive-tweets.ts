@@ -13,16 +13,9 @@ import { LatestTweetFmt } from './models/twitter';
 
     // upload each individually
     if (tweets && tweets.length > 0) {
-      for (const tweet of tweets) {
-        try {
-          const upload = await uploadTweets(tweet);
+      const tweetsBackup = tweets.map(tweet => uploadTweets(tweet));
 
-          // post Airtable ID to console when uploaded
-          console.info(chalk.green('[SUCCESS]'), `Tweet uploaded: ${upload}.`);
-        } catch (error) {
-          throw new Error(error);
-        }
-      }
+      await Promise.all(tweetsBackup);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new tweets to upload.');
     }
