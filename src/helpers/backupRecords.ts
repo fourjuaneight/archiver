@@ -20,10 +20,14 @@ const backupRecords = async (
   const table: string = list.toLowerCase();
 
   try {
+    const date = new Date();
+    const iso = new Date(date - date.getTimezoneOffset() * 60000)
+      .toISOString()
+      .substring(0, 10);
     const buffer = Buffer.from(JSON.stringify(fields, undefined, 2), 'utf8');
     const backupLink = await uploadToB2(
       buffer,
-      `Archive/${base}/${table}.json`,
+      `Archive/${base}/${table}-${iso}.json`,
       'application/json'
     );
 
