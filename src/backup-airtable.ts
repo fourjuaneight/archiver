@@ -115,19 +115,11 @@ const backup = async (base: string, list: string): Promise<void> => {
 
 (async () => {
   // Get all items from table and save them locally
-  for (const list of bookmarksList) {
-    await backup('Bookmarks', list);
-  }
+  const bookmarks = bookmarksList.map(list => backup('Bookmarks', list));
+  const favorites = favoritesList.map(list => backup('Favorites', list));
+  const media = mediaList.map(list => backup('Media', list));
+  const records = recordsList.map(list => backup('Records', list));
+  const backups = [bookmarks, favorites, media, records].flat();
 
-  for (const list of favoritesList) {
-    await backup('Favorites', list);
-  }
-
-  for (const list of mediaList) {
-    await backup('Media', list);
-  }
-
-  for (const list of recordsList) {
-    await backup('Records', list);
-  }
+  await Promise.all(backups);
 })();
