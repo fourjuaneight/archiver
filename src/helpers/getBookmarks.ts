@@ -72,8 +72,6 @@ export const getBookmarksWithOffset = async (
 export const getRecords = async (): Promise<List> => {
   const bookmarksList = Object.keys(baseQueries.Bookmarks);
 
-  console.info(chalk.cyan('[WORKING]'), 'Getting Bookmarks.');
-
   // get latest bookmarks
   for (const list of bookmarksList) {
     await getBookmarksWithOffset('Bookmarks', list);
@@ -103,12 +101,6 @@ export const updateBookmark = async (
     },
   };
   const url = `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
-
-  console.info(
-    chalk.cyan('[WORKING]'),
-    `Updating ${list} record:`,
-    record.fields.title
-  );
 
   try {
     const body: AirtableResp = {

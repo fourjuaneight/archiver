@@ -9,8 +9,6 @@ import fetch from 'isomorphic-fetch';
  * @returns {Promise<string>} expanded URL
  */
 const expandLinks = async (url: string): Promise<string> => {
-  console.info(chalk.cyan('[WORKING]'), 'Expanding URL.');
-
   try {
     const response: Response = await fetch(url);
 

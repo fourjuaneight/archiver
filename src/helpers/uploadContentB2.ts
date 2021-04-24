@@ -124,9 +124,6 @@ const uploadToB2 = async (
   try {
     const authData = await getUploadUrl();
     const hash = createHash('sha1').update(data).digest('hex');
-
-    console.info(chalk.cyan('[WORKING]'), `Uploading '${name}'.`);
-
     const response = await fetch(authData?.endpoint ?? '', {
       method: 'POST',
       headers: {

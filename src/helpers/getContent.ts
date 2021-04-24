@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
@@ -21,8 +20,6 @@ export const getArticle = async (
   name: string,
   url: string
 ): Promise<Buffer> => {
-  console.info(chalk.cyan('[WORKING]'), `Downloading '${name}' archive file.`);
-
   const virtualConsole = new VirtualConsole();
   virtualConsole.sendTo(console, { omitJSDOMErrors: true });
 
@@ -54,8 +51,6 @@ export const getArticle = async (
  * @returns {Promise<Buffer>} file buffer
  */
 export const getMedia = async (name: string, url: string): Promise<Buffer> => {
-  console.info(chalk.cyan('[WORKING]'), `Downloading '${name}' archive file.`);
-
   try {
     // get file
     const response = await fetch(url);
@@ -76,8 +71,6 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  * @returns {Promise<Buffer>} file buffer
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
-  console.info(chalk.cyan('[WORKING]'), `Downloading '${name}' archive file.`);
-
   try {
     // get file
     const data = ytdl(url);

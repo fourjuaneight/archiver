@@ -105,8 +105,6 @@ const getBookmarksWithOffset = (
  */
 const backup = async (base: string, list: string): Promise<void> => {
   try {
-    console.info(chalk.cyan('[WORKING]'), `Getting ${base}/${list} data.`);
-
     await getBookmarksWithOffset(base, list);
     await backupRecords(baseQueries[base][list], base, list);
   } catch (error) {

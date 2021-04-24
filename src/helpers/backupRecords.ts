@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 import uploadToB2 from './uploadContentB2';
 
 import { Fields, Record } from '../models/airtable';
@@ -18,11 +16,6 @@ const backupRecords = async (
   base: string,
   list: string
 ): Promise<string> => {
-  console.info(
-    chalk.cyan('[WORKING]'),
-    `Backing up ${base}/${list} to Airtable.`
-  );
-
   const fields: Fields[] = records.map((record: Record) => record.fields);
   const table: string = list.toLowerCase();
 

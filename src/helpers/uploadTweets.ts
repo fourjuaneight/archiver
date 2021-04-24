@@ -35,8 +35,6 @@ const uploadTweets = async (tweet: LatestTweetFmt): Promise<string> => {
     }),
   };
 
-  console.info(chalk.cyan('[WORKING]'), 'Uploading tweets to Airtable.');
-
   try {
     const response: Response = await fetch(
       `${AIRTABLE_MEDIA_ENDPOINT}/Tweets`,

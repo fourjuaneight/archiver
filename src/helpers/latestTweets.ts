@@ -39,8 +39,6 @@ const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
       )}&pagination_token=${pagination}`
     : `max_results=100&tweet.fields=created_at&start_time=${formatISO(dayAgo)}`;
 
-  console.info(chalk.cyan('[WORKING]'), 'Getting latest tweets.');
-
   try {
     return fetch(
       `https://api.twitter.com/2/users/${TWEET_USER_ID}/tweets?${params}`,
