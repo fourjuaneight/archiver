@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import addFiletoRecord from './helpers/addFiletoRecord';
 import { getRecords, updateBookmark } from './helpers/getBookmarks';
 
-import { Record } from './models/archive';
+import { List, Record } from './models/archive';
 
 /**
  * Archive media to B2 and update record on Airtable.
@@ -23,29 +23,38 @@ const archiveRecord = async (
   }
 };
 
+/**
+ * Clean table records and run bookmarks archive.
+ * Only updates records with no archive file.
+ * @function
+ *
+ * @param {List} data bookmarks
+ * @param {string} list table name
+ * @returns {Promise<void>}
+ */
+const backupRecord = async (data: List, list: string): Promise<void> => {
+  const cleanRecords = data[list]
+    .filter(record => !record.fields.archive)
+    .map(record => ({
+      id: record.id,
+      fields: record.fields,
+    }));
+
+  if (cleanRecords.length > 0) {
+    await archiveRecord(list, cleanRecords);
+  } else {
+    console.info(chalk.yellow('[INFO]'), `No records to update in ${list}.`);
+  }
+};
+
 (async () => {
   try {
     const bookmarks = await getRecords();
+    const backups = Object.keys(bookmarks).map(list =>
+      backupRecord(bookmarks, list)
+    );
 
-    // update bookmarks missing file archive
-    for (const list of Object.keys(bookmarks)) {
-      // update only those that do not have a file archive
-      const cleanRecords = bookmarks[list]
-        .filter(record => !record.fields.archive)
-        .map(record => ({
-          id: record.id,
-          fields: record.fields,
-        }));
-
-      if (cleanRecords.length > 0) {
-        await archiveRecord(list, cleanRecords);
-      } else {
-        console.info(
-          chalk.yellow('[INFO]'),
-          `No records to update in ${list}.`
-        );
-      }
-    }
+    await Promise.all(backups);
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     process.exit(1);
