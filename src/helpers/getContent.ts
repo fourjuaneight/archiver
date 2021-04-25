@@ -1,10 +1,9 @@
 import fetch from 'isomorphic-fetch';
-import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
-import createBuffer from '../util/createBuffer';
+import getYTVid from './getYTVid';
 
 const turndownService = new TurndownService();
 
@@ -59,27 +58,6 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
     return Buffer.from(data);
   } catch (error) {
     throw new Error(`Getting media for ${name}: \n ${error}`);
-  }
-};
-
-/**
- * Get YouTube file from url.
- * @function
- *
- * @param {string} name video name
- * @param {string} url video url
- * @returns {Promise<Buffer>} file buffer
- */
-export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
-  try {
-    // get file
-    const data = ytdl(url);
-    // convert to buffer
-    const buffer = await createBuffer(data);
-
-    return buffer;
-  } catch (error) {
-    throw new Error(`Getting video for ${name}: \n ${error}`);
   }
 };
 

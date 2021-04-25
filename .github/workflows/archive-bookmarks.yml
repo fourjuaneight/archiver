@@ -27,6 +27,10 @@ jobs:
       - name: Compile
         run: npm run build:archive:bookmarks
 
+      - name: Setup ffmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v1
+        id: setup-ffmpeg
+
       - name: Run
         run: npm run archive:bookmarks
         env:
