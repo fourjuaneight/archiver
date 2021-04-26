@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
