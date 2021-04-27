@@ -1,8 +1,8 @@
 name: Archive Bookmarks
 
-on:
-  schedule:
-    - cron: '0 */2 * * *'
+# on:
+#   schedule:
+#     - cron: '0 */2 * * *'
 
 jobs:
   archive-bookmarks:
