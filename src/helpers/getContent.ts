@@ -1,10 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
+import { resolve } from 'path';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
 import bufferToFile from '../util/bufferToFile';
+import fileNameFmt from '../util/fileNameFmt';
 import muxAVfiles from '../util/muxAVfiles';
 import streamToBuffer from '../util/streamToBuffer';
 import deleteFiles from '../util/deleteFile';
@@ -74,6 +76,8 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  * @returns {Promise<Buffer>} file buffer
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
+  const fileName = fileNameFmt(name);
+
   try {
     // get media
     const audio = ytdl(url, {
@@ -88,21 +92,21 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
     const videoBuffer = await streamToBuffer(video);
 
     // save as files
-    await bufferToFile(audioBuffer, 'audio.mp4');
-    await bufferToFile(videoBuffer, 'video.mp4');
+    await bufferToFile(audioBuffer, `audio-${fileName}.mp4`);
+    await bufferToFile(videoBuffer, `video-${fileName}.mp4`);
 
     // combine files
     const buffer = await muxAVfiles(
-      resolve(__dirname, 'audio.mp4'),
-      resolve(__dirname, 'video.mp4'),
-      `${__dirname}/output.mp4`
+      resolve(__dirname, `audio-${fileName}.mp4`),
+      resolve(__dirname, `video-${fileName}.mp4`),
+      `output-${fileName}.mp4`
     );
 
     // cleanup temp files
     await deleteFiles([
-      resolve(__dirname, 'audio.mp4'),
-      resolve(__dirname, 'video.mp4'),
-      resolve(__dirname, 'output.mp4'),
+      resolve(__dirname, `audio-${fileName}.mp4`),
+      resolve(__dirname, `video-${fileName}.mp4`),
+      resolve(__dirname, `output-${fileName}.mp4`),
     ]);
 
     return buffer;

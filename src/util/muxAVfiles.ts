@@ -16,14 +16,23 @@ const muxAVfiles = async (
   video: string,
   output: string
 ): Promise<Buffer> => {
-  const args = ['-i', video, '-i', audio, '-c', 'copy', output];
+  const args = [
+    '-i',
+    video,
+    '-i',
+    audio,
+    '-c',
+    'copy',
+    resolve(__dirname, output),
+  ];
 
   try {
-    await spawn('ffmpeg', args, {
+    await spawn('/opt/homebrew/bin/ffmpeg', args, {
       encoding: 'utf8',
+      maxBuffer: 200 * 1024,
       shell: true,
     });
-    const buffer = readFileSync(resolve(__dirname, 'output.mp4'));
+    const buffer = readFileSync(resolve(__dirname, output));
 
     return buffer;
   } catch (error) {
