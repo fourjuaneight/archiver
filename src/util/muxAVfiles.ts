@@ -1,6 +1,9 @@
-import { readFileSync } from 'fs';
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import { homedir } from 'os';
+import { promises, readFileSync } from 'fs';
 import { resolve } from 'path';
-import { spawn } from 'promisify-child-process';
+
+const { writeFile } = promises;
 
 /**
  * Combine audio and video files via ffmpeg. Create buffer from output.
@@ -16,23 +19,29 @@ const muxAVfiles = async (
   video: string,
   output: string
 ): Promise<Buffer> => {
-  const args = [
-    '-i',
-    video,
-    '-i',
-    audio,
-    '-c',
-    'copy',
-    resolve(__dirname, output),
-  ];
+  const corePath = resolve(
+    homedir(),
+    'archiver',
+    'node_modules/@ffmpeg/core/dist/ffmpeg-core.js'
+  );
+  const ffmpeg = createFFmpeg({
+    corePath,
+    log: false,
+  });
 
   try {
-    await spawn('/opt/homebrew/bin/ffmpeg', args, {
-      encoding: 'utf8',
-      maxBuffer: 200 * 1024,
-      shell: true,
-    });
-    const buffer = readFileSync(resolve(__dirname, output));
+    await ffmpeg.load();
+
+    const audioFile = await fetchFile(audio);
+    const videoFile = await fetchFile(video);
+
+    ffmpeg.FS('writeFile', audio, audioFile);
+    ffmpeg.FS('writeFile', video, videoFile);
+
+    await ffmpeg.run('-i', video, '-i', audio, '-c', 'copy', output);
+    await writeFile(output, ffmpeg.FS('readFile', output));
+
+    const buffer = readFileSync(output);
 
     return buffer;
   } catch (error) {

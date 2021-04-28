@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/fourjuaneight/archiver#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.7",
     "@mozilla/readability": "^0.4.1",
     "aws-sdk": "^2.875.0",
     "canvas": "^2.7.0",
@@ -33,7 +35,6 @@
     "dotenv": "^8.2.0",
     "isomorphic-fetch": "^3.0.0",
     "jsdom": "^16.5.2",
-    "promisify-child-process": "^4.1.1",
     "turndown": "^7.0.0",
     "uuid": "^3.3.2",
     "ytdl-core": "^4.5.0"
