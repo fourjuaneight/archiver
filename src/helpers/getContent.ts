@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
-import { resolve } from 'path';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
@@ -77,6 +76,11 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
   const fileName = fileNameFmt(name);
+  const filePaths = {
+    audio: `audio-${fileName}.mp4`,
+    video: `video-${fileName}.mp4`,
+    output: `output-${fileName}.mp4`,
+  };
 
   try {
     // get media
@@ -97,17 +101,13 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
 
     // combine files
     const buffer = await muxAVfiles(
-      resolve(__dirname, `audio-${fileName}.mp4`),
-      resolve(__dirname, `video-${fileName}.mp4`),
-      `output-${fileName}.mp4`
+      filePaths.audio,
+      filePaths.video,
+      filePaths.output
     );
 
     // cleanup temp files
-    await deleteFiles([
-      resolve(__dirname, `audio-${fileName}.mp4`),
-      resolve(__dirname, `video-${fileName}.mp4`),
-      resolve(__dirname, `output-${fileName}.mp4`),
-    ]);
+    await deleteFiles([filePaths.audio, filePaths.video, filePaths.output]);
 
     return buffer;
   } catch (error) {
