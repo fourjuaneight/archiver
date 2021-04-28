@@ -55,6 +55,8 @@ const backupRecord = async (data: List, list: string): Promise<void> => {
     );
 
     await Promise.all(backups);
+
+    process.exit(0);
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     process.exit(1);
