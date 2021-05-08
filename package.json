@@ -37,7 +37,7 @@
     "jsdom": "^16.5.2",
     "turndown": "^7.0.0",
     "uuid": "^3.3.2",
-    "ytdl-core": "^4.5.0"
+    "ytdl-core": "^4.7.0"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
