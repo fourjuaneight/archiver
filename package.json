@@ -1,6 +1,6 @@
 {
   "name": "archiver",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node script to upload bookmarked media to S3 or B2. Runs daily via cron on a GitHub Action.",
   "scripts": {
     "backup:airtable": "node dist/backup-airtable.js",
