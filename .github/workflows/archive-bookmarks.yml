@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Install ffmpeg
-        run: npm i -g @ffmpeg/core
+        run: npm i @ffmpeg/core
 
       - name: Compile
         run: npm run build:archive:bookmarks
