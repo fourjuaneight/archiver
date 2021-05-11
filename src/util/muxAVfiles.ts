@@ -1,7 +1,5 @@
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
-import { homedir } from 'os';
 import { promises, readFileSync } from 'fs';
-import { resolve } from 'path';
 
 const { writeFile } = promises;
 
@@ -19,13 +17,8 @@ const muxAVfiles = async (
   video: string,
   output: string
 ): Promise<Buffer> => {
-  const corePath = resolve(
-    homedir(),
-    'archiver',
-    'node_modules/@ffmpeg/core/dist/ffmpeg-core.js'
-  );
   const ffmpeg = createFFmpeg({
-    corePath,
+    corePat: './node_modules/@ffmpeg/core/dist/ffmpeg-core.js',
     log: false,
   });
 
