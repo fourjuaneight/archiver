@@ -1,3 +1,5 @@
+import { formatISO } from 'date-fns';
+
 import uploadToB2 from './uploadContentB2';
 
 import { Fields, Record } from '../models/airtable';
@@ -21,9 +23,7 @@ const backupRecords = async (
 
   try {
     const date = new Date();
-    const iso = new Date(date - date.getTimezoneOffset() * 60000)
-      .toISOString()
-      .substring(0, 10);
+    const iso = formatISO(date).substring(0, 10);
     const buffer = Buffer.from(JSON.stringify(fields, undefined, 2), 'utf8');
     const backupLink = await uploadToB2(
       buffer,
