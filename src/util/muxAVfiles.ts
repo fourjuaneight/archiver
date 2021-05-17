@@ -18,7 +18,7 @@ const muxAVfiles = async (
   output: string
 ): Promise<Buffer> => {
   const ffmpeg = createFFmpeg({
-    corePat: './node_modules/@ffmpeg/core/dist/ffmpeg-core.js',
+    corePath: './node_modules/@ffmpeg/core/dist/ffmpeg-core.js',
     log: false,
   });
 
