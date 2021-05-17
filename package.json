@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/fourjuaneight/archiver#readme",
   "dependencies": {
-    "@ffmpeg/core": "^0.8.5",
-    "@ffmpeg/ffmpeg": "^0.9.7",
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.0",
     "@mozilla/readability": "^0.4.1",
     "aws-sdk": "^2.875.0",
     "canvas": "^2.7.0",
