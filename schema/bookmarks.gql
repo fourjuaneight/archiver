@@ -1,0 +1,60 @@
+type articles {
+  title: String!
+  creator: String!
+  url: String!
+  tags: [String!]!
+  archive: String!
+}
+
+type comics {
+  title: String!
+  creator: String!
+  url: String!
+  tags: [String!]!
+  archive: String!
+}
+
+type github {
+  repository: String!
+  creator: String!
+  url: String!
+  languages: [String!]!
+}
+
+type podcasts {
+  title: String!
+  creator: String!
+  url: String!
+  tags: [String!]!
+  archive: String!
+}
+
+type reddits {
+  title: String!
+  content: String!
+  subreddit: String!
+  url: String!
+  tags: [String!]!
+}
+
+type stack_overflow {
+  title: String!
+  answer: String!
+  url: String!
+  tags: [String!]!
+}
+
+type tweets {
+  tweet: String!
+  creator: String!
+  url: String!
+  tags: [String!]!
+}
+
+type videos {
+  title: String!
+  creator: String!
+  url: String!
+  tags: [String!]!
+  archive: String!
+}

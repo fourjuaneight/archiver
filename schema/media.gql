@@ -1,0 +1,39 @@
+type books {
+  title: String!
+  author: String!
+  genre: String!
+}
+
+type games {
+  title: String!
+  studio: String!
+  genre: String!
+  platform: String!
+}
+
+type movies {
+  title: String!
+  director: String!
+  genre: String!
+}
+
+type mtg {
+  name: String!
+  type_line: String!
+  set_code: String!
+  set_name: String!
+  number: Int!
+  rarity: String!
+}
+
+type shows {
+  title: String!
+  director: String!
+  genre: String!
+}
+
+type tweets {
+  tweet: String!
+  date: String!
+  url: String!
+}

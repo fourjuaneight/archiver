@@ -1,0 +1,28 @@
+type clients {
+  name: String!
+  company: String
+  stack: [String!]!
+  start: String!
+  end: String!
+}
+
+type jobs {
+  company: String
+  position: String!
+  start: String!
+  end: String!
+}
+
+type podcasts {
+  title: String!
+  category: String!
+  url: String!
+  rss: String!
+}
+
+type rss {
+  title: String!
+  category: String!
+  url: String!
+  rss: String!
+}

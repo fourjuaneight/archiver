@@ -1,0 +1,29 @@
+type anime {
+  title: String!
+  creator: String!
+  genre: String!
+}
+
+type books {
+  title: String!
+  author: String!
+  genre: String!
+}
+
+type games {
+  title: String!
+  studio: String!
+  genre: String!
+}
+
+type movies {
+  title: String!
+  director: String!
+  genre: String!
+}
+
+type shows {
+  title: String!
+  director: String!
+  genre: String!
+}
