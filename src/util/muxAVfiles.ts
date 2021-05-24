@@ -39,8 +39,6 @@ const muxAVfiles = async (
     return buffer;
   } catch (error) {
     throw new Error(`Combining files (error): \n ${error}`);
-  } finally {
-    ffmpeg.exit();
   }
 };
 
