@@ -1,15 +1,17 @@
 import fileNameFmt from '../util/fileNameFmt';
 import getContent from './getContent';
 import uploadToB2 from './uploadContentB2';
+
 import { FileTypes, Record } from '../models/archive';
 
 /**
  * Get Airtable bookmarks, archive media, then update record.
  * @function
+ * @async
  *
  * @param {string} list database list
  * @param {Record} record record to archive
- * @returns {Promise<Record>} updated record
+ * @returns {Record} updated record
  */
 const addFiletoRecord = async (
   list: string,

@@ -5,10 +5,11 @@ const { writeFile } = promises;
 /**
  * Save buffer as local file.
  * @function
+ * @async
  *
  * @param {Buffer} data media buffer to save
  * @param {string} name file name
- * @returns {Promise<void>}
+ * @returns {void}
  */
 const bufferToFile = async (data: Buffer, name: string): Promise<void> => {
   try {

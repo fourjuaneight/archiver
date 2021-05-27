@@ -22,11 +22,12 @@ export const baseQueries: Bases = {
  * Request can be recursive is there is more than 100 records.
  * docs: https://airtable.com/appjsUcLH0oo4HHAq/api/docs#curl/table:articles:list
  * @function
+ * @async
  *
  * @param {string} base Airtable database
  * @param {string} list database list
  * @param {[string]} offset param to request remainding records
- * @return {Promise<AirtableResp >}
+ * @return {AirtableResp}
  */
 export const getBookmarksWithOffset = async (
   base: string,
@@ -66,8 +67,9 @@ export const getBookmarksWithOffset = async (
 /**
  * Get Airtable records for all Bookmark tables.
  * @function
+ * @async
  *
- * @returns {Promise<List>} bookmark records
+ * @returns {List} bookmark records
  */
 export const getRecords = async (): Promise<List> => {
   const bookmarksList = Object.keys(baseQueries.Bookmarks);
@@ -84,10 +86,11 @@ export const getRecords = async (): Promise<List> => {
  * Update records in list.
  * docs: https://airtable.com/appjsUcLH0oo4HHAq/api/docs#curl/table:articles:update
  * @function
+ * @async
  *
  * @param {string} list database list
  * @param {Record} record clean record not yet archived
- * @returns {Promise<void>}
+ * @returns {void}
  */
 export const updateBookmark = async (
   list: string,

@@ -7,11 +7,12 @@ import { Fields, Record } from '../models/airtable';
 /**
  * Saves Airtable record response to a local JSON file.
  * @function
+ * @async
  *
  * @param {Records[]} records record object
  * @param {string} base Airtable database
  * @param {string} list database list
- * @return {Promise<string>} B2 backup link
+ * @return {string} B2 backup link
  */
 const backupRecords = async (
   records: Record[],

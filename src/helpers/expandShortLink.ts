@@ -4,9 +4,10 @@ import fetch from 'isomorphic-fetch';
 /**
  * Expand shortend URLs.
  * @function
+ * @async
  *
  * @param {string} url shortned url string
- * @returns {Promise<string>} expanded URL
+ * @returns {string} expanded URL
  */
 const expandLinks = async (url: string): Promise<string> => {
   try {
@@ -31,10 +32,11 @@ const expandLinks = async (url: string): Promise<string> => {
 /**
  * Get expanded URLs.
  * @function
+ * @async
  *
  * @param {string} str string to replace
  * @param {RegExp} regex pattern to match
- * @returns {Promise<string>} list of expanded URLs from str
+ * @returns {string} list of expanded URLs from str
  */
 const expandShortLink = async (str: string, regex: RegExp): Promise<string> => {
   const promises: Promise<string>[] = [];

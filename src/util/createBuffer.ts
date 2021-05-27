@@ -3,9 +3,10 @@ import { Readable } from 'stream';
 /**
  * Create buffer from readable stream.
  * @function
+ * @async
  *
  * @param {Readable} stream
- * @returns {Promise<Buffer>} video buffer
+ * @returns {Buffer} video buffer
  */
 const createBuffer = async (stream: Readable): Promise<Buffer> => {
   const chunks = [];

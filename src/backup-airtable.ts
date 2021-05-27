@@ -55,11 +55,12 @@ const endpoints: Endpoints = {
  * Get bookmarks list from Airtable.
  * Request can be recursive is there is more than 100 records.
  * @function
+ * @async
  *
  * @param {string} base Airtable database
  * @param {string} list database list
  * @param {[string]} offset param to request remainding records
- * @return {Promise<AirtableResp >}
+ * @return {AirtableResp}
  */
 const getBookmarksWithOffset = (
   base: string,
@@ -98,10 +99,11 @@ const getBookmarksWithOffset = (
 /**
  * Save Airtable lists to local JSON files.
  * @function
+ * @async
  *
  * @param {string} base Airtable database
  * @param {string} list database list
- * @return {Promise<void>}
+ * @return {void}
  */
 const backup = async (base: string, list: string): Promise<void> => {
   try {

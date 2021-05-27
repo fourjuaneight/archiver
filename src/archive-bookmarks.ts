@@ -8,10 +8,11 @@ import { List, Record } from './models/archive';
 /**
  * Archive media to B2 and update record on Airtable.
  * @function
+ * @async
  *
  * @param {string} list table name
  * @param {Record[]} records archive to archive and update
- * @return {Promise<void>}
+ * @return {void}
  */
 const archiveRecord = async (
   list: string,
@@ -27,10 +28,11 @@ const archiveRecord = async (
  * Clean table records and run bookmarks archive.
  * Only updates records with no archive file.
  * @function
+ * @async
  *
  * @param {List} data bookmarks
  * @param {string} list table name
- * @returns {Promise<void>}
+ * @returns {void}
  */
 const backupRecord = async (data: List, list: string): Promise<void> => {
   const cleanRecords = data[list]

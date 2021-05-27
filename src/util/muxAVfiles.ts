@@ -6,11 +6,12 @@ const { writeFile } = promises;
 /**
  * Combine audio and video files via ffmpeg. Create buffer from output.
  * @function
+ * @async
  *
  * @param {string} audio filename path
  * @param {string} video filename path
  * @param {string} output filename path
- * @returns {Promise<Buffer>} output file buffer
+ * @returns {Buffer} output file buffer
  */
 const muxAVfiles = async (
   audio: string,

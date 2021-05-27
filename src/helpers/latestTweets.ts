@@ -21,9 +21,10 @@ const { TWEET_TOKEN, TWEET_USER_ID } = process.env;
  * Get the lastest Tweets from the last 24 hours.
  * Docs: https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets#tab2
  * @function
+ * @async
  *
  * @param {[string]} pagination offset pagination token
- * @return {Promise<LatestTweet[]>} request response with list of tweets
+ * @return {TwitterResponse} request response with list of tweets
  */
 const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
   const dayAgo: Date = subDays(new Date(), 1);
@@ -53,6 +54,7 @@ const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
         if (twitterResponse.meta.result_count === 100) {
           return latestTweets(twitterResponse.meta.next_token);
         }
+
         return twitterResponse;
       });
   } catch (error) {
@@ -80,9 +82,10 @@ const formatTweets = (rawTweets: LatestTweet[]): LatestTweetFmt[] => {
 /**
  * Expand shortened links in tweet body.
  * @function
+ * @async
  *
  * @param {LatestTweetFmt[]} fmtTweets formatted tweet object array
- * @return {Promise<LatestTweetFmt[]>} formatted tweet object array; links expanded
+ * @return {LatestTweetFmt[]} formatted tweet object array; links expanded
  */
 const expandTweets = (
   fmtTweets: LatestTweetFmt[]
@@ -101,8 +104,9 @@ const expandTweets = (
 /**
  * Get latest tweets from Twitter API, formatted.
  * @function
+ * @async
  *
- * @return {Promise<LatestTweetFmt[]>} { tweet, date, url }
+ * @return {LatestTweetFmt[]} { tweet, date, url }
  */
 const latest = async (): Promise<LatestTweetFmt[] | null> => {
   try {

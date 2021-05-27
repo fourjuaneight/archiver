@@ -23,8 +23,9 @@ const BUCKET_NAME = process.env.B2_BUCKET_NAME;
  * Authorize B2 bucket for upload.
  * docs: https://www.backblaze.com/b2/docs/b2_authorize_account.html
  * @function
+ * @async
  *
- * @returns {Promise<B2AuthTokens>} api endpoint, auth token, and download url
+ * @returns {B2AuthTokens} api endpoint, auth token, and download url
  */
 const authTokens = async (): Promise<B2AuthTokens> => {
   const token = Buffer.from(`${APP_KEY_ID}:${APP_KEY}`).toString('base64');
@@ -66,8 +67,9 @@ const authTokens = async (): Promise<B2AuthTokens> => {
  * Get B2 endpoint for upload.
  * docs: https://www.backblaze.com/b2/docs/b2_get_upload_url.html
  * @function
+ * @async
  *
- * @returns {Promise<B2UploadTokens>} upload endpoint, auth token, and download url
+ * @returns {B2UploadTokens} upload endpoint, auth token, and download url
  */
 const getUploadUrl = async (): Promise<B2UploadTokens> => {
   try {
@@ -110,11 +112,12 @@ const getUploadUrl = async (): Promise<B2UploadTokens> => {
  * Upload file to B2 bucket.
  * docs: https://www.backblaze.com/b2/docs/b2_upload_file.html
  * @function
+ * @async
  *
  * @param {Buffer} data file buffer
  * @param {string} name file name with extension
  * @param {string} [type] file type
- * @returns {Promise<string>} file public url
+ * @returns {string} file public url
  */
 const uploadToB2 = async (
   data: Buffer,

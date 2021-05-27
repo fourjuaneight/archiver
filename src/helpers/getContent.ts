@@ -15,10 +15,11 @@ const turndownService = new TurndownService();
 /**
  * Get Markdown version of article from url.
  * @function
+ * @async
  *
  * @param {string} name article name
  * @param {string} url article url
- * @returns {Promise<Buffer>} markdown article
+ * @returns {Buffer} markdown article
  */
 export const getArticle = async (
   name: string,
@@ -49,10 +50,11 @@ export const getArticle = async (
 /**
  * Get media file from source url.
  * @function
+ * @async
  *
  * @param {string} name file name
  * @param {string} url file url
- * @returns {Promise<Buffer>} file buffer
+ * @returns {Buffer} file buffer
  */
 export const getMedia = async (name: string, url: string): Promise<Buffer> => {
   try {
@@ -69,10 +71,11 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
 /**
  * Get YouTube file from url.
  * @function
+ * @async
  *
  * @param {string} name video name
  * @param {string} url video url
- * @returns {Promise<Buffer>} file buffer
+ * @returns {Buffer} file buffer
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
   const fileName = fileNameFmt(name);
@@ -118,11 +121,12 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
 /**
  * Determine media type and get buffer data.
  * @function
+ * @async
  *
  * @param {string} title media name
  * @param {string} url media endpoint
  * @param {string} type media type
- * @returns {Promise<Buffer>} media buffer
+ * @returns {Buffer} media buffer
  */
 const getContent = async (
   name: string,
