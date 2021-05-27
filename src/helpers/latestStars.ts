@@ -7,7 +7,7 @@ import { CleanStars, LatestStars, StarredRepositories } from '../models/github';
 dotenv.config();
 
 let stars: any[] = [];
-const { GIHUT_TOKEN } = process.env;
+const { GH_TOKEN } = process.env;
 
 /**
  * Get the lastest GitHub starred repositories.
@@ -25,7 +25,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
   const options: RequestInit = {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${GIHUT_TOKEN}`,
+      Authorization: `Bearer ${GH_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
