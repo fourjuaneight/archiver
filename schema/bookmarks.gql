@@ -16,7 +16,7 @@ type comics {
 
 type github {
   repository: String!
-  creator: String!
+  owner: String!
   description: String!
   url: String!
   language: String!
