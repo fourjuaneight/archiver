@@ -44,11 +44,6 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
                   primaryLanguage {
                     name
                   }
-                  languages(orderBy: {field: SIZE, direction: ASC}, first: 10) {
-                    nodes {
-                      name
-                    }
-                  }
                 }
               }
               pageInfo {
@@ -76,7 +71,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
             owner: node.owner.login,
             description: node.description,
             url: node.url,
-            language: node.primaryLanguage.name,
+            language: node.primaryLanguage ? node.primaryLanguage.name : '',
           }));
 
           stars = [...stars, ...data];
@@ -89,7 +84,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
         return githubResponse;
       });
   } catch (error) {
-    throw new Error(`Getting latest GitHub Stars: \n ${error}`);
+    throw new Error(`GitHub API: \n ${error}`);
   }
 };
 

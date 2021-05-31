@@ -7,12 +7,7 @@ export interface RepositoryNode {
   url: string;
   primaryLanguage: {
     name: string;
-  };
-  languages: {
-    nodes: {
-      name: string;
-    }[];
-  };
+  } | null;
 }
 
 export interface Repository {
