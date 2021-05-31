@@ -5,8 +5,10 @@
   "scripts": {
     "backup:airtable": "node dist/backup-airtable.js",
     "archive:bookmarks": "node --experimental-wasm-threads dist/archive-bookmarks.js",
+    "archive:starred-repos": "node dist/archive-github-stars.js",
     "archive:tweets": "node dist/archive-tweets.js",
     "build:archive:bookmarks": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
+    "build:archive:starred-repos": "tsup src/archive-github-stars.ts --env.NODE_ENV production --minify",
     "build:archive:tweets": "tsup src/archive-tweets.ts --env.NODE_ENV production --minify",
     "build:backup:airtable": "tsup src/backup-airtable.ts --env.NODE_ENV production --minify",
     "clean": "rm -rf dist",
