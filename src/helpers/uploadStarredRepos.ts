@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import { AirtableResp, CleanRepo } from '../models/github';
+import { AirtableError, AirtableResp, CleanRepo } from '../models/github';
 
 dotenv.config();
 
@@ -39,12 +39,22 @@ const uploadStarredRepos = async (repo: CleanRepo): Promise<void> => {
       `${AIRTABLE_BOOKMARKS_ENDPOINT}/GitHub`,
       options
     );
-    const results: AirtableResp = await response.json();
+    const results: any = await response.json();
 
-    console.info(
-      chalk.green('[SUCCESS]'),
-      `Repo saved to Airtable - ${results.records[0].fields.repository}.`
-    );
+    if (results.records) {
+      console.info(
+        chalk.green('[SUCCESS]'),
+        `Repo saved to Airtable - ${
+          (results as AirtableResp).records[0].fields.repository
+        }.`
+      );
+    } else if (results.errors) {
+      throw new Error(
+        `Uploading repos to Airtable: \n ${
+          (results as AirtableError).errors[0].message
+        }`
+      );
+    }
   } catch (error) {
     throw new Error(`Uploading repos to Airtable: \n ${error}`);
   }

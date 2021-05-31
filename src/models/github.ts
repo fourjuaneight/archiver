@@ -47,3 +47,10 @@ export interface Records {
 export interface AirtableResp {
   records: Records[];
 }
+
+export interface AirtableError {
+  errors: {
+    error: stirng;
+    message: stirng;
+  }[];
+}

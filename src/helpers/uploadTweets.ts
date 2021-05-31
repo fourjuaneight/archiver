@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import { AirtableResp, LatestTweetFmt } from '../models/twitter';
+import { AirtableError, AirtableResp, LatestTweetFmt } from '../models/twitter';
 
 dotenv.config();
 
@@ -41,12 +41,20 @@ const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
       `${AIRTABLE_MEDIA_ENDPOINT}/Tweets`,
       atOpts
     );
-    const results: AirtableResp = await response.json();
+    const results: any = await response.json();
 
-    console.info(
-      chalk.green('[SUCCESS]'),
-      `Tweets saved to Airtable - ${results.records[0].id}.`
-    );
+    if (results.records) {
+      console.info(
+        chalk.green('[SUCCESS]'),
+        `Tweets saved to Airtable - ${(results as AirtableResp).records[0].id}.`
+      );
+    } else if (results.errors) {
+      throw new Error(
+        `Uploading tweets to Airtable: \n ${
+          (results as AirtableError).errors[0].message
+        }`
+      );
+    }
   } catch (error) {
     throw new Error(`Uploading tweets to Airtable: \n ${error}`);
   }
