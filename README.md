@@ -1,11 +1,13 @@
 # Archiver
 
 ![bookmarks](https://github.com/fourjuaneight/archiver/actions/workflows/archive-bookmarks.yml/badge.svg)
+![github-stars](https://github.com/fourjuaneight/archiver/actions/workflows/archive-starred-repos.yml/badge.svg)
 ![tweets](https://github.com/fourjuaneight/archiver/actions/workflows/archive-tweet.yml/badge.svg)
 ![airtable](https://github.com/fourjuaneight/archiver/actions/workflows/backup-airtable.yml/badge.svg)
 
 I like hoarding data online. These are a colletion of scripts that ensure this crap doesn't get lost. Here's what they do:
 - Upload bookmarked media to S3 or B2.
+- Archive GitHub starred repos to Airtable.
 - Archive tweets to Airtable.
 - Save a JSON backup of all Airtable bases to S3 or B2.
 
