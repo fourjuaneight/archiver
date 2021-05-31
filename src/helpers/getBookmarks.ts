@@ -34,7 +34,7 @@ export const getBookmarksWithOffset = async (
   list: string,
   offset?: string
 ): Promise<AirtableResp> => {
-  const config = {
+  const options = {
     headers: {
       Authorization: `Bearer ${AIRTABLE_API}`,
       'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const getBookmarksWithOffset = async (
     : `${AIRTABLE_BOOKMARKS_ENDPOINT}/${list}`;
 
   try {
-    return fetch(url, config)
+    return fetch(url, options)
       .then(response => response.json())
       .then((airtableRes: AirtableResp) => {
         baseQueries[base][list] = [
@@ -96,7 +96,7 @@ export const updateBookmark = async (
   list: string,
   record: Record
 ): Promise<void> => {
-  const config = {
+  const options = {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${AIRTABLE_API}`,
@@ -109,11 +109,11 @@ export const updateBookmark = async (
     const body: AirtableResp = {
       records: [record],
     };
-    const updatedConfig = {
-      ...config,
+    const updatedOptions = {
+      ...options,
       body: JSON.stringify(body),
     };
-    const response = await fetch(url, updatedConfig);
+    const response = await fetch(url, updatedOptions);
     const results: AirtableResp = await response.json();
 
     console.info(

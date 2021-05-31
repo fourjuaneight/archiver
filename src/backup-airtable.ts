@@ -67,7 +67,7 @@ const getBookmarksWithOffset = (
   list: string,
   offset?: string
 ): Promise<AirtableResp> => {
-  const atOpts: RequestInit = {
+  const options: RequestInit = {
     headers: {
       Authorization: `Bearer ${process.env.AIRTABLE_API}`,
       'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const getBookmarksWithOffset = (
     : `${endpoints[base]}/${list}`;
 
   try {
-    return fetch(url, atOpts)
+    return fetch(url, options)
       .then((response: Response) => response.json())
       .then((airtableRes: AirtableResp) => {
         baseQueries[base][list] = [

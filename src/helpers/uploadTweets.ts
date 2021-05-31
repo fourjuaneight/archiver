@@ -17,7 +17,7 @@ const { AIRTABLE_API, AIRTABLE_MEDIA_ENDPOINT } = process.env;
  * @return {void}
  */
 const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
-  const atOpts: RequestInit = {
+  const options: RequestInit = {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${AIRTABLE_API}`,
@@ -27,9 +27,7 @@ const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
       records: [
         {
           fields: {
-            tweet: tweet.tweet,
-            date: tweet.date,
-            url: tweet.url,
+            ...tweet,
           },
         },
       ],
@@ -39,7 +37,7 @@ const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
   try {
     const response: Response = await fetch(
       `${AIRTABLE_MEDIA_ENDPOINT}/Tweets`,
-      atOpts
+      options
     );
     const results: any = await response.json();
 
