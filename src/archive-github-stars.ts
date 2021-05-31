@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
-import latest from './helpers/latestStars';
-import uploadStars from './helpers/uploadStars';
+import latest from './helpers/latestStarredRepos';
+import uploadStarredRepos from './helpers/uploadStarredRepos';
 
 import { CleanRepo } from './models/github';
 
@@ -13,7 +13,7 @@ import { CleanRepo } from './models/github';
 
     // upload each individually
     if (repos && repos.length > 0) {
-      const starsBackup = repos.map(repo => uploadStars(repo));
+      const starsBackup = repos.map(repo => uploadStarredRepos(repo));
 
       await Promise.all(starsBackup);
     } else {

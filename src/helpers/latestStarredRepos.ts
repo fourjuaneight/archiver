@@ -18,7 +18,9 @@ const { GH_TOKEN } = process.env;
  * @param {[string]} pagination offset pagination token
  * @return {StarredRepositories} request response with list of starred repos
  */
-const latestStars = (pagination?: string): Promise<StarredRepositories> => {
+const latestStarredRepos = (
+  pagination?: string
+): Promise<StarredRepositories> => {
   const filterParams: string = pagination
     ? `first: 100, after: "${pagination}"`
     : `first: 100`;
@@ -78,7 +80,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
         }
 
         if (githubResponse.pageInfo.hasNextPage) {
-          return latestStars(githubResponse.pageInfo.endCursor);
+          return latestStarredRepos(githubResponse.pageInfo.endCursor);
         }
 
         return githubResponse;
@@ -97,7 +99,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
  */
 const latest = async (): Promise<CleanRepo[] | null> => {
   try {
-    await latestStars();
+    await latestStarredRepos();
 
     console.info(chalk.green('[SUCCESS]'), 'Latest stars retrieved.');
 

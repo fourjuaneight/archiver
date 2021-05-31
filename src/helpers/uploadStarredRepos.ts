@@ -16,7 +16,7 @@ const { AIRTABLE_API, AIRTABLE_BOOKMARKS_ENDPOINT } = process.env;
  * @param {CleanRepo} repo formatted tweet to upload
  * @return {void}
  */
-const uploadStars = async (repo: CleanRepo): Promise<void> => {
+const uploadStarredRepos = async (repo: CleanRepo): Promise<void> => {
   const options: RequestInit = {
     method: 'POST',
     headers: {
@@ -50,4 +50,4 @@ const uploadStars = async (repo: CleanRepo): Promise<void> => {
   }
 };
 
-export default uploadStars;
+export default uploadStarredRepos;
