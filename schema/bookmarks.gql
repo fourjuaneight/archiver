@@ -17,8 +17,9 @@ type comics {
 type github {
   repository: String!
   creator: String!
+  description: String!
   url: String!
-  languages: [String!]!
+  language: String!
 }
 
 type podcasts {
