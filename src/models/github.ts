@@ -31,7 +31,7 @@ export interface LatestStars {
 }
 
 export interface CleanStars {
-  name: string;
+  repository: string;
   owner: string;
   description: string;
   url: string;

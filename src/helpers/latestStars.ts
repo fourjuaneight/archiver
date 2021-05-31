@@ -67,7 +67,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
       .then((githubResponse: StarredRepositories) => {
         if (githubResponse.edges) {
           const data: CleanStars[] = githubResponse.edges.map(({ node }) => ({
-            name: node.name,
+            repository: node.name,
             owner: node.owner.login,
             description: node.description,
             url: node.url,
