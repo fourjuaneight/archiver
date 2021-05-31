@@ -12,6 +12,7 @@ export interface RepositoryNode {
 
 export interface Repository {
   node: RepositoryNode;
+  starredAt: string;
 }
 
 export interface PageInfo {

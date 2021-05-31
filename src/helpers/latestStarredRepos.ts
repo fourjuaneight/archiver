@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
+import { isAfter, parseISO, subHours } from 'date-fns';
 
 import { CleanRepo, LatestStars, StarredRepositories } from '../models/github';
 
@@ -12,6 +13,7 @@ const { GH_TOKEN } = process.env;
 /**
  * Get the lastest GitHub starred repositories.
  * Docs: https://docs.github.com/en/graphql/reference/objects#starredrepositoryconnection
+ * Explorer: https://docs.github.com/en/graphql/overview/explorer
  * @function
  * @async
  *
@@ -47,6 +49,7 @@ const latestStarredRepos = (
                     name
                   }
                 }
+                starredAt
               }
               pageInfo {
                 hasNextPage
@@ -68,15 +71,22 @@ const latestStarredRepos = (
       )
       .then((githubResponse: StarredRepositories) => {
         if (githubResponse.edges) {
-          const data: CleanRepo[] = githubResponse.edges.map(({ node }) => ({
-            repository: node.name,
-            owner: node.owner.login,
-            description: node.description,
-            url: node.url,
-            language: node.primaryLanguage
-              ? node.primaryLanguage.name
-              : 'Markdown',
-          }));
+          const data: CleanRepo[] = githubResponse.edges
+            .filter(({ starredAt }) => {
+              const sixHoursAgo: Date = subHours(new Date(), 6);
+              const starredDate = parseISO(starredAt);
+
+              return isAfter(starredDate, sixHoursAgo);
+            })
+            .map(({ node }) => ({
+              repository: node.name,
+              owner: node.owner.login,
+              description: node.description,
+              url: node.url,
+              language: node.primaryLanguage
+                ? node.primaryLanguage.name
+                : 'Markdown',
+            }));
 
           stars = [...stars, ...data];
         }
