@@ -30,7 +30,7 @@ export interface LatestStars {
   };
 }
 
-export interface CleanStars {
+export interface CleanRepo {
   repository: string;
   owner: string;
   description: string;

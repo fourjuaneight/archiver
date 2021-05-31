@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import { CleanStars, LatestStars, StarredRepositories } from '../models/github';
+import { CleanRepo, LatestStars, StarredRepositories } from '../models/github';
 
 dotenv.config();
 
@@ -66,7 +66,7 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
       )
       .then((githubResponse: StarredRepositories) => {
         if (githubResponse.edges) {
-          const data: CleanStars[] = githubResponse.edges.map(({ node }) => ({
+          const data: CleanRepo[] = githubResponse.edges.map(({ node }) => ({
             repository: node.name,
             owner: node.owner.login,
             description: node.description,
@@ -93,16 +93,16 @@ const latestStars = (pagination?: string): Promise<StarredRepositories> => {
  * @function
  * @async
  *
- * @return {CleanStars[] | null} formatted stars array
+ * @return {CleanRepo[] | null} formatted stars array
  */
-const latest = async (): Promise<CleanStars[] | null> => {
+const latest = async (): Promise<CleanRepo[] | null> => {
   try {
     await latestStars();
 
     console.info(chalk.green('[SUCCESS]'), 'Latest stars retrieved.');
 
     if (stars.length > 0) {
-      return stars as CleanStars[];
+      return stars as CleanRepo[];
     }
 
     return null;
