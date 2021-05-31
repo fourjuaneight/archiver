@@ -37,3 +37,13 @@ export interface CleanRepo {
   url: string;
   language: string;
 }
+
+export interface Records {
+  id: string;
+  fields: CleanRepo;
+  createdTime: string;
+}
+
+export interface AirtableResp {
+  records: Records[];
+}
