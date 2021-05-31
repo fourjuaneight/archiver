@@ -73,7 +73,9 @@ const latestStarredRepos = (
             owner: node.owner.login,
             description: node.description,
             url: node.url,
-            language: node.primaryLanguage ? node.primaryLanguage.name : '',
+            language: node.primaryLanguage
+              ? node.primaryLanguage.name
+              : 'Markdown',
           }));
 
           stars = [...stars, ...data];
