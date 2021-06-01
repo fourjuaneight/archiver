@@ -73,18 +73,17 @@ const authTokens = async (): Promise<B2AuthTokens> => {
  * @returns {B2UploadTokens} upload endpoint, auth token, and download url
  */
 const getUploadUrl = async (): Promise<B2UploadTokens> => {
-  const options = {
-    method: 'POST',
-    headers: {
-      Authorization: authData?.authorizationToken ?? '',
-    },
-    body: JSON.stringify({
-      bucketId: BUCKET_ID,
-    }),
-  };
-
   try {
     const authData = await authTokens();
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: authData?.authorizationToken ?? '',
+      },
+      body: JSON.stringify({
+        bucketId: BUCKET_ID,
+      }),
+    };
     const response = await fetch(
       `${authData?.apiUrl}/b2api/v1/b2_get_upload_url`,
       options
@@ -127,22 +126,21 @@ const uploadToB2 = async (
   name: string,
   type?: string
 ): Promise<string> => {
-  const hash = createHash('sha1').update(data).digest('hex');
-  const options = {
-    method: 'POST',
-    headers: {
-      Authorization: authData?.authToken ?? '',
-      'X-Bz-File-Name': name,
-      'Content-Type': type || 'b2/x-auto',
-      'Content-Length': `${data.length}`,
-      'X-Bz-Content-Sha1': hash,
-      'X-Bz-Info-Author': 'gh-action',
-    },
-    body: data,
-  };
-
   try {
     const authData = await getUploadUrl();
+    const hash = createHash('sha1').update(data).digest('hex');
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: authData?.authToken ?? '',
+        'X-Bz-File-Name': name,
+        'Content-Type': type || 'b2/x-auto',
+        'Content-Length': `${data.length}`,
+        'X-Bz-Content-Sha1': hash,
+        'X-Bz-Info-Author': 'gh-action',
+      },
+      body: data,
+    };
     const response = await fetch(authData?.endpoint ?? '', options);
 
     if (response.status !== 200) {
