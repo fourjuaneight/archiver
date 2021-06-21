@@ -17,6 +17,9 @@ const baseQueries: Bases = {
     Tweets: [],
     Videos: [],
   },
+  Development: {
+    GitHub: [],
+  },
   Favorites: {
     Anime: [],
     Books: [],
@@ -39,6 +42,7 @@ const baseQueries: Bases = {
   },
 };
 const bookmarksList = Object.keys(baseQueries.Bookmarks);
+const developmentList = Object.keys(baseQueries.Development);
 const favoritesList = Object.keys(baseQueries.Favorites);
 const mediaList = Object.keys(baseQueries.Media);
 const recordsList = Object.keys(baseQueries.Records);
@@ -46,6 +50,7 @@ const recordsList = Object.keys(baseQueries.Records);
 // Base endpoints
 const endpoints: Endpoints = {
   Bookmarks: process.env.AIRTABLE_BOOKMARKS_ENDPOINT ?? '',
+  Development: process.env.AIRTABLE_DEVELOPMENT_ENDPOINT ?? '',
   Favorites: process.env.AIRTABLE_FAVORITES_ENDPOINT ?? '',
   Media: process.env.AIRTABLE_MEDIA_ENDPOINT ?? '',
   Records: process.env.AIRTABLE_RECORDS_ENDPOINT ?? '',
@@ -118,10 +123,11 @@ const backup = async (base: string, list: string): Promise<void> => {
 (async () => {
   // Get all items from table and save them locally
   const bookmarks = bookmarksList.map(list => backup('Bookmarks', list));
+  const development = developmentList.map(list => backup('Development', list));
   const favorites = favoritesList.map(list => backup('Favorites', list));
   const media = mediaList.map(list => backup('Media', list));
   const records = recordsList.map(list => backup('Records', list));
-  const backups = [bookmarks, favorites, media, records].flat();
+  const backups = [bookmarks, development, favorites, media, records].flat();
 
   await Promise.all(backups);
 })();

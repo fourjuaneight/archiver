@@ -21,6 +21,14 @@ export interface BKTweetFields {
   tags: string[];
 }
 
+export interface GitHubFields {
+  repository: string;
+  owner: string;
+  description: string;
+  language: string[];
+  url: string;
+}
+
 export interface MDRedditFields {
   content: string;
   date: string;
@@ -85,6 +93,7 @@ export interface RCJobsFields {
 export type Fields =
   | BKWebFields
   | BKTweetFields
+  | GitHubFields
   | MDRedditFields
   | MDTweetFields
   | MDVideoFields
@@ -107,11 +116,12 @@ export interface AirtableResp {
 }
 
 export interface List {
-  [key: string]: Records[];
+  [key: string]: Record[];
 }
 
 export interface Bases {
   Bookmarks: List;
+  Development: List;
   Favorites: List;
   Media: List;
   Records: List;

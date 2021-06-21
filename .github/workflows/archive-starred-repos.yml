@@ -30,6 +30,6 @@ jobs:
       - name: Run
         run: npm run archive:starred-repos
         env:
-          AIRTABLE_BOOKMARKS_ENDPOINT: ${{secrets.AIRTABLE_BOOKMARKS_ENDPOINT}}
+          AIRTABLE_DEVELOPMENT_ENDPOINT: ${{secrets.AIRTABLE_DEVELOPMENT_ENDPOINT}}
           AIRTABLE_API: ${{secrets.AIRTABLE_API}}
           GH_TOKEN: ${{secrets.GH_TOKEN}}

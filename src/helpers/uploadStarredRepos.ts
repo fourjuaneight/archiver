@@ -6,7 +6,7 @@ import { AirtableError, AirtableResp, CleanRepo } from '../models/github';
 
 dotenv.config();
 
-const { AIRTABLE_API, AIRTABLE_BOOKMARKS_ENDPOINT } = process.env;
+const { AIRTABLE_API, AIRTABLE_DEVELOPMENT_ENDPOINT } = process.env;
 
 /**
  * Upload starred repo object to Airtable
@@ -36,7 +36,7 @@ const uploadStarredRepos = async (repo: CleanRepo): Promise<void> => {
 
   try {
     const response: Response = await fetch(
-      `${AIRTABLE_BOOKMARKS_ENDPOINT}/GitHub`,
+      `${AIRTABLE_DEVELOPMENT_ENDPOINT}/GitHub`,
       options
     );
     const results: any = await response.json();
