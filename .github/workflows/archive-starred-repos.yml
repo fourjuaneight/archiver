@@ -13,13 +13,11 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
+      - name: Use Node 15.13.0
+        uses: actions/setup-node@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: 15.13.0
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
