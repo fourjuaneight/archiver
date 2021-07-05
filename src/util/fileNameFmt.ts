@@ -1,3 +1,5 @@
+import { emojiRange } from './emojiUnicode';
+
 /**
  * Convert record name into a filename ready for upload.
  * @function
@@ -7,6 +9,8 @@
  */
 const fileNameFmt = (name: string): string => {
   const cleanName: string = name
+    .replace(emojiRange, '')
+    .replace(/^\s/g, '')
     .replace(/\.\s/g, '-')
     .replace(/,\s/g, '-')
     .replace(/\s::\s/g, '-')
