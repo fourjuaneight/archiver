@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import backupRecords from './helpers/backupRecords';
+import { backupRecords } from './helpers/backupRecords';
 
 import { AirtableResp, Bases, Endpoints } from './models/airtable';
 

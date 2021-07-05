@@ -39,7 +39,5 @@ const convertEmoji = (emojiString: string): string => {
  * @param {string} tweet tweet string with emojies
  * @return {string} tweet with unicode emojies
  */
-const emojiUnicode = (tweet: string): string =>
+export const emojiUnicode = (tweet: string): string =>
   tweet.replace(emojiRange, (p1: string) => `${convertEmoji(p1)}`);
-
-export default emojiUnicode;

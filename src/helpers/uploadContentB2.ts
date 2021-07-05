@@ -121,7 +121,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens> => {
  * @param {string} [type] file type
  * @returns {string} file public url
  */
-const uploadToB2 = async (
+export const uploadToB2 = async (
   data: Buffer,
   name: string,
   type?: string
@@ -164,5 +164,3 @@ const uploadToB2 = async (
     throw new Error(`Uploading file to B2 - ${name}: \n ${error}`);
   }
 };
-
-export default uploadToB2;

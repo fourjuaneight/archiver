@@ -8,7 +8,7 @@ import { Readable } from 'stream';
  * @param {Readable} stream
  * @returns {Buffer} video buffer
  */
-const streamToBuffer = async (stream: Readable): Promise<Buffer> => {
+export const streamToBuffer = async (stream: Readable): Promise<Buffer> => {
   const chunks = [];
 
   for await (const chunk of stream) {
@@ -17,5 +17,3 @@ const streamToBuffer = async (stream: Readable): Promise<Buffer> => {
 
   return Buffer.concat(chunks);
 };
-
-export default streamToBuffer;

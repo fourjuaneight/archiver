@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
-import latest from './helpers/latestTweets';
-import uploadTweets from './helpers/uploadTweets';
+import { latest } from './helpers/latestTweets';
+import { uploadTweets } from './helpers/uploadTweets';
 
 import { LatestTweetFmt } from './models/twitter';
 

@@ -109,7 +109,7 @@ const latestStarredRepos = (
  *
  * @return {CleanRepo[] | null} formatted stars array
  */
-const latest = async (): Promise<CleanRepo[] | null> => {
+export const latest = async (): Promise<CleanRepo[] | null> => {
   try {
     await latestStarredRepos();
 
@@ -124,5 +124,3 @@ const latest = async (): Promise<CleanRepo[] | null> => {
     throw new Error(`Getting latest GitHub stars: \n ${error}`);
   }
 };
-
-export default latest;

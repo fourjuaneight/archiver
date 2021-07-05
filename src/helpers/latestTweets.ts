@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 import { formatISO, subDays } from 'date-fns';
 
-import emojiUnicode from '../util/emojiUnicode';
-import expandShortLink from './expandShortLink';
+import { emojiUnicode } from '../util/emojiUnicode';
+import { expandShortLink } from './expandShortLink';
 
 import {
   LatestTweet,
@@ -108,7 +108,7 @@ const expandTweets = (
  *
  * @return {LatestTweetFmt[]} { tweet, date, url }
  */
-const latest = async (): Promise<LatestTweetFmt[] | null> => {
+export const latest = async (): Promise<LatestTweetFmt[] | null> => {
   try {
     await latestTweets();
 
@@ -126,5 +126,3 @@ const latest = async (): Promise<LatestTweetFmt[] | null> => {
     throw new Error(`Formatting latest tweets: \n ${error}`);
   }
 };
-
-export default latest;

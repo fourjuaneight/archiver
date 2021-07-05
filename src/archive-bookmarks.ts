@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import addFiletoRecord from './helpers/addFiletoRecord';
+import { addFiletoRecord } from './helpers/addFiletoRecord';
 import { getRecords, updateBookmark } from './helpers/getBookmarks';
 
 import { List, Record } from './models/archive';

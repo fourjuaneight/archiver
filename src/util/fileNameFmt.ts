@@ -7,7 +7,7 @@ import { emojiRange } from './emojiUnicode';
  * @param {string} name record name
  * @returns {string} record filename
  */
-const fileNameFmt = (name: string): string => {
+export const fileNameFmt = (name: string): string => {
   const cleanName: string = name
     .replace(emojiRange, '')
     .replace(/^\s/g, '')
@@ -29,5 +29,3 @@ const fileNameFmt = (name: string): string => {
 
   return cleanName;
 };
-
-export default fileNameFmt;

@@ -23,7 +23,7 @@ const s3 = new AWS.S3({
  * @param {string} base database name
  * @returns {string} upload response code and message
  */
-const uploadContent = async (
+export const uploadContent = async (
   data: Buffer,
   type: string,
   name: string,
@@ -51,5 +51,3 @@ const uploadContent = async (
     throw new Error(`Uploading file to S3 - ${name}: \n ${error}`);
   }
 };
-
-export default uploadContent;

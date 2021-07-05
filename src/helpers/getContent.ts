@@ -4,11 +4,11 @@ import TurndownService from 'turndown';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
-import bufferToFile from '../util/bufferToFile';
-import fileNameFmt from '../util/fileNameFmt';
-import muxAVfiles from '../util/muxAVfiles';
-import streamToBuffer from '../util/streamToBuffer';
-import deleteFiles from '../util/deleteFile';
+import { bufferToFile } from '../util/bufferToFile';
+import { deleteFiles } from '../util/deleteFile';
+import { fileNameFmt } from '../util/fileNameFmt';
+import { muxAVfiles } from '../util/muxAVfiles';
+import { streamToBuffer } from '../util/streamToBuffer';
 
 const turndownService = new TurndownService();
 
@@ -128,7 +128,7 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
  * @param {string} type media type
  * @returns {Buffer} media buffer
  */
-const getContent = async (
+export const getContent = async (
   name: string,
   url: string,
   type: string
@@ -142,5 +142,3 @@ const getContent = async (
       return getMedia(name, url);
   }
 };
-
-export default getContent;

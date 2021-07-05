@@ -1,6 +1,6 @@
 import { formatISO } from 'date-fns';
 
-import uploadToB2 from './uploadContentB2';
+import { uploadToB2 } from './uploadContentB2';
 
 import { Fields, Record } from '../models/airtable';
 
@@ -14,7 +14,7 @@ import { Fields, Record } from '../models/airtable';
  * @param {string} list database list
  * @return {string} B2 backup link
  */
-const backupRecords = async (
+export const backupRecords = async (
   records: Record[],
   base: string,
   list: string
@@ -37,5 +37,3 @@ const backupRecords = async (
     throw new Error(`Backig up '${base}/${table}.json' to B2: \n ${error}`);
   }
 };
-
-export default backupRecords;

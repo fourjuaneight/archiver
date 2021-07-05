@@ -38,7 +38,10 @@ const expandLinks = async (url: string): Promise<string> => {
  * @param {RegExp} regex pattern to match
  * @returns {string} list of expanded URLs from str
  */
-const expandShortLink = async (str: string, regex: RegExp): Promise<string> => {
+export const expandShortLink = async (
+  str: string,
+  regex: RegExp
+): Promise<string> => {
   const promises: Promise<string>[] = [];
   const pattern = new RegExp(regex);
 
@@ -57,5 +60,3 @@ const expandShortLink = async (str: string, regex: RegExp): Promise<string> => {
 
   return str.replace(regex, replacer);
 };
-
-export default expandShortLink;

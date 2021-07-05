@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
-import latest from './helpers/latestStarredRepos';
-import uploadStarredRepos from './helpers/uploadStarredRepos';
+import { latest } from './helpers/latestStarredRepos';
+import { uploadStarredRepos } from './helpers/uploadStarredRepos';
 
 import { CleanRepo } from './models/github';
 

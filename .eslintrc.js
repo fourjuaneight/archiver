@@ -7,7 +7,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'airbnb/base',
+    'airbnb-base',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:react/recommended',
@@ -38,6 +38,7 @@ module.exports = {
     ],
     'import/extensions': 0,
     'import/no-unresolved': [2, { caseSensitive: false }],
+    'import/prefer-default-export': 0,
     'no-await-in-loop': 0,
     'no-console': [
       'error',

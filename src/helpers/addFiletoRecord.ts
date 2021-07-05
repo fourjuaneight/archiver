@@ -1,6 +1,6 @@
-import fileNameFmt from '../util/fileNameFmt';
-import getContent from './getContent';
-import uploadToB2 from './uploadContentB2';
+import { fileNameFmt } from '../util/fileNameFmt';
+import { getContent } from './getContent';
+import { uploadToB2 } from './uploadContentB2';
 
 import { FileTypes, Record } from '../models/archive';
 
@@ -13,7 +13,7 @@ import { FileTypes, Record } from '../models/archive';
  * @param {Record} record record to archive
  * @returns {Record} updated record
  */
-const addFiletoRecord = async (
+export const addFiletoRecord = async (
   list: string,
   record: Record
 ): Promise<Record> => {
@@ -52,5 +52,3 @@ const addFiletoRecord = async (
     );
   }
 };
-
-export default addFiletoRecord;

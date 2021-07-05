@@ -16,7 +16,7 @@ const { AIRTABLE_API, AIRTABLE_MEDIA_ENDPOINT } = process.env;
  * @param {LatestTweetFmt} tweet formatted tweet to upload
  * @return {void}
  */
-const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
+export const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
   const options: RequestInit = {
     method: 'POST',
     headers: {
@@ -57,5 +57,3 @@ const uploadTweets = async (tweet: LatestTweetFmt): Promise<void> => {
     throw new Error(`Uploading tweets to Airtable: \n ${error}`);
   }
 };
-
-export default uploadTweets;

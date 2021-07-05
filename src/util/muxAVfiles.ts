@@ -13,7 +13,7 @@ const { writeFile } = promises;
  * @param {string} output filename path
  * @returns {Buffer} output file buffer
  */
-const muxAVfiles = async (
+export const muxAVfiles = async (
   audio: string,
   video: string,
   output: string
@@ -41,5 +41,3 @@ const muxAVfiles = async (
     throw new Error(`Combining files (error): \n ${error}`);
   }
 };
-
-export default muxAVfiles;

@@ -16,7 +16,7 @@ const { AIRTABLE_API, AIRTABLE_DEVELOPMENT_ENDPOINT } = process.env;
  * @param {CleanRepo} repo formatted tweet to upload
  * @return {void}
  */
-const uploadStarredRepos = async (repo: CleanRepo): Promise<void> => {
+export const uploadStarredRepos = async (repo: CleanRepo): Promise<void> => {
   const options: RequestInit = {
     method: 'POST',
     headers: {
@@ -59,5 +59,3 @@ const uploadStarredRepos = async (repo: CleanRepo): Promise<void> => {
     throw new Error(`Uploading repos to Airtable: \n ${error}`);
   }
 };
-
-export default uploadStarredRepos;

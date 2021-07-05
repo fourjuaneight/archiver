@@ -10,10 +10,8 @@ const { unlink } = promises;
  * @param files array of file paths to delete
  * @returns {void}
  */
-const deleteFiles = async (files: string[]): Promise<void> => {
+export const deleteFiles = async (files: string[]): Promise<void> => {
   const delCmds = files.map(fl => unlink(fl));
 
   await Promise.all(delCmds);
 };
-
-export default deleteFiles;
