@@ -4,6 +4,7 @@ transpiled
 worker
 .env
 .env.*
+.nova
 index.js
 test.js
 src/test.ts
