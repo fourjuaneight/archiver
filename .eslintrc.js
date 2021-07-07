@@ -10,7 +10,6 @@ module.exports = {
     'airbnb-base',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:react/recommended',
     'prettier',
   ],
   globals: {
@@ -60,7 +59,6 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
   },
   settings: {
     'import/resolver': {
