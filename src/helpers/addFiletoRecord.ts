@@ -19,7 +19,7 @@ export const addFiletoRecord = async (
 ): Promise<Record> => {
   const imgType: string =
     list === 'Comics'
-      ? record.fields.url.replace(/^.*(png|jpg|jpeg|gif)$/g, '$1')
+      ? record.fields.url.replace(/^.*(png|jpg|jpeg|webp|gif)$/g, '$1')
       : '';
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   const type: string = list.toLowerCase();
