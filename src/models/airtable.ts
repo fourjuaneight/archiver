@@ -29,6 +29,13 @@ export interface GitHubFields {
   url: string;
 }
 
+export interface StackExchangeFields {
+ title: string;
+ question: string;
+ answer: string;
+ tags: string[];
+}
+
 export interface MDRedditFields {
   content: string;
   date: string;
@@ -94,6 +101,7 @@ export type Fields =
   | BKWebFields
   | BKTweetFields
   | GitHubFields
+  | StackExchangeFields
   | MDRedditFields
   | MDTweetFields
   | MDVideoFields

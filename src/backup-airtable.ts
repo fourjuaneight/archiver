@@ -19,6 +19,7 @@ const baseQueries: Bases = {
   },
   Development: {
     GitHub: [],
+    StackExchange: [],
   },
   Favorites: {
     Anime: [],
