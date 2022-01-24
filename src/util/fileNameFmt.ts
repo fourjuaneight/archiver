@@ -27,10 +27,11 @@ export const fileNameFmt = (name: string): string => {
     .replace(/[-|\\]+/g, '-')
     .replace(/\s&\s/g, 'and')
     .replace(/&/g, 'n')
-    .replace(/[!@#$%^*()+=[\]{};'’:"”,.<>/?]+/g, '')
+    .replace(/[!@#$%^*()+=[\]{};'’:"”“,.<>/?]+/g, '')
     .replace(/\s/g, '_')
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
+    .replace(/[\u0300-\u036f]+/g, '')
+    .replace(/[\u202a-\u202c]+/g, '');
 
   return cleanName;
 };
