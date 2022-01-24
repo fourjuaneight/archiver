@@ -30,10 +30,10 @@ export interface GitHubFields {
 }
 
 export interface StackExchangeFields {
- title: string;
- question: string;
- answer: string;
- tags: string[];
+  title: string;
+  question: string;
+  answer: string;
+  tags: string[];
 }
 
 export interface MDRedditFields {

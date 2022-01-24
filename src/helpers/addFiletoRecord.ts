@@ -17,22 +17,28 @@ export const addFiletoRecord = async (
   list: string,
   record: Record
 ): Promise<Record> => {
-  const imgType: string =
-    list === 'Comics'
-      ? record.fields.url.replace(/^.*(png|jpg|jpeg|webp|gif)$/g, '$1')
-      : '';
+  const dataUrl =
+    list === 'Reddits' ? (record.fields.content as string) : record.fields.url;
+  const imgMatch = new RegExp(/^.*(png|jpg|jpeg|webp|gif)$/, 'ig');
+  const imgType = dataUrl.replace(imgMatch, '$1');
+  const isImg = dataUrl.match(imgMatch);
+
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   const type: string = list.toLowerCase();
   const fileType: FileTypes = {
     articles: { file: 'md', mime: 'text/markdown' },
     comics: { file: imgType, mime: `image/${imgType}` },
     podcasts: { file: 'mp3', mime: 'audio/mpeg' },
+    reddits: {
+      file: isImg ? imgType : 'mp4',
+      mime: isImg ? `image/${imgType}` : 'video/mp4',
+    },
     videos: { file: 'mp4', mime: 'video/mp4' },
   };
 
   try {
     const fileName = fileNameFmt(record.fields.title);
-    const data = await getContent(record.fields.title, record.fields.url, type);
+    const data = await getContent(record.fields.title, dataUrl, type);
     const publicUlr = await uploadToB2(
       data,
       `Bookmarks/${list}/${fileName}.${fileType[type].file}`,

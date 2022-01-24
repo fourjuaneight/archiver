@@ -65,8 +65,10 @@ export interface B2UploadTokens {
 
 export interface Fields {
   archive?: string;
+  content?: string;
   creator: string;
   url: string;
+  subreddit?: string;
   tags: string[];
   title: string;
 }
@@ -100,6 +102,7 @@ export interface FileTypes {
   articles: FileTypeOps;
   comics: FileTypeOps;
   podcasts: FileTypeOps;
+  reddits: FileTypeOps;
   videos: FileTypeOps;
   [key: string]: FileTypeOps;
 }
