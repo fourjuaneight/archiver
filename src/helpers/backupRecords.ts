@@ -1,5 +1,3 @@
-import { formatISO } from 'date-fns';
-
 import { uploadToB2 } from './uploadContentB2';
 
 import { Fields, Record } from '../models/airtable';
@@ -23,17 +21,15 @@ export const backupRecords = async (
   const table: string = list.toLowerCase();
 
   try {
-    const date = new Date();
-    const iso = formatISO(date).substring(0, 10);
     const buffer = Buffer.from(JSON.stringify(fields, undefined, 2), 'utf8');
     const backupLink = await uploadToB2(
       buffer,
-      `Archive/${base}/${table}-${iso}.json`,
+      `Archive/${table}.json`,
       'application/json'
     );
 
     return backupLink;
   } catch (error) {
-    throw new Error(`Backig up '${base}/${table}.json' to B2: \n ${error}`);
+    throw new Error(`Backig up '${table}.json' to B2: \n ${error}`);
   }
 };
