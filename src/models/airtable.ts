@@ -75,6 +75,36 @@ export interface MDGameFields {
   title: string;
 }
 
+interface ShelfCoverThumbnail {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface MDShelfFields {
+  name: string;
+  creator: string;
+  rating: number;
+  category: string;
+  cover: {
+    id: string;
+    width: number;
+    height: number;
+    url: string;
+    filename: string;
+    size: number;
+    type: string;
+    thumbnails: {
+      small: ShelfCoverThumbnail;
+      large: ShelfCoverThumbnail;
+      full: ShelfCoverThumbnail;
+    };
+  }[];
+  genre: string;
+  completed: boolean;
+  comments: string;
+}
+
 export interface RCFeedFields {
   category: string;
   title: string;
@@ -108,6 +138,7 @@ export type Fields =
   | MDAnimeFields
   | MDBookFields
   | MDGameFields
+  | MDShelfFields
   | RCFeedFields
   | RCClientsFields
   | RCJobsFields;

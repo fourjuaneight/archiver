@@ -33,6 +33,7 @@ const baseQueries: Bases = {
     Games: [],
     Movies: [],
     Shows: [],
+    Shelf: [],
     Tweets: [],
   },
   Records: {
