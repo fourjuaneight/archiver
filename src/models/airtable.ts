@@ -101,7 +101,7 @@ export interface MDShelfFields {
     };
   }[];
   genre: string;
-  completed: boolean;
+  completed?: boolean;
   comments: string;
 }
 
