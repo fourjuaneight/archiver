@@ -20,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/fourjuaneight/archiver.git"
   },
-  "author": "Juan Villela",
+  "author": "@fourjuaneight",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fourjuaneight/archiver/issues"
