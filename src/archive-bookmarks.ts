@@ -35,14 +35,14 @@ const archiveRecord = async (
  * @returns {void}
  */
 const backupRecord = async (data: List, list: string): Promise<void> => {
-  const cleanRecords = data[list]
-    .filter(record => !record.fields.archive)
-    .map(record => ({
+  const filteredRecords = data[list].filter(record => !record.fields.archive);
+
+  if (filteredRecords.length > 0) {
+    const cleanRecords = filteredRecords.map(record => ({
       id: record.id,
       fields: record.fields,
     }));
 
-  if (cleanRecords.length > 0) {
     await archiveRecord(list, cleanRecords);
   } else {
     console.info(chalk.yellow('[INFO]'), `No records to update in ${list}.`);
