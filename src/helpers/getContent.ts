@@ -36,6 +36,11 @@ export const getArticle = async (
     const doc = new JSDOM(data, { url, virtualConsole });
     const reader = new Readability(doc.window.document);
     const article = reader.parse();
+    // cleanup article
+    turndownService.remove('img');
+    turndownService.remove('picture');
+    turndownService.remove('video');
+    turndownService.remove('iframe');
     // convert to MD
     const markdown = turndownService.turndown(article?.content ?? '');
     // convert to buffer
