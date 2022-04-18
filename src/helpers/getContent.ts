@@ -28,6 +28,20 @@ export const getArticle = async (
   const virtualConsole = new VirtualConsole();
   virtualConsole.sendTo(console, { omitJSDOMErrors: true });
 
+  const removeEls = (doc: Document, selectors: string[]) => {
+    selectors.forEach(selector => {
+      const els = doc.querySelectorAll(selector);
+
+      if (els.length > 0) {
+        els.forEach(el => {
+          doc.parentNode?.removeChild(el);
+        });
+      }
+    });
+
+    return doc;
+  };
+
   try {
     // get doc
     const response = await fetch(url);
@@ -41,18 +55,26 @@ export const getArticle = async (
     });
     const { document } = dom.window;
     // remove element
-    const newsletter = document.querySelector('div.newsletter-subscribe-form');
-
-    if (newsletter) {
-      document.parentNode?.removeChild(newsletter);
-    }
+    const cleanDoc = removeEls(document, [
+      // WIRED
+      'div.newsletter-subscribe-form',
+      "div[class^='NewsletterSubscribeFormWrapper']",
+      "div[class^='GenericCalloutWrapper']",
+      // The Atlantic
+      "p[class^='ArticleRelatedContentLink']",
+      "div[class^='ArticleRelatedContentModule']",
+      "div[class^='ArticleBooksModule']",
+      // Ars Technica
+      'div.gallery',
+      'div.story-sidebar',
+    ]);
 
     // add document to Readability
-    const reader = new Readability(document);
+    const reader = new Readability(cleanDoc);
     const article = reader.parse();
 
     // cleanup article
-    turndownService.remove(['img', 'picture', 'video', 'iframe']);
+    turndownService.remove(['figure', 'img', 'picture', 'video', 'iframe']);
 
     // convert to MD
     const markdown = turndownService.turndown(article?.content ?? '');
