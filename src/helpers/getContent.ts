@@ -33,7 +33,12 @@ export const getArticle = async (
     const response = await fetch(url);
     const data = await response.text();
     // generate article
-    const dom = new JSDOM(data, { url, virtualConsole });
+    const dom = new JSDOM(data, {
+      pretendToBeVisual: true,
+      runScripts: 'dangerously',
+      url,
+      virtualConsole,
+    });
     const { document } = dom.window;
     // remove element
     const newsletter = document.querySelector('div.newsletter-subscribe-form');
@@ -51,7 +56,6 @@ export const getArticle = async (
 
     // convert to MD
     const markdown = turndownService.turndown(article?.content ?? '');
-
     // convert to buffer
     const buffer = Buffer.from(markdown, 'utf8');
 
