@@ -1,0 +1,34 @@
+name: Archive StackExchange Questions
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  archive-stackexchange:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Use Node 16.4.2
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.4.2
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile
+        run: npm run build:archive:stackexchange
+
+      - name: Run
+        run: npm run archive:stackexchange
+        env:
+          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
+          AIRTABLE_DEVELOPMENT_ENDPOINT: ${{secrets.AIRTABLE_DEVELOPMENT_ENDPOINT}}
+          BOOKMARKS_API_KEY: ${{secrets.BOOKMARKS_API_KEY}}
+          STACKEXCHANGE_USER_ID: ${{secrets.STACKEXCHANGE_USER_ID}}
