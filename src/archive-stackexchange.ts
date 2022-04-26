@@ -25,7 +25,6 @@ const sites = ['askubuntu', 'serverfault', 'stackoverflow', 'superuser'];
 /**
  * Get bookmarks list from Airtable.
  * Request can be recursive is there is more than 100 records.
- * docs: https://airtable.com/appjsUcLH0oo4HHAq/api/docs#curl/table:articles:list
  * @function
  * @async
  *

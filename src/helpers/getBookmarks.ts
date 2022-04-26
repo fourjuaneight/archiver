@@ -85,7 +85,6 @@ export const getRecords = async (): Promise<List> => {
 
 /**
  * Update records in list.
- * docs: https://airtable.com/appjsUcLH0oo4HHAq/api/docs#curl/table:articles:update
  * @function
  * @async
  *
