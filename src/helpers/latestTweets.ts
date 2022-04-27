@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
-import { formatISO, subDays } from 'date-fns';
 
 import { emojiUnicode } from '../util/emojiUnicode';
 import { expandShortLink } from './expandShortLink';
@@ -14,7 +13,7 @@ import {
 
 dotenv.config();
 
-let tweets: any[] = [];
+let tweets: LatestTweet[] = [];
 const { TWEET_TOKEN, TWEET_USER_ID } = process.env;
 
 /**
@@ -27,7 +26,7 @@ const { TWEET_TOKEN, TWEET_USER_ID } = process.env;
  * @return {TwitterResponse} request response with list of tweets
  */
 const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
-  const dayAgo: Date = subDays(new Date(), 1);
+  const firstDay: string = '2019-03-01T00:00:00.000Z';
   const twtOpts: RequestInit = {
     headers: {
       Authorization: `Bearer ${TWEET_TOKEN}`,
@@ -35,10 +34,8 @@ const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
     },
   };
   const params: string = pagination
-    ? `max_results=100&tweet.fields=created_at&start_time=${formatISO(
-        dayAgo
-      )}&pagination_token=${pagination}`
-    : `max_results=100&tweet.fields=created_at&start_time=${formatISO(dayAgo)}`;
+    ? `max_results=100&tweet.fields=created_at&start_time=${firstDay}&pagination_token=${pagination}`
+    : `max_results=100&tweet.fields=created_at&start_time=${firstDay}`;
 
   try {
     return fetch(

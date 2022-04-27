@@ -13,7 +13,7 @@ const expandLinks = async (url: string): Promise<string> => {
   try {
     const response: Response = await fetch(url);
 
-    if (!response.url) {
+    if (response.status !== 200 || !response.url) {
       console.info(chalk.cyan('[INFO]'), `Unable to expand '${url}'`, {
         code: response.status,
         type: response.type,
@@ -25,7 +25,9 @@ const expandLinks = async (url: string): Promise<string> => {
 
     return response.url;
   } catch (error) {
-    throw new Error(`Expanding '${url}': \n ${error}`);
+    console.error(chalk.red('[ERROR]'), `Expanding '${url}': \n ${error}`);
+
+    return url;
   }
 };
 
@@ -55,8 +57,6 @@ export const expandShortLink = async (
 
   const data: string[] = await Promise.all(promises);
   const replacer = () => data.shift() ?? '';
-
-  console.info(chalk.green('[SUCCESS]'), 'URL expanded.');
 
   return str.replace(regex, replacer);
 };

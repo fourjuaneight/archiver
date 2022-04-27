@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import { latest } from './helpers/latestTweets';
-import { uploadTweets } from './helpers/uploadTweets';
+import { getArchive, uploadTweets } from './helpers/uploadTweets';
 
 import { LatestTweetFmt } from './models/twitter';
 
@@ -10,10 +10,19 @@ import { LatestTweetFmt } from './models/twitter';
   try {
     // get formatted tweets
     const tweets: LatestTweetFmt[] | null = await latest();
+    const archivedTweets = await getArchive();
+    const tweetsToArchive = tweets
+      ? tweets.filter(
+          tweet =>
+            !archivedTweets.find(
+              archivedTweet => archivedTweet.url === tweet.url
+            )
+        )
+      : [];
 
     // upload each individually
-    if (tweets && tweets.length > 0) {
-      const tweetsBackup = tweets.map(tweet => uploadTweets(tweet));
+    if (tweetsToArchive.length > 0) {
+      const tweetsBackup = tweetsToArchive.map(tweet => uploadTweets(tweet));
 
       await Promise.all(tweetsBackup);
     } else {
