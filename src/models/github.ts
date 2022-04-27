@@ -47,6 +47,7 @@ export interface Records {
 
 export interface AirtableResp {
   records: Records[];
+  offset?: string;
 }
 
 export interface AirtableError {

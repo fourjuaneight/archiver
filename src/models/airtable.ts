@@ -151,7 +151,7 @@ export interface Record {
 
 export interface AirtableResp {
   records: Record[];
-  offset: string;
+  offset?: string;
 }
 
 export interface List {

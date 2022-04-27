@@ -59,9 +59,7 @@ const getQuestionsWithOffset = async (
         return airtableRes;
       });
   } catch (error) {
-    throw new Error(
-      `Getting books for Development - StackExchange: \n ${error}`
-    );
+    throw new Error(`Getting StackExchange questions: \n ${error}`);
   }
 };
 
