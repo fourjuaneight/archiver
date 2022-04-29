@@ -132,6 +132,7 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
       quality: 'highestaudio',
     });
     const video = ytdl(url, {
+      filter: 'videoonly',
       quality: 'highestvideo',
     });
     // convert to buffers
