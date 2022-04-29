@@ -105,10 +105,10 @@ export interface MDShelfFields {
   comments: string;
 }
 
-export interface RCFeedFields {
+export interface FeedFields {
   category: string;
   title: string;
-  rss: string;
+  rss?: string;
   url: string;
 }
 
@@ -139,7 +139,7 @@ export type Fields =
   | MDBookFields
   | MDGameFields
   | MDShelfFields
-  | RCFeedFields
+  | FeedFields
   | RCClientsFields
   | RCJobsFields;
 
@@ -162,6 +162,7 @@ export interface Bases {
   Bookmarks: List;
   Development: List;
   Favorites: List;
+  Feeds: List;
   Media: List;
   Records: List;
   [key: string]: List;
