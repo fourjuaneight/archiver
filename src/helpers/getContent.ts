@@ -1,14 +1,13 @@
+import { readFileSync } from 'fs';
+
 import fetch from 'isomorphic-fetch';
-import ytdl from 'ytdl-core';
 import TurndownService from 'turndown';
 import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 
-import { bufferToFile } from '../util/bufferToFile';
 import { deleteFiles } from '../util/deleteFile';
 import { fileNameFmt } from '../util/fileNameFmt';
-import { muxAVfiles } from '../util/muxAVfiles';
-import { streamToBuffer } from '../util/streamToBuffer';
+import { ytdl } from '../util/ytdl';
 
 const turndownService = new TurndownService();
 
@@ -119,39 +118,17 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
   const fileName = fileNameFmt(name);
-  const filePaths = {
-    audio: `audio-${fileName}.mp4`,
-    video: `video-${fileName}.mp4`,
-    output: `output-${fileName}.mp4`,
-  };
+  const filePath = `output-${fileName}.mp4`;
 
   try {
     // get media
-    const audio = ytdl(url, {
-      filter: 'audioonly',
-      quality: 'highestaudio',
-    });
-    const video = ytdl(url, {
-      filter: 'videoonly',
-      quality: 'highestvideo',
-    });
-    // convert to buffers
-    const audioBuffer = await streamToBuffer(audio);
-    const videoBuffer = await streamToBuffer(video);
+    await ytdl(url, filePath);
 
-    // save as files
-    await bufferToFile(audioBuffer, `audio-${fileName}.mp4`);
-    await bufferToFile(videoBuffer, `video-${fileName}.mp4`);
-
-    // combine files
-    const buffer = await muxAVfiles(
-      filePaths.audio,
-      filePaths.video,
-      filePaths.output
-    );
+    // get buffer from saved file
+    const buffer = readFileSync(filePath);
 
     // cleanup temp files
-    await deleteFiles([filePaths.audio, filePaths.video, filePaths.output]);
+    await deleteFiles([filePath]);
 
     return buffer;
   } catch (error) {
