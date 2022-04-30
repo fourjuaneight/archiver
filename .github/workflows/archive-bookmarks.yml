@@ -1,6 +1,7 @@
 name: Archive Bookmarks
 
 on:
+  push:
   schedule:
     - cron: '0 */2 * * *'
 
