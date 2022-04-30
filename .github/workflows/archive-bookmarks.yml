@@ -22,10 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install ffmpeg
-        run: npm i @ffmpeg/core
-
-      - name: Install ffmpeg
+      - name: Install yt-dlp
+        uses: FedericoCarboni/setup-ffmpeg@v1
+        id: setup-ffmpeg
         run: |
           wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
           chmod a+rx /usr/local/bin/yt-dlp
