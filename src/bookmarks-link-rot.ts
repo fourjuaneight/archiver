@@ -42,7 +42,7 @@ const updateRecords = async (
       };
     });
     const updated = await Promise.all(checked);
-    const deadFound = updated.map(record => record.fields.dead).filter(Boolean);
+    const deadFound = updated.filter(record => Boolean(record.fields.dead));
     console.info(
       chalk.yellow('[INFO]'),
       `${deadFound.length} dead links found in ${category}`
