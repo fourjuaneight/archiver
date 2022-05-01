@@ -2,7 +2,7 @@ name: Archive Bookmarks
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: "0 */2 * * *"
 
 jobs:
   archive-bookmarks:
@@ -31,10 +31,10 @@ jobs:
           wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
           chmod a+rx /usr/local/bin/yt-dlp
 
-      - name: Compile
+      - name: Compile archive script
         run: npm run build:archive:bookmarks
 
-      - name: Run
+      - name: Run archive script
         run: npm run archive:bookmarks
         env:
           CI: true
@@ -44,3 +44,10 @@ jobs:
           B2_APP_KEY: ${{secrets.B2_APP_KEY}}
           B2_BUCKET_ID: ${{secrets.B2_BUCKET_ID}}
           B2_BUCKET_NAME: ${{secrets.B2_BUCKET_NAME}}
+
+      - name: Run dead link check script
+        run: npm run bookmarks-link-rot
+        env:
+          CI: true
+          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
+          AIRTABLE_BOOKMARKS_ENDPOINT: ${{secrets.AIRTABLE_BOOKMARKS_ENDPOINT}}
