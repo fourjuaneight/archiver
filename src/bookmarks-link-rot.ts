@@ -37,6 +37,7 @@ const updateRecords = async (
         ...record,
         fields: {
           ...rest,
+          url,
           dead: isDead,
         },
       };
@@ -45,10 +46,13 @@ const updateRecords = async (
     const deadFound = updated.filter(record => Boolean(record.fields.dead));
     console.info(
       chalk.yellow('[INFO]'),
-      `${deadFound.length} dead links found in ${category}`
+      `${deadFound.length} dead links found in ${category}`,
+      deadFound.map(record => record.fields.url)
     );
 
-    await updateBookmarks(category, updated as Record[]);
+    if (deadFound.length > 0) {
+      await updateBookmarks(category, updated as Record[]);
+    }
   } catch (error) {
     throw new Error(`Updating Bookmarks for ${category}: \n ${error}`);
   }
