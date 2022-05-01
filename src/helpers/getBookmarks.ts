@@ -14,6 +14,7 @@ export const baseQueries: Bases = {
     Comics: [],
     Podcasts: [],
     Reddits: [],
+    Tweets: [],
     Videos: [],
   },
 };
@@ -92,9 +93,9 @@ export const getRecords = async (): Promise<List> => {
  * @param {Record} record clean record not yet archived
  * @returns {void}
  */
-export const updateBookmark = async (
+export const updateBookmarks = async (
   list: string,
-  record: Record
+  records: Record[]
 ): Promise<void> => {
   const options = {
     method: 'PATCH',
@@ -107,7 +108,7 @@ export const updateBookmark = async (
 
   try {
     const body: AirtableResp = {
-      records: [record],
+      records,
     };
     const updatedOptions = {
       ...options,
@@ -116,14 +117,12 @@ export const updateBookmark = async (
     const response = await fetch(url, updatedOptions);
     const results: AirtableResp = await response.json();
 
-    console.info(
-      chalk.green('[SUCCESS]'),
-      `${list} record updated:`,
-      results.records[0].fields.title
-    );
+    if (results.records?.length === 0) {
+      console.info(chalk.green('[INFO]'), `No records updated for ${list}`);
+    }
+
+    console.info(chalk.green('[SUCCESS]'), `${list} records updated`);
   } catch (error) {
-    throw new Error(
-      `Updating record for ${list} - ${record.fields.title}: \n ${error}`
-    );
+    throw new Error(`Updating records for ${list}: \n ${error}`);
   }
 };

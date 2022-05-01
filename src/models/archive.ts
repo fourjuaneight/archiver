@@ -66,11 +66,13 @@ export interface B2UploadTokens {
 export interface Fields {
   archive?: string;
   content?: string;
-  creator: string;
-  url: string;
+  creator?: string;
+  dead: boolean;
   subreddit?: string;
   tags: string[];
-  title: string;
+  title?: string;
+  tweet?: string;
+  url: string;
 }
 
 export interface Record {

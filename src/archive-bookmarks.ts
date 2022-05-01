@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import { addFiletoRecord } from './helpers/addFiletoRecord';
-import { getRecords, updateBookmark } from './helpers/getBookmarks';
+import { getRecords, updateBookmarks } from './helpers/getBookmarks';
 
 import { List, Record } from './models/archive';
 
@@ -20,7 +20,7 @@ const archiveRecord = async (
 ): Promise<void> => {
   for (const record of records) {
     const updatedRecord = await addFiletoRecord(list, record);
-    await updateBookmark(list, updatedRecord);
+    await updateBookmarks(list, [updatedRecord]);
   }
 };
 
