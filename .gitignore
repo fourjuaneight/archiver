@@ -11,3 +11,4 @@ src/test.ts
 src/helpers/audio.mp4
 src/helpers/video.mp4
 src/helpers/output.mp4
+test.ts

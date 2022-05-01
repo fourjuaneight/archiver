@@ -8,6 +8,7 @@
     "archive:starred-repos": "node dist/archive-github-stars.js",
     "archive:tweets": "node dist/archive-tweets.js",
     "backup:airtable": "node dist/backup-airtable.js",
+    "bookmarks-link-rot": "ts-node src/bookmarks-link-rot.ts",
     "build:archive:bookmarks": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
     "build:archive:stackexchange": "tsup src/archive-stackexchange.ts --env.NODE_ENV production --minify",
     "build:archive:starred-repos": "tsup src/archive-github-stars.ts --env.NODE_ENV production --minify",
@@ -16,7 +17,8 @@
     "clean": "rm -rf dist",
     "clean:node": "rm -rf node_modules",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "eslint --fix \"src/**/*.ts\""
+    "lint": "eslint --fix \"src/**/*.ts\"",
+    "test": "ts-node test.ts"
   },
   "repository": {
     "type": "git",
