@@ -52,9 +52,9 @@ const backupRecord = async (data: List, list: string): Promise<void> => {
 (async () => {
   try {
     const bookmarks = await getRecords();
-    const backups = Object.keys(bookmarks).map(list =>
-      backupRecord(bookmarks, list)
-    );
+    const backups = Object.keys(bookmarks)
+      .filter(list => list !== 'Tweets')
+      .map(list => backupRecord(bookmarks, list));
 
     await Promise.all(backups);
 
