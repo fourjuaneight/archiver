@@ -63,11 +63,13 @@ export interface B2UploadTokens {
   downloadUrl: string;
 }
 
+export type FieldStatus = 'alive' | 'dead';
+
 export interface Fields {
   archive?: string;
   content?: string;
   creator?: string;
-  dead: boolean;
+  status: FieldStatus;
   subreddit?: string;
   tags: string[];
   title?: string;

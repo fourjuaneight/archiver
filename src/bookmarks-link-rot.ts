@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 
 import { getRecords, updateBookmarks } from './helpers/getBookmarks';
-import { Record } from './models/archive';
+import { FieldStatus, Record } from './models/archive';
 
 // check for dead links
 const deadLinks = async (url: string): Promise<boolean> => {
@@ -38,20 +38,26 @@ const updateRecords = async (
         fields: {
           ...rest,
           url,
-          dead: isDead,
+          status: (isDead ? 'dead' : 'alive') as FieldStatus,
         },
       };
     });
     const updated = await Promise.all(checked);
-    const deadFound = updated.filter(record => Boolean(record.fields.dead));
-    console.info(
-      chalk.yellow('[INFO]'),
-      `${deadFound.length} dead links found in ${category}`,
-      deadFound.map(record => record.fields.url)
-    );
+    const deadFound = updated.filter(record => record.fields.status === 'dead');
 
     if (deadFound.length > 0) {
+      console.info(
+        chalk.yellow('[INFO]'),
+        `${deadFound.length} dead links found in ${category}`,
+        deadFound.map(record => record.fields.url)
+      );
+
       await updateBookmarks(category, updated as Record[]);
+    } else {
+      console.info(
+        chalk.yellow('[INFO]'),
+        `No dead links found in ${category}`
+      );
     }
   } catch (error) {
     throw new Error(`Updating Bookmarks for ${category}: \n ${error}`);
