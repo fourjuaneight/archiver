@@ -1,6 +1,7 @@
 name: Backup Airtable
 
 on:
+  push:
   schedule:
     - cron: '30 5 * * *'
 
