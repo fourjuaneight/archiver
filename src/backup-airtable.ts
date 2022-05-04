@@ -88,7 +88,6 @@ const getBookmarksWithOffset = (
   const url = offset
     ? `${endpoints[base]}/${list}?offset=${offset}`
     : `${endpoints[base]}/${list}`;
-  console.info({ url });
 
   try {
     return fetch(url, options)
