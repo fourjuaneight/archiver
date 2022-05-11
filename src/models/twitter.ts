@@ -40,7 +40,7 @@ export interface AirtableResp {
 
 export interface AirtableError {
   errors: {
-    error: stirng;
-    message: stirng;
+    error: string;
+    message: string;
   }[];
 }
