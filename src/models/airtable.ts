@@ -6,6 +6,15 @@ export interface Endpoints {
   [key: string]: string;
 }
 
+export interface BKArticleFields {
+  archive: string;
+  author: string;
+  site?: string;
+  title: string;
+  url: string;
+  tags: string[];
+}
+
 export interface BKWebFields {
   archive: string;
   creator: string;
@@ -15,8 +24,8 @@ export interface BKWebFields {
 }
 
 export interface BKTweetFields {
-  creator: string;
   tweet: string;
+  user: string;
   url: string;
   tags: string[];
 }
@@ -86,7 +95,7 @@ export interface MDShelfFields {
   creator: string;
   rating: number;
   category: string;
-  cover: {
+  cover?: {
     id: string;
     width: number;
     height: number;
@@ -128,6 +137,7 @@ export interface RCJobsFields {
 }
 
 export type Fields =
+  | BKArticleFields
   | BKWebFields
   | BKTweetFields
   | GitHubFields

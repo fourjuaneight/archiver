@@ -66,9 +66,11 @@ export interface B2UploadTokens {
 export type FieldStatus = 'alive' | 'dead';
 
 export interface Fields {
+  author?: string;
   archive?: string;
   content?: string;
   creator?: string;
+  site?: string;
   status: FieldStatus;
   subreddit?: string;
   tags: string[];
