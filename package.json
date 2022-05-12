@@ -18,6 +18,7 @@
     "clean:node": "rm -rf node_modules",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix \"src/**/*.ts\"",
+    "migrator": "ts-node src/migrators/airtable-to-hasura.ts",
     "test": "ts-node test.ts"
   },
   "repository": {
@@ -43,6 +44,7 @@
     "jsdom": "^16.5.2",
     "turndown": "^7.0.0",
     "uuid": "^3.3.2",
+    "waait": "^1.0.5",
     "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
