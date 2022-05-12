@@ -1,3 +1,5 @@
+import { FieldStatus } from './archive';
+
 export interface Endpoints {
   Bookmarks: string;
   Favorites: string;
@@ -9,25 +11,48 @@ export interface Endpoints {
 export interface BKArticleFields {
   archive: string;
   author: string;
-  site?: string;
+  dead?: boolean;
+  site: string;
+  status?: FieldStatus;
+  tags: string[];
   title: string;
   url: string;
-  tags: string[];
 }
 
 export interface BKWebFields {
   archive: string;
   creator: string;
+  dead?: boolean;
+  status?: FieldStatus;
+  tags: string[];
   title: string;
   url: string;
+}
+
+export interface BKRedditFields {
+  content: string;
+  date: string;
+  dead?: boolean;
+  status?: FieldStatus;
+  subreddit: string;
   tags: string[];
+  title: string;
+  url: string;
 }
 
 export interface BKTweetFields {
-  tweet: string;
-  user: string;
-  url: string;
+  status?: FieldStatus;
   tags: string[];
+  tweet: string;
+  url: string;
+  user: string;
+}
+
+export interface FeedFields {
+  category: string;
+  title: string;
+  rss: string;
+  url: string;
 }
 
 export interface GitHubFields {
@@ -35,22 +60,6 @@ export interface GitHubFields {
   owner: string;
   description: string;
   language: string[];
-  url: string;
-}
-
-export interface StackExchangeFields {
-  title: string;
-  question: string;
-  answer: string;
-  tags: string[];
-}
-
-export interface MDRedditFields {
-  content: string;
-  date: string;
-  subreddit: string;
-  tags: string[];
-  title: string;
   url: string;
 }
 
@@ -114,13 +123,6 @@ export interface MDShelfFields {
   comments: string;
 }
 
-export interface FeedFields {
-  category: string;
-  title: string;
-  rss?: string;
-  url: string;
-}
-
 export interface RCClientsFields {
   company: string;
   end: string | null;
@@ -136,22 +138,29 @@ export interface RCJobsFields {
   start: string;
 }
 
+export interface StackExchangeFields {
+  title: string;
+  question: string;
+  answer: string;
+  tags: string[];
+}
+
 export type Fields =
   | BKArticleFields
-  | BKWebFields
+  | BKRedditFields
   | BKTweetFields
+  | BKWebFields
+  | FeedFields
   | GitHubFields
-  | StackExchangeFields
-  | MDRedditFields
-  | MDTweetFields
-  | MDVideoFields
   | MDAnimeFields
   | MDBookFields
   | MDGameFields
   | MDShelfFields
-  | FeedFields
+  | MDTweetFields
+  | MDVideoFields
   | RCClientsFields
-  | RCJobsFields;
+  | RCJobsFields
+  | StackExchangeFields;
 
 export interface Record {
   id: string;
