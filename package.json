@@ -18,7 +18,8 @@
     "clean:node": "rm -rf node_modules",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix \"src/**/*.ts\"",
-    "migrator": "ts-node src/migrators/airtable-to-hasura.ts",
+    "migrator:a2b": "ts-node src/migrators/airtable-to-b2.ts",
+    "migrator:a2h": "ts-node src/migrators/airtable-to-hasura.ts",
     "test": "ts-node test.ts"
   },
   "repository": {
