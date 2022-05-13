@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import { Fields, HasuraTWQueryResp } from '../models/twitter';
+import { HasuraBKQueryResp } from '../models/archive';
 import { HasuraErrors, HasuraMutationResp } from '../models/hasura';
 
 dotenv.config();
@@ -65,7 +66,95 @@ export const mutateHasuraData = async (
   }
 };
 
-export const queryHasuraTweets = async (env: ContextValue) => {
+export const queryHasuraBookmarks = async () => {
+  const query = `
+    {
+      articles: bookmarks_articles(order_by: {title: asc}) {
+        archive
+        author
+        dead
+        id
+        site
+        tags
+        title
+        url
+      }
+      comics: bookmarks_comics(order_by: {title: asc}) {
+        archive
+        creator
+        dead
+        id
+        tags
+        title
+        url
+      }
+      podcasts: bookmarks_podcasts(order_by: {title: asc}) {
+        archive
+        creator
+        dead
+        id
+        tags
+        title
+        url
+      }
+      reddits: bookmarks_reddits(order_by: {title: asc}) {
+        archive
+        content
+        dead
+        id
+        subreddit
+        tags
+        title
+        url
+      }
+      tweets: bookmarks_tweets(order_by: {tweet: asc}) {
+        dead
+        id
+        tags
+        tweet
+        url
+        user
+      }
+      videos: bookmarks_videos(order_by: {title: asc}) {
+        archive
+        creator
+        dead
+        id
+        tags
+        title
+        url
+      }
+    }
+  `;
+
+  try {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+    const response: HasuraBKQueryResp | HasuraErrors = await request.json();
+
+    if (response.errors) {
+      const { errors } = response as HasuraErrors;
+
+      throw new Error(
+        `(queryHasuraBookmarks) ${list}: \n ${errors
+          .map(err => `${err.extensions.path}: ${err.message}`)
+          .join('\n')} \n ${query}`
+      );
+    }
+
+    return (response as HasuraBKQueryResp).data;
+  } catch (error) {
+    throw new Error(`(queryHasuraBookmarks) - ${list}: \n ${error}`);
+  }
+};
+
+export const queryHasuraTweets = async () => {
   const query = `
     {
       media_tweets(order_by: {date: desc}) {
@@ -77,11 +166,11 @@ export const queryHasuraTweets = async (env: ContextValue) => {
   `;
 
   try {
-    const request = await fetch(`${env.HASURA_ENDPOINT}`, {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Hasura-Admin-Secret': `${env.HASURA_ADMIN_SECRET}`,
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
       },
       body: JSON.stringify({ query }),
     });

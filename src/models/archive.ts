@@ -112,3 +112,15 @@ export interface FileTypes {
   videos: FileTypeOps;
   [key: string]: FileTypeOps;
 }
+
+export interface HasuraBKQueryResp {
+  data: {
+    articles: Fields[];
+    comics: Fields[];
+    podcasts: Fields[];
+    reddits: Fields[];
+    tweets: Fields[];
+    videos: Fields[];
+    [key: string]: Fields[];
+  };
+}

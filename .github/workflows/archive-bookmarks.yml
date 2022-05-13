@@ -38,8 +38,8 @@ jobs:
         run: npm run archive:bookmarks
         env:
           CI: true
-          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
-          AIRTABLE_BOOKMARKS_ENDPOINT: ${{secrets.AIRTABLE_BOOKMARKS_ENDPOINT}}
+          HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
+          HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
           B2_APP_KEY_ID: ${{secrets.B2_APP_KEY_ID}}
           B2_APP_KEY: ${{secrets.B2_APP_KEY}}
           B2_BUCKET_ID: ${{secrets.B2_BUCKET_ID}}

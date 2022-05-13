@@ -1,26 +1,23 @@
 import chalk from 'chalk';
 
 import { addFiletoRecord } from './helpers/addFiletoRecord';
-import { getRecords, updateBookmarks } from './helpers/getBookmarks';
+import { mutateHasuraData, queryHasuraBookmarks } from './helpers/hasuraData';
 
-import { List, Record } from './models/archive';
+import { Fields } from './models/archive';
 
 /**
- * Archive media to B2 and update record on Airtable.
+ * Archive media to B2 and update record on Hasura.
  * @function
  * @async
  *
  * @param {string} list table name
- * @param {Record[]} records archive to archive and update
+ * @param {Fields[]} fields archive to archive and update
  * @return {void}
  */
-const archiveRecord = async (
-  list: string,
-  records: Record[]
-): Promise<void> => {
-  for (const record of records) {
-    const updatedRecord = await addFiletoRecord(list, record);
-    await updateBookmarks(list, [updatedRecord]);
+const archiveRecord = async (list: string, fields: Fields[]): Promise<void> => {
+  for (const field of fields) {
+    const updatedRecord = await addFiletoRecord(list, field);
+    await mutateHasuraData(`bookmarks_${list}`, [updatedRecord]);
   }
 };
 
@@ -34,16 +31,14 @@ const archiveRecord = async (
  * @param {string} list table name
  * @returns {void}
  */
-const backupRecord = async (data: List, list: string): Promise<void> => {
-  const filteredRecords = data[list].filter(record => !record.fields.archive);
+const backupRecord = async (
+  data: { [key: string]: Fields[] },
+  list: string
+): Promise<void> => {
+  const filteredRecords = data[list].filter(field => !field.archive);
 
   if (filteredRecords.length > 0) {
-    const cleanRecords = filteredRecords.map(record => ({
-      id: record.id,
-      fields: record.fields,
-    }));
-
-    await archiveRecord(list, cleanRecords);
+    await archiveRecord(list, filteredRecords);
   } else {
     console.info(chalk.yellow('[INFO]'), `No records to update in ${list}.`);
   }
@@ -51,9 +46,9 @@ const backupRecord = async (data: List, list: string): Promise<void> => {
 
 (async () => {
   try {
-    const bookmarks = await getRecords();
+    const bookmarks = await queryHasuraBookmarks();
     const backups = Object.keys(bookmarks)
-      .filter(list => list !== 'Tweets')
+      .filter(list => list !== 'tweets')
       .map(list => backupRecord(bookmarks, list));
 
     await Promise.all(backups);

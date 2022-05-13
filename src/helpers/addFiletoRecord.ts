@@ -2,23 +2,22 @@ import { fileNameFmt } from '../util/fileNameFmt';
 import { getContent } from './getContent';
 import { uploadToB2 } from './uploadContentB2';
 
-import { FileTypes, Record } from '../models/archive';
+import { Fields, FileTypes } from '../models/archive';
 
 /**
- * Get Airtable bookmarks, archive media, then update record.
+ * Get Hasura bookmarks, archive media, then update record.
  * @function
  * @async
  *
  * @param {string} list database list
- * @param {Record} record record to archive
- * @returns {Record} updated record
+ * @param {Fields} fields record to archive
+ * @returns {Fields} updated record
  */
 export const addFiletoRecord = async (
   list: string,
-  record: Record
-): Promise<Record> => {
-  const dataUrl =
-    list === 'Reddits' ? (record.fields.content as string) : record.fields.url;
+  fields: Fields
+): Promise<Fields> => {
+  const dataUrl = list === 'Reddits' ? (fields.content as string) : fields.url;
   const imgMatch = new RegExp(/^.*(png|jpg|jpeg|webp|gif)$/, 'ig');
   const imgType = dataUrl.replace(imgMatch, '$1');
   const isImg = dataUrl.match(imgMatch);
@@ -37,8 +36,8 @@ export const addFiletoRecord = async (
   };
 
   try {
-    const fileName = fileNameFmt(record.fields.title);
-    const data = await getContent(record.fields.title, dataUrl, type);
+    const fileName = fileNameFmt(fields.title);
+    const data = await getContent(fields.title, dataUrl, type);
     const publicUlr = await uploadToB2(
       data,
       `Bookmarks/${list}/${fileName}.${fileType[type].file}`,
@@ -46,15 +45,12 @@ export const addFiletoRecord = async (
     );
 
     return {
-      ...record,
-      fields: {
-        ...record.fields,
-        archive: publicUlr,
-      },
+      ...fields,
+      archive: publicUlr,
     };
   } catch (error) {
     throw new Error(
-      `Uploading file for ${list} - ${record.fields.title}: \n ${error}`
+      `Uploading file for ${list} - ${fields.title}: \n ${error}`
     );
   }
 };
