@@ -1,8 +1,9 @@
 import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 
-import { getRecords, updateBookmarks } from './helpers/getBookmarks';
-import { FieldStatus, Record } from './models/archive';
+import { mutateHasuraData, queryHasuraBookmarks } from './helpers/hasuraData';
+
+import { Fields } from './models/archive';
 
 // check for dead links
 const deadLinks = async (url: string): Promise<boolean> => {
@@ -26,20 +27,17 @@ const deadLinks = async (url: string): Promise<boolean> => {
 
 const updateRecords = async (
   category: string,
-  records: Record[]
+  fields: Fields[]
 ): Promise<void> => {
   try {
-    const checked = records.map(async record => {
-      const { url, ...rest } = record.fields;
+    const checked = fields.map(async field => {
+      const { url, ...rest } = field;
       const isDead = await deadLinks(url);
 
       return {
-        ...record,
-        fields: {
-          ...rest,
-          url,
-          status: (isDead ? 'dead' : 'alive') as FieldStatus,
-        },
+        ...rest,
+        url,
+        dead: isDead,
       };
     });
     const updated = await Promise.all(checked);
@@ -52,7 +50,7 @@ const updateRecords = async (
         deadFound.map(record => record.fields.url)
       );
 
-      await updateBookmarks(category, updated as Record[]);
+      await mutateHasuraData(`bookmarks_${category}`, updated);
     } else {
       console.info(
         chalk.yellow('[INFO]'),
@@ -66,14 +64,14 @@ const updateRecords = async (
 
 (async () => {
   try {
-    const records = await getRecords();
+    const records = await queryHasuraBookmarks();
 
-    await updateRecords('Articles', records.Articles);
-    await updateRecords('Comics', records.Comics);
-    await updateRecords('Podcasts', records.Podcasts);
-    await updateRecords('Reddits', records.Reddits);
-    await updateRecords('Tweets', records.Tweets);
-    await updateRecords('Videos', records.Videos);
+    await updateRecords('articles', records.articles);
+    await updateRecords('comics', records.comics);
+    await updateRecords('podcasts', records.podcasts);
+    await updateRecords('reddits', records.reddits);
+    await updateRecords('tweets', records.tweets);
+    await updateRecords('videos', records.videos);
   } catch (error) {
     console.error(chalk.red('[ERROR]'), error);
     process.exit(1);

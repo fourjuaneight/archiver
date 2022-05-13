@@ -71,7 +71,7 @@ export interface Fields {
   content?: string;
   creator?: string;
   site?: string;
-  status: FieldStatus;
+  dead: boolean;
   subreddit?: string;
   tags: string[];
   title?: string;
