@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import { latest } from './helpers/latestTweets';
-import { getArchive, uploadTweets } from './helpers/uploadTweets';
+import { mutateHasuraData, queryHasuraTweets } from './helpers/hasuraData';
 
 import { LatestTweetFmt } from './models/twitter';
 
@@ -10,7 +10,7 @@ import { LatestTweetFmt } from './models/twitter';
   try {
     // get formatted tweets
     const tweets: LatestTweetFmt[] | null = await latest();
-    const archivedTweets = await getArchive();
+    const archivedTweets = await queryHasuraTweets();
     const tweetsToArchive = tweets
       ? tweets.filter(
           tweet =>
@@ -22,9 +22,7 @@ import { LatestTweetFmt } from './models/twitter';
 
     // upload each individually
     if (tweetsToArchive.length > 0) {
-      const tweetsBackup = tweetsToArchive.map(tweet => uploadTweets(tweet));
-
-      await Promise.all(tweetsBackup);
+      await mutateHasuraData('media_tweets', tweetsToArchive);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new tweets to upload.');
     }

@@ -28,7 +28,7 @@ jobs:
       - name: Run
         run: npm run archive:tweets
         env:
-          AIRTABLE_MEDIA_ENDPOINT: ${{secrets.AIRTABLE_MEDIA_ENDPOINT}}
-          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
+          HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
+          HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
           TWEET_USER_ID: ${{secrets.TWEET_USER_ID}}
           TWEET_TOKEN: ${{secrets.TWEET_TOKEN}}

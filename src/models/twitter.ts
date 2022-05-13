@@ -22,6 +22,7 @@ export interface LatestTweetFmt {
 }
 
 export interface Fields {
+  id?: string;
   tweet: string;
   date: string;
   url: string;
@@ -43,4 +44,10 @@ export interface AirtableError {
     error: string;
     message: string;
   }[];
+}
+
+export interface HasuraTWQueryResp {
+  data: {
+    media_tweets: Fields[];
+  };
 }
