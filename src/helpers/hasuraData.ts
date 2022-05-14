@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import { Fields, HasuraTWQueryResp } from '../models/twitter';
-import { HasuraBKQueryResp } from '../models/archive';
+import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
 import { HasuraErrors, HasuraMutationResp } from '../models/hasura';
 
 dotenv.config();
@@ -63,6 +63,98 @@ export const mutateHasuraData = async (
     }
   } catch (error) {
     throw new Error(`(mutateHasuraData) - ${list}: \n ${error}`);
+  }
+};
+
+export const queryHasuraBackup = async () => {
+  const query = `
+    {
+      bookmarks_articles {
+        archive
+        author
+        dead
+        site
+        tags
+        title
+        url
+      }
+      bookmarks_comics {
+        archive
+        creator
+        dead
+        tags
+        title
+        url
+      }
+      bookmarks_podcasts {
+        archive
+        creator
+        dead
+        tags
+        title
+        url
+      }
+      bookmarks_reddits {
+        archive
+        content
+        dead
+        subreddit
+        tags
+        title
+        url
+      }
+      bookmarks_tweets {
+        dead
+        tags
+        tweet
+        url
+        user
+      }
+      bookmarks_videos {
+        archive
+        creator
+        dead
+        tags
+        title
+        url
+      }
+      media_shelf {
+        category
+        comments
+        completed
+        cover
+        creator
+        genre
+        name
+        rating
+      }
+    }
+  `;
+
+  try {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+    const response: HasuraBackupQueryResp | HasuraErrors = await request.json();
+
+    if (response.errors) {
+      const { errors } = response as HasuraErrors;
+
+      throw new Error(
+        `(queryHasuraBackup) ${list}: \n ${errors
+          .map(err => `${err.extensions.path}: ${err.message}`)
+          .join('\n')} \n ${query}`
+      );
+    }
+
+    return (response as HasuraBackupQueryResp).data;
+  } catch (error) {
+    throw new Error(`(queryHasuraBackup) - ${list}: \n ${error}`);
   }
 };
 

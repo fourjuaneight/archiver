@@ -113,6 +113,17 @@ export interface FileTypes {
   [key: string]: FileTypeOps;
 }
 
+export interface Shelf {
+  category: string;
+  comments: string;
+  completed: boolean;
+  cover: string;
+  creator: string;
+  genre: string;
+  name: string;
+  rating: number;
+}
+
 export interface HasuraBKQueryResp {
   data: {
     articles: Fields[];
@@ -122,5 +133,18 @@ export interface HasuraBKQueryResp {
     tweets: Fields[];
     videos: Fields[];
     [key: string]: Fields[];
+  };
+}
+
+export interface HasuraBackupQueryResp {
+  data: {
+    articles: Fields[];
+    comics: Fields[];
+    podcasts: Fields[];
+    reddits: Fields[];
+    tweets: Fields[];
+    videos: Fields[];
+    shelf: Shelf[];
+    [key: string]: Fields[] | Shelf[];
   };
 }
