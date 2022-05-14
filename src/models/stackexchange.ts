@@ -66,3 +66,14 @@ export interface BookmarkTagsResponse {
   tags: string[];
   location: string;
 }
+
+export interface HasuraSEQueryResp {
+  data: {
+    development_stack_exchange: {
+      title: string;
+      question: string;
+      answer: string;
+      tags: string;
+    }[];
+  };
+}

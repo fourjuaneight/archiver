@@ -4,75 +4,19 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import {
-  AirtableResp,
   BookmarkTagsResponse,
   StackExchangeData,
   StackExchangeResponse,
 } from './models/stackexchange';
-import { uploadStackExchangeQuestion } from './helpers/uploadStackExchangeQuestion';
+import {
+  mutateHasuraData,
+  queryHasuraStackExchange,
+} from './helpers/hasuraData';
 
 dotenv.config();
 
-const {
-  AIRTABLE_API,
-  AIRTABLE_DEVELOPMENT_ENDPOINT,
-  BOOKMARKS_API_KEY,
-  STACKEXCHANGE_USER_ID,
-} = process.env;
-const data: { [key: string]: StackExchangeData[] } = { current: [] };
+const { BOOKMARKS_API_KEY, STACKEXCHANGE_USER_ID } = process.env;
 const sites = ['askubuntu', 'serverfault', 'stackoverflow', 'superuser'];
-
-/**
- * Get bookmarks list from Airtable.
- * Request can be recursive is there is more than 100 records.
- * @function
- * @async
- *
- * @param {[string]} offset param to request remainding records
- * @return {AirtableResp}
- */
-const getQuestionsWithOffset = async (
-  offset?: string
-): Promise<AirtableResp> => {
-  const options = {
-    headers: {
-      Authorization: `Bearer ${AIRTABLE_API}`,
-      'Content-Type': 'application/json',
-    },
-  };
-  const url = offset
-    ? `${AIRTABLE_DEVELOPMENT_ENDPOINT}/StackExchange?offset=${offset}`
-    : `${AIRTABLE_DEVELOPMENT_ENDPOINT}/StackExchange`;
-
-  try {
-    return fetch(url, options)
-      .then(response => response.json())
-      .then((airtableRes: AirtableResp) => {
-        const fields = airtableRes.records.map(record => record.fields);
-
-        data.current = [...data.current, ...fields];
-
-        if (airtableRes.offset) {
-          return getQuestionsWithOffset(airtableRes.offset);
-        }
-
-        return airtableRes;
-      });
-  } catch (error) {
-    throw new Error(`Getting StackExchange questions: \n ${error}`);
-  }
-};
-
-// get current airtable stackexchange questions
-const getCurrentQuestions = async (): Promise<StackExchangeData[]> => {
-  try {
-    await getQuestionsWithOffset();
-
-    return data.current;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
 
 // get tags from Bookmarks API
 const getBookmarkTags = async (): Promise<string[]> => {
@@ -153,7 +97,7 @@ const getUserFavQuestions = async (
 (async () => {
   try {
     // get formatted tweets
-    const currQs = await getCurrentQuestions();
+    const currQs = await queryHasuraStackExchange();
     const favQsBySite = sites.map(site =>
       getUserFavQuestions(`${STACKEXCHANGE_USER_ID}`, site)
     );
@@ -165,11 +109,7 @@ const getUserFavQuestions = async (
 
     // upload each individually
     if (newQs && newQs.length > 0) {
-      const questionsBackup = newQs.map(newQ =>
-        uploadStackExchangeQuestion(newQ)
-      );
-
-      await Promise.all(questionsBackup);
+      await mutateHasuraData('development_stack_exchange', newQs);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new questions to upload.');
     }

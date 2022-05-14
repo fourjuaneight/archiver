@@ -4,6 +4,7 @@ import fetch from 'isomorphic-fetch';
 import { Fields, HasuraTWQueryResp } from '../models/twitter';
 import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
 import { HasuraErrors, HasuraMutationResp } from '../models/hasura';
+import { HasuraSEQueryResp } from '../models/stackexchange';
 
 dotenv.config();
 
@@ -243,6 +244,45 @@ export const queryHasuraBookmarks = async () => {
     return (response as HasuraBKQueryResp).data;
   } catch (error) {
     throw new Error(`(queryHasuraBookmarks) - ${list}: \n ${error}`);
+  }
+};
+
+export const queryHasuraStackExchange = async () => {
+  const query = `
+    {
+      development_stack_exchange {
+        title
+        question
+        answer
+        tags
+      }
+    }
+  `;
+
+  try {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+    const response: HasuraSEQueryResp | HasuraErrors = await request.json();
+
+    if (response.errors) {
+      const { errors } = response as HasuraErrors;
+
+      throw new Error(
+        `(queryHasuraStackExchange) ${list}: \n ${errors
+          .map(err => `${err.extensions.path}: ${err.message}`)
+          .join('\n')} \n ${query}`
+      );
+    }
+
+    return (response as HasuraSEQueryResp).data.development_stack_exchange;
+  } catch (error) {
+    throw new Error(`(queryHasuraStackExchange) - ${list}: \n ${error}`);
   }
 };
 

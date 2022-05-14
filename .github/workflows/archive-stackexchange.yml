@@ -28,7 +28,7 @@ jobs:
       - name: Run
         run: npm run archive:stackexchange
         env:
-          AIRTABLE_API: ${{secrets.AIRTABLE_API}}
-          AIRTABLE_DEVELOPMENT_ENDPOINT: ${{secrets.AIRTABLE_DEVELOPMENT_ENDPOINT}}
           BOOKMARKS_API_KEY: ${{secrets.BOOKMARKS_API_KEY}}
+          HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
+          HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
           STACKEXCHANGE_USER_ID: ${{secrets.STACKEXCHANGE_USER_ID}}
