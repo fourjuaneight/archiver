@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import { latest } from './helpers/latestStarredRepos';
-import { uploadStarredRepos } from './helpers/uploadStarredRepos';
+import { mutateHasuraData } from './helpers/hasuraData';
 
 import { CleanRepo } from './models/github';
 
@@ -13,9 +13,7 @@ import { CleanRepo } from './models/github';
 
     // upload each individually
     if (repos && repos.length > 0) {
-      const starsBackup = repos.map(repo => uploadStarredRepos(repo));
-
-      await Promise.all(starsBackup);
+      await mutateHasuraData('development_github', repos);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new stars to upload.');
     }
