@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 
 import { latest } from './helpers/latestStarredRepos';
-import { mutateHasuraData } from './helpers/hasuraData';
+import { insertHasuraData } from './helpers/hasuraData';
 
 import { CleanRepo } from './models/github';
 
-// Upload latest starred repos to Airtable base.
+// Upload latest starred repos to Hasura table.
 (async () => {
   try {
     // get formatted repos
@@ -13,7 +13,7 @@ import { CleanRepo } from './models/github';
 
     // upload each individually
     if (repos && repos.length > 0) {
-      await mutateHasuraData('development_github', repos);
+      await insertHasuraData('development_github', repos);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new stars to upload.');
     }

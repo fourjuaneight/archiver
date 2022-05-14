@@ -9,7 +9,7 @@ import {
   StackExchangeResponse,
 } from './models/stackexchange';
 import {
-  mutateHasuraData,
+  insertHasuraData,
   queryHasuraStackExchange,
 } from './helpers/hasuraData';
 
@@ -93,7 +93,7 @@ const getUserFavQuestions = async (
   }
 };
 
-// Upload latest StackExchange questions to Airtable base.
+// Upload latest StackExchange questions to Hasura table.
 (async () => {
   try {
     // get formatted tweets
@@ -109,7 +109,7 @@ const getUserFavQuestions = async (
 
     // upload each individually
     if (newQs && newQs.length > 0) {
-      await mutateHasuraData('development_stack_exchange', newQs);
+      await insertHasuraData('development_stack_exchange', newQs);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new questions to upload.');
     }

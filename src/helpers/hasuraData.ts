@@ -26,7 +26,7 @@ const objToQueryString = (obj: { [key: string]: any }) =>
     return `${key}: ${fmtValue}`;
   });
 
-export const mutateHasuraData = async (
+export const insertHasuraData = async (
   list: string,
   records: { [key: string]: any }[]
 ): Promise<void> => {
@@ -57,13 +57,56 @@ export const mutateHasuraData = async (
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(mutateHasuraData) ${list}: \n ${errors
+        `(insertHasuraData) ${list}: \n ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')} \n ${query}`
       );
     }
   } catch (error) {
-    throw new Error(`(mutateHasuraData) - ${list}: \n ${error}`);
+    throw new Error(`(insertHasuraData) - ${list}: \n ${error}`);
+  }
+};
+
+export const updateHasuraData = async (
+  list: string,
+  id: string,
+  data: { [key: string]: any }
+): Promise<void> => {
+  const query = `
+    mutation {
+      update_${list}(
+        where: {id: {_eq: "${id}"}},
+        _set: {${objToQueryString(data)}}
+      ) {
+        returning {
+          id
+        }
+      }
+    }
+  `;
+
+  try {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+    const response: HasuraMutationResp | HasuraErrors = await request.json();
+
+    if (response.errors) {
+      const { errors } = response as HasuraErrors;
+
+      throw new Error(
+        `(updateHasuraData) ${list}: \n ${errors
+          .map(err => `${err.extensions.path}: ${err.message}`)
+          .join('\n')} \n ${query}`
+      );
+    }
+  } catch (error) {
+    throw new Error(`(updateHasuraData) - ${list}: \n ${error}`);
   }
 };
 

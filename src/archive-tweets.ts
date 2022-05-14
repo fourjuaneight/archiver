@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 
 import { latest } from './helpers/latestTweets';
-import { mutateHasuraData, queryHasuraTweets } from './helpers/hasuraData';
+import { insertHasuraData, queryHasuraTweets } from './helpers/hasuraData';
 
 import { LatestTweetFmt } from './models/twitter';
 
-// Upload latest tweets to Airtable base.
+// Upload latest tweets to Hasura table.
 (async () => {
   try {
     // get formatted tweets
@@ -22,7 +22,7 @@ import { LatestTweetFmt } from './models/twitter';
 
     // upload each individually
     if (tweetsToArchive.length > 0) {
-      await mutateHasuraData('media_tweets', tweetsToArchive);
+      await insertHasuraData('media_tweets', tweetsToArchive);
     } else {
       console.info(chalk.yellow('[INFO]'), 'No new tweets to upload.');
     }

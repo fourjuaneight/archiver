@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 import { addFiletoRecord } from './helpers/addFiletoRecord';
-import { mutateHasuraData, queryHasuraBookmarks } from './helpers/hasuraData';
+import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
 
 import { Fields } from './models/archive';
 
@@ -16,8 +16,11 @@ import { Fields } from './models/archive';
  */
 const archiveRecord = async (list: string, fields: Fields[]): Promise<void> => {
   for (const field of fields) {
-    const updatedRecord = await addFiletoRecord(list, field);
-    await mutateHasuraData(`bookmarks_${list}`, [updatedRecord]);
+    const { archive, id } = await addFiletoRecord(list, field);
+    const data = { archive: archive as string };
+    const redordId = id as string;
+
+    await updateHasuraData(`bookmarks_${list}`, redordId, data);
   }
 };
 

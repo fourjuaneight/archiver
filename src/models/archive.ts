@@ -61,6 +61,7 @@ export interface Fields {
   archive?: string;
   content?: string;
   creator?: string;
+  id?: string;
   site?: string;
   dead: boolean;
   subreddit?: string;

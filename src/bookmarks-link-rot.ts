@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 
-import { mutateHasuraData, queryHasuraBookmarks } from './helpers/hasuraData';
+import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
 
 import { Fields } from './models/archive';
 
@@ -50,7 +50,11 @@ const updateRecords = async (
         deadFound.map(record => record.fields.url)
       );
 
-      await mutateHasuraData(`bookmarks_${category}`, updated);
+      const operations = updated.map(({ dead, id }) =>
+        updateHasuraData(`bookmarks_${category}`, id as string, { dead })
+      );
+
+      await Promise.all(operations);
     } else {
       console.info(
         chalk.yellow('[INFO]'),
