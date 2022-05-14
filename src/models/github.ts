@@ -1,4 +1,4 @@
-export interface RepositoryNode {
+interface RepositoryNode {
   name: string;
   owner: {
     login: string;
@@ -10,12 +10,12 @@ export interface RepositoryNode {
   } | null;
 }
 
-export interface Repository {
+interface Repository {
   node: RepositoryNode;
   starredAt: string;
 }
 
-export interface PageInfo {
+interface PageInfo {
   hasNextPage: boolean;
   endCursor?: string;
 }
@@ -37,22 +37,4 @@ export interface CleanRepo {
   description: string;
   url: string;
   language: string;
-}
-
-export interface Records {
-  id: string;
-  fields: CleanRepo;
-  createdTime: string;
-}
-
-export interface AirtableResp {
-  records: Records[];
-  offset?: string;
-}
-
-export interface AirtableError {
-  errors: {
-    error: string;
-    message: string;
-  }[];
 }

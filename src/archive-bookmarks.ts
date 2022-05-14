@@ -27,7 +27,7 @@ const archiveRecord = async (list: string, fields: Fields[]): Promise<void> => {
  * @function
  * @async
  *
- * @param {List} data bookmarks
+ * @param {{ [key: string]: Fields[] }} data bookmarks
  * @param {string} list table name
  * @returns {void}
  */

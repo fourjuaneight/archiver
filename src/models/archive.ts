@@ -1,10 +1,3 @@
-export interface CFReqBody {
-  base: string;
-  name: string;
-  type: string;
-  url: string;
-}
-
 export interface B2AuthResp {
   absoluteMinimumPartSize: number;
   accountId: string;
@@ -63,8 +56,6 @@ export interface B2UploadTokens {
   downloadUrl: string;
 }
 
-export type FieldStatus = 'alive' | 'dead';
-
 export interface Fields {
   author?: string;
   archive?: string;
@@ -77,26 +68,6 @@ export interface Fields {
   title?: string;
   tweet?: string;
   url: string;
-}
-
-export interface Record {
-  id: string;
-  fields: Fields;
-  createdTime?: string;
-}
-
-export interface AirtableResp {
-  records: Record[];
-  offset?: string;
-}
-
-export interface List {
-  [key: string]: Record[];
-}
-
-export interface Bases {
-  Bookmarks: List;
-  [key: string]: List;
 }
 
 export interface FileTypeOps {

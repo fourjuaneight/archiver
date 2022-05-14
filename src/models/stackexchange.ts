@@ -6,25 +6,7 @@ export interface StackExchangeData {
   tags: string[];
 }
 
-export interface Records {
-  id: string;
-  fields: StackExchangeData;
-  createdTime: string;
-}
-
-export interface AirtableResp {
-  records: Records[];
-  offset?: string;
-}
-
-export interface AirtableError {
-  errors: {
-    error: string;
-    message: string;
-  }[];
-}
-
-export interface QuestionOwner {
+interface QuestionOwner {
   account_id: number;
   reputation: number;
   user_id: number;
@@ -35,7 +17,7 @@ export interface QuestionOwner {
   link: string;
 }
 
-export interface QuestionItems {
+interface QuestionItems {
   tags: string[];
   owner: QuestionOwner;
   is_answered: boolean;
