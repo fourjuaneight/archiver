@@ -41,16 +41,16 @@ const updateRecords = async (
       };
     });
     const updated = await Promise.all(checked);
-    const deadFound = updated.filter(record => record.fields.status === 'dead');
+    const deadFound = updated.filter(({ dead }) => dead);
 
     if (deadFound.length > 0) {
       console.info(
         chalk.yellow('[INFO]'),
         `${deadFound.length} dead links found in ${category}`,
-        deadFound.map(record => record.fields.url)
+        deadFound.map(({ url }) => url)
       );
 
-      const operations = updated.map(({ dead, id }) =>
+      const operations = deadFound.map(({ dead, id }) =>
         updateHasuraData(`bookmarks_${category}`, id as string, { dead })
       );
 

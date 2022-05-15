@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 
 import { Fields, HasuraTWQueryResp } from '../models/twitter';
 import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
-import { HasuraErrors, HasuraMutationResp } from '../models/hasura';
+import { HasuraErrors } from '../models/hasura';
 import { HasuraSEQueryResp } from '../models/stackexchange';
 
 dotenv.config();
@@ -51,7 +51,7 @@ export const insertHasuraData = async (
       },
       body: JSON.stringify({ query }),
     });
-    const response: HasuraMutationResp | HasuraErrors = await request.json();
+    const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
@@ -94,7 +94,7 @@ export const updateHasuraData = async (
       },
       body: JSON.stringify({ query }),
     });
-    const response: HasuraMutationResp | HasuraErrors = await request.json();
+    const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
@@ -184,13 +184,13 @@ export const queryHasuraBackup = async () => {
       },
       body: JSON.stringify({ query }),
     });
-    const response: HasuraBackupQueryResp | HasuraErrors = await request.json();
+    const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraBackup) ${list}: \n ${errors
+        `(queryHasuraBackup): \n ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')} \n ${query}`
       );
@@ -198,7 +198,7 @@ export const queryHasuraBackup = async () => {
 
     return (response as HasuraBackupQueryResp).data;
   } catch (error) {
-    throw new Error(`(queryHasuraBackup) - ${list}: \n ${error}`);
+    throw new Error(`(queryHasuraBackup): \n ${error}`);
   }
 };
 
@@ -272,13 +272,13 @@ export const queryHasuraBookmarks = async () => {
       },
       body: JSON.stringify({ query }),
     });
-    const response: HasuraBKQueryResp | HasuraErrors = await request.json();
+    const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraBookmarks) ${list}: \n ${errors
+        `(queryHasuraBookmarks): \n ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')} \n ${query}`
       );
@@ -286,7 +286,7 @@ export const queryHasuraBookmarks = async () => {
 
     return (response as HasuraBKQueryResp).data;
   } catch (error) {
-    throw new Error(`(queryHasuraBookmarks) - ${list}: \n ${error}`);
+    throw new Error(`(queryHasuraBookmarks): \n ${error}`);
   }
 };
 
@@ -311,13 +311,13 @@ export const queryHasuraStackExchange = async () => {
       },
       body: JSON.stringify({ query }),
     });
-    const response: HasuraSEQueryResp | HasuraErrors = await request.json();
+    const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraStackExchange) ${list}: \n ${errors
+        `(queryHasuraStackExchange): \n ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')} \n ${query}`
       );
@@ -325,7 +325,7 @@ export const queryHasuraStackExchange = async () => {
 
     return (response as HasuraSEQueryResp).data.development_stack_exchange;
   } catch (error) {
-    throw new Error(`(queryHasuraStackExchange) - ${list}: \n ${error}`);
+    throw new Error(`(queryHasuraStackExchange): \n ${error}`);
   }
 };
 
@@ -349,13 +349,13 @@ export const queryHasuraTweets = async () => {
       },
       body: JSON.stringify({ query }),
     });
-    const response: HasuraTWQueryResp | HasuraErrors = await request.json();
+    const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraTweets) ${list}: \n ${errors
+        `(queryHasuraTweets): \n ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')} \n ${query}`
       );
@@ -369,6 +369,6 @@ export const queryHasuraTweets = async () => {
 
     return tweetsWithId;
   } catch (error) {
-    throw new Error(`(queryHasuraTweets) - ${list}: \n ${error}`);
+    throw new Error(`(queryHasuraTweets): \n ${error}`);
   }
 };
