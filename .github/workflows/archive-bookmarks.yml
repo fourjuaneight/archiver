@@ -45,6 +45,9 @@ jobs:
           B2_BUCKET_ID: ${{secrets.B2_BUCKET_ID}}
           B2_BUCKET_NAME: ${{secrets.B2_BUCKET_NAME}}
 
+      - name: Compile dead link check script
+        run: npm run build:bookmarks-link-rot
+
       - name: Run dead link check script
         run: npm run bookmarks-link-rot
         env:
