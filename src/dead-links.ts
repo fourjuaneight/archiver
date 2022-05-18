@@ -5,6 +5,8 @@ import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
 
 import { Fields } from './models/archive';
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
 // check for dead links
 const deadLinks = async (url: string): Promise<boolean> => {
   try {
