@@ -2,6 +2,7 @@ import chalk from 'chalk';
 
 import { addFiletoRecord } from './helpers/addFiletoRecord';
 import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
+import { toCapitalized } from './util/toCapitalized';
 
 import { Fields } from './models/archive';
 
@@ -16,7 +17,7 @@ import { Fields } from './models/archive';
  */
 const archiveRecord = async (list: string, fields: Fields[]): Promise<void> => {
   for (const field of fields) {
-    const { archive, id } = await addFiletoRecord(list, field);
+    const { archive, id } = await addFiletoRecord(toCapitalized(list), field);
     const data = { archive: archive as string };
     const redordId = id as string;
 
