@@ -1,0 +1,33 @@
+name: Check for broken links
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+
+jobs:
+  dead-links:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Use Node 16.15.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.15.0
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile script
+        run: npm run build:bookmarks-link-rot
+
+      - name: Run script
+        run: npm run bookmarks-link-rot
+        env:
+          CI: true
+          HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
+          HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}

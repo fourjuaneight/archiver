@@ -1,6 +1,7 @@
 # Archiver
 
 ![bookmarks](https://github.com/fourjuaneight/archiver/actions/workflows/archive-bookmarks.yml/badge.svg)<br/>
+![dead-links](https://github.com/fourjuaneight/archiver/actions/workflows/check-links.yml/badge.svg)<br/>
 ![github-stars](https://github.com/fourjuaneight/archiver/actions/workflows/archive-starred-repos.yml/badge.svg)<br/>
 ![stackexchange](https://github.com/fourjuaneight/archiver/actions/workflows/archive-stackexchange.yml/badge.svg)<br/>
 ![tweets](https://github.com/fourjuaneight/archiver/actions/workflows/archive-tweet.yml/badge.svg)<br/>
