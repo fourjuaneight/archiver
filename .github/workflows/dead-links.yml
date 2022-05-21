@@ -2,7 +2,7 @@ name: Check for broken links
 
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 0 * * MON"
 
 jobs:
   dead-links:
