@@ -28,7 +28,7 @@ const getBookmarkTags = async (): Promise<string[]> => {
       },
       body: JSON.stringify({
         key: `${BOOKMARKS_API_KEY}`,
-        table: 'Tags',
+        type: 'Tags',
         tagList: 'stackexchange',
       }),
     });
