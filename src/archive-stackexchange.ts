@@ -25,9 +25,9 @@ const getBookmarkTags = async (): Promise<string[]> => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Key: `${BOOKMARKS_API_KEY}`,
       },
       body: JSON.stringify({
-        key: `${BOOKMARKS_API_KEY}`,
         type: 'Tags',
         tagList: 'stackexchange',
       }),
