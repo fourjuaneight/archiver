@@ -55,7 +55,7 @@ const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
         return twitterResponse;
       });
   } catch (error) {
-    throw new Error(`Getting latest tweets: \n ${error}`);
+    throw new Error(`(latestTweets):\n${error}`);
   }
 };
 
@@ -120,6 +120,6 @@ export const latest = async (): Promise<LatestTweetFmt[] | null> => {
 
     return null;
   } catch (error) {
-    throw new Error(`Formatting latest tweets: \n ${error}`);
+    throw new Error(`(latest):\n${error}`);
   }
 };

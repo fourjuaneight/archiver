@@ -27,6 +27,8 @@ export const backupRecords = async (
 
     return backupLink;
   } catch (error) {
-    throw new Error(`Backig up '${table}.json' to B2: \n ${error}`);
+    throw new Error(
+      `(backupRecords) - Backig up '${table}.json' to B2: \n ${error}`
+    );
   }
 };

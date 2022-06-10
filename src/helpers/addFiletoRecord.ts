@@ -49,8 +49,6 @@ export const addFiletoRecord = async (
       archive: publicUlr,
     };
   } catch (error) {
-    throw new Error(
-      `Uploading file for ${list} - ${fields.title}: \n ${error}`
-    );
+    throw new Error(`(addFiletoRecord) ${list} - ${fields.title}:\n${error}`);
   }
 };

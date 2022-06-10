@@ -82,7 +82,7 @@ export const getArticle = async (
 
     return buffer;
   } catch (error) {
-    throw new Error(`Getting article for ${name}: \n ${error}`);
+    throw new Error(`(getArticle) - ${name}:\n${error}`);
   }
 };
 
@@ -103,7 +103,7 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
 
     return Buffer.from(data);
   } catch (error) {
-    throw new Error(`Getting media for ${name}: \n ${error}`);
+    throw new Error(`(getMedia) - ${name}:\n${error}`);
   }
 };
 
@@ -132,7 +132,7 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
 
     return buffer;
   } catch (error) {
-    throw new Error(`Getting video for '${name}': \n ${error}`);
+    throw new Error(`(getYTVid) - '${name}':\n${error}`);
   }
 };
 

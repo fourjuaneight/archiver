@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 import { backupRecords } from './helpers/backupRecords';
 import { queryHasuraBackup } from './helpers/hasuraData';
 
@@ -21,16 +19,20 @@ const backup = async (
   try {
     await backupRecords(list, data);
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), error);
-    process.exit(1);
+    throw new Error(`(backup):\n${error}`);
   }
 };
 
 (async () => {
-  const queryData = await queryHasuraBackup();
-  const operations = Object.keys(queryData).map(list =>
-    backup(list, queryData[list])
-  );
+  try {
+    const queryData = await queryHasuraBackup();
+    const operations = Object.keys(queryData).map(list =>
+      backup(list, queryData[list])
+    );
 
-  await Promise.all(operations);
+    await Promise.all(operations);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
 })();

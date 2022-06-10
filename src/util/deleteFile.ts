@@ -11,7 +11,13 @@ const { unlink } = promises;
  * @returns {void}
  */
 export const deleteFiles = async (files: string[]): Promise<void> => {
-  const delCmds = files.map(fl => unlink(fl));
+  try {
+    const delCmds = files.map(fl => unlink(fl));
 
-  await Promise.all(delCmds);
+    await Promise.all(delCmds);
+
+    return;
+  } catch (error) {
+    throw new Error(`(deleteFiles):\n${error}`);
+  }
 };

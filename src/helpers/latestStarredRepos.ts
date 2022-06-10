@@ -98,7 +98,7 @@ const latestStarredRepos = (
         return githubResponse;
       });
   } catch (error) {
-    throw new Error(`GitHub API: \n ${error}`);
+    throw new Error(`(latestStarredRepos):\n${error}`);
   }
 };
 
@@ -121,6 +121,6 @@ export const latest = async (): Promise<CleanRepo[] | null> => {
 
     return null;
   } catch (error) {
-    throw new Error(`Getting latest GitHub stars: \n ${error}`);
+    throw new Error(`(latest):\n${error}`);
   }
 };

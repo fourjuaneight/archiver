@@ -37,7 +37,7 @@ const getBookmarkTags = async (): Promise<string[]> => {
 
     return tagsArray;
   } catch (error) {
-    throw new Error(`Getting Bookmark tags: \n ${error}`);
+    throw new Error(`(getBookmarkTags):\n${error}`);
   }
 };
 
@@ -89,7 +89,7 @@ const getUserFavQuestions = async (
       };
     });
   } catch (error) {
-    throw new Error(`Getting StackExchange details: \n ${error}`);
+    throw new Error(`(getUserFavQuestions):\n${error}`);
   }
 };
 
@@ -114,7 +114,7 @@ const getUserFavQuestions = async (
       console.info(chalk.yellow('[INFO]'), 'No new questions to upload.');
     }
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), error);
+    console.error(error);
     process.exit(1);
   }
 })();

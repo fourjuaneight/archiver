@@ -18,7 +18,7 @@ import { CleanRepo } from './models/github';
       console.info(chalk.yellow('[INFO]'), 'No new stars to upload.');
     }
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), error);
+    console.error(error);
     process.exit(1);
   }
 })();

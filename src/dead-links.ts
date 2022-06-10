@@ -18,10 +18,7 @@ const deadLinks = async (url: string): Promise<boolean> => {
 
     return false;
   } catch (error) {
-    console.error(
-      chalk.red('[ERROR]'),
-      `Testing dead link for '${url}': \n ${error}`
-    );
+    console.error(chalk.red('[ERROR]'), `(deadLinks) - '${url}':\n${error}`);
 
     return true;
   }
@@ -64,7 +61,7 @@ const updateRecords = async (
       );
     }
   } catch (error) {
-    throw new Error(`Updating Bookmarks for ${category}: \n ${error}`);
+    throw new Error(`(updateRecords) ${category}:\n${error}`);
   }
 };
 
@@ -78,8 +75,10 @@ const updateRecords = async (
     await updateRecords('reddits', records.reddits);
     await updateRecords('tweets', records.tweets);
     await updateRecords('videos', records.videos);
+
+    process.exit(0);
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), error);
+    console.error(error);
     process.exit(1);
   }
 })();

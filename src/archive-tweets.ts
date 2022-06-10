@@ -27,7 +27,7 @@ import { LatestTweetFmt } from './models/twitter';
       console.info(chalk.yellow('[INFO]'), 'No new tweets to upload.');
     }
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), error);
+    console.error(error);
     process.exit(1);
   }
 })();

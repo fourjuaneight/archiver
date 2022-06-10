@@ -59,7 +59,7 @@ const backupRecord = async (
 
     process.exit(0);
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), error);
+    console.error(error);
     process.exit(1);
   }
 })();

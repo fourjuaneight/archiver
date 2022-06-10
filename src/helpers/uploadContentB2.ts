@@ -45,9 +45,7 @@ const authTokens = async (): Promise<B2AuthTokens> => {
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(
-        `Getting B2 authentication keys: \n ${results.status}: ${msg}`
-      );
+      throw new Error(`(authTokens):\n${results.status}: ${msg}`);
     }
 
     const results: B2AuthResp = await response.json();
@@ -60,7 +58,7 @@ const authTokens = async (): Promise<B2AuthTokens> => {
 
     return data;
   } catch (error) {
-    throw new Error(`Getting B2 authentication keys: \n ${error}`);
+    throw new Error(`(authTokens):\n${error}`);
   }
 };
 
@@ -93,7 +91,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens> => {
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(`Getting B2 upload URL: \n ${response.status}: ${msg}`);
+      throw new Error(`(getUploadUrl):\n${response.status}: ${msg}`);
     }
 
     const results: B2UpUrlResp = await response.json();
@@ -106,7 +104,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens> => {
       downloadUrl: authData?.downloadUrl ?? '',
     };
   } catch (error) {
-    throw new Error(`Getting B2 upload URL: \n ${error}`);
+    throw new Error(`(getUploadUrl):\n${error}`);
   }
 };
 
@@ -147,9 +145,7 @@ export const uploadToB2 = async (
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(
-        `Uploading file to B2 - ${name}: \n ${results.status}: ${msg}`
-      );
+      throw new Error(`(uploadToB2) - ${name}:\n${results.status}: ${msg}`);
     }
 
     const results: B2UploadResp = await response.json();
@@ -161,6 +157,6 @@ export const uploadToB2 = async (
 
     return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
-    throw new Error(`Uploading file to B2 - ${name}: \n ${error}`);
+    throw new Error(`(uploadToB2) - ${name}:\n${error}`);
   }
 };

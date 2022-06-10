@@ -19,9 +19,9 @@ export const ytdl = async (url: string, name: string): Promise<void> => {
     );
 
     if (stderr) {
-      throw new Error(`Saving buffer as file: \n ${stderr}`);
+      throw new Error(stderr);
     }
   } catch (error) {
-    throw new Error(`Saving buffer as file: \n ${error}`);
+    throw new Error(`(ytdl):\n${error}`);
   }
 };

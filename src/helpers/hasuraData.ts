@@ -57,13 +57,13 @@ export const insertHasuraData = async (
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(insertHasuraData) ${list}: \n ${errors
+        `(insertHasuraData) ${list}:\n${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')} \n ${query}`
+          .join('\n')}\n${query}`
       );
     }
   } catch (error) {
-    throw new Error(`(insertHasuraData) - ${list}: \n ${error}`);
+    throw new Error(`(insertHasuraData) - ${list}:\n${error}`);
   }
 };
 
@@ -100,13 +100,13 @@ export const updateHasuraData = async (
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(updateHasuraData) ${list}: \n ${errors
+        `(updateHasuraData) ${list}:\n${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')} \n ${query}`
+          .join('\n')}\n${query}`
       );
     }
   } catch (error) {
-    throw new Error(`(updateHasuraData) - ${list}: \n ${error}`);
+    throw new Error(`(updateHasuraData) - ${list}:\n${error}`);
   }
 };
 
@@ -190,15 +190,15 @@ export const queryHasuraBackup = async () => {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraBackup): \n ${errors
+        `(queryHasuraBackup):\n${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')} \n ${query}`
+          .join('\n')}\n${query}`
       );
     }
 
     return (response as HasuraBackupQueryResp).data;
   } catch (error) {
-    throw new Error(`(queryHasuraBackup): \n ${error}`);
+    throw new Error(`(queryHasuraBackup):\n${error}`);
   }
 };
 
@@ -278,15 +278,15 @@ export const queryHasuraBookmarks = async () => {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraBookmarks): \n ${errors
+        `(queryHasuraBookmarks):\n${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')} \n ${query}`
+          .join('\n')}\n${query}`
       );
     }
 
     return (response as HasuraBKQueryResp).data;
   } catch (error) {
-    throw new Error(`(queryHasuraBookmarks): \n ${error}`);
+    throw new Error(`(queryHasuraBookmarks):\n${error}`);
   }
 };
 
@@ -317,15 +317,15 @@ export const queryHasuraStackExchange = async () => {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraStackExchange): \n ${errors
+        `(queryHasuraStackExchange):\n${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')} \n ${query}`
+          .join('\n')}\n${query}`
       );
     }
 
     return (response as HasuraSEQueryResp).data.development_stack_exchange;
   } catch (error) {
-    throw new Error(`(queryHasuraStackExchange): \n ${error}`);
+    throw new Error(`(queryHasuraStackExchange):\n${error}`);
   }
 };
 
@@ -355,9 +355,9 @@ export const queryHasuraTweets = async () => {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `(queryHasuraTweets): \n ${errors
+        `(queryHasuraTweets):\n${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')} \n ${query}`
+          .join('\n')}\n${query}`
       );
     }
 
@@ -369,6 +369,6 @@ export const queryHasuraTweets = async () => {
 
     return tweetsWithId;
   } catch (error) {
-    throw new Error(`(queryHasuraTweets): \n ${error}`);
+    throw new Error(`(queryHasuraTweets):\n${error}`);
   }
 };
