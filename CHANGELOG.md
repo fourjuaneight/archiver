@@ -1,0 +1,286 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [1.0.1] - 2022-06-15
+
+### Bug Fixes
+
+- Add branch name to commit saving step in action.
+
+## [1.0.0] - 2022-06-15
+
+### Bug Fixes
+
+- Update buffer methods.
+- Convert getMedia blob to arrayBuffer before converting to buffer.
+- Add error return to upload methods.
+- Webpack config optimizations.
+- Types and blob to buffer conversion.
+- Update Webpack config for cleaner output.
+- Add exports to Airtable methods.
+- Add proper record nesting.
+- Use archived records list for updating method instead or pre-archive list.
+- Add missing async.
+- Move try/catch inside async for-loops.
+- Remove redundant typings from Airtable response.
+- Improve file uploading method.
+- Update records update method to take a single record.
+- Update error thwos to be a single param.
+- Minor error syntax fixes.
+- Add filetype to B2 upload.
+- Remove date for records to be updated.
+- Update filename formatting.
+- Minor syntax fix.
+- Update ESLint config with new Prettier settings.
+- Minor linting fixes.
+- Change for..of loops with async forEach.
+- Change promise based for..of loops with async forEach.
+- Bring back await inside for..of loops for sequential iteration.
+- Add correct buffer conversion for fetch.
+- Change Articles file type from HTML to MD.
+- Update comic retrival method to get image directly instead.
+- Add virtualConsole settings to circumvent CSS errors when archving Articles.
+- Change Comics type to png.
+- Replace record title from bookmark update method info log.
+- Update typings to correct path.
+- Update format/lint script to include subfolders.
+- Update Airtable script with correct name.
+- Add missing dependency and wrap loops in function.
+- Remove archive link omission from bookmarks.
+- Add correct log message.
+- Stringify data before converting to buffer.
+- Add missing env vars in Actions.
+- Add missing dependency.
+- Add filename to file mux and add missing dependencies.
+- Update file paths to use root and prevent errors on read.
+- Added date-fns for date formatting.
+- Update GH token to not clash with Actions.
+- Make primaryLanguage nullable.
+- Add Airtable uploads improved error handling.
+- Change repo language fallback to MD.
+- Move fetch options within trycatch to await auth data.
+- Vulnerability fixes.
+- Remove emojis from Bookmark names.
+- Add breakpoints on Action badges.
+- Remove sneaking and unnecessary eslint config breaking linter.
+- Further filename formatting optimizations.
+- Minor typing syntax corrections.
+- Add missing bookmarks archiving dependency.
+- Move dependency install to it's own step.
+- Omit tweets for bookmarks archiving.
+- Add missing env secret to action.
+- Minor syntax corrections.
+- [**breaking**] Add data update mutation method and add it to scripts that update data.
+- Typing and variable updates.
+- Allow fetch to request insecure pages to prevent getting stuck.
+- Capitalize list name (B2 folder) before uploading bookmarks archive file.
+- Update bookmarks payload.
+
+### Features
+
+- Add article and comic content extraction.
+- Update article retrival to return buffer instead of a string.
+- Add S3 uploading method.
+- Add upload to B2 methods.
+- Add get YT video method.
+- Add public url return to B2 upload method.
+- Convert modules to ESM.
+- Add formatter and linter setup.
+- Add TypeScript config.
+- Update script to TypeScript.
+- Add worker handler with main functionality.
+- Add Cloudflare Wrangler config.
+- Add Webpack config.
+- Remove CF Worker config.
+- Add Airtable retrival and updating methods.
+- Add archiving method.
+- Update record updater to chunk and filter records.
+- Add loop over records list on file archiving method.
+- Add script to run full archiving and updating process.
+- Improve error handling.
+- Add helper method to return all Airtable records.
+- Abstract main archiver method.
+- Add color coded logging.
+- Add special character normalization in filename formatter.
+- Move utility methods to separate component for easier management.
+- Add dynamic Comics filetype detection.
+- Update info logs to working where relevant and change color to cyan.
+- Add GH Action to run archiving daily.
+- Add GH Action badge to README.
+- Add Twitter archving and Airtable backup scripts typings.
+- Add Twitter archiving helper methods.
+- Add tweet retrival and formatting methods.
+- Add tweets upload to Airtable method.
+- Add Airtable backup to B2 method.
+- Add tweets archive script.
+- Add Airtable backup script.
+- Add Airtable backup GH Action.
+- Add tweets archiving GH Action.
+- Add process exit to scripts so Actions fail on error.
+- Update Bookmarks Action to run evrey 2 hours.
+- Update Airtable Action to run at 5:30 every day.
+- Update Airtable backup to run all backups in parallel.
+- Update Tweets archive to run all backups in parallel.
+- Update Bookmarks archive to run all backups in parallel.
+- Add date to table backup name.
+- Improve YT video saving.
+- Cleanup YT video helper.
+- Update video mux helper with WASM ffmpeg binary.
+- Add ffmpeg exit method after op completes.
+- Add data GraphQL schema files.
+- Add GitHub stars fetch helper.
+- Add starred repos to Airtable upload helper.
+- Add GH starred repos archiver script.
+- Add GH script build scripts and Action.
+- Filter any GH stars older than the last 6 hours.
+- Update actions to use new Node setup.
+- Add Docker config for containerized run.
+- Add webp support to image archiving.
+- Add custom Codespace config.
+- Add StackExchange table to archive script.
+- Update Codespace image.
+- Add reddit bookmarks archiving.
+- Update Airtable backup to use versioned files.
+- Remove media when archiving articles.
+- Add StackExchange archive script.
+- Update tweet archiving by comparing new with archived.
+- Add Feed base to Airtable backup.
+- Migrate to yt-dlp bin for better YT video archiving.
+- Add bookmarks dead link check and update script.
+- Only update records with found dead links.
+- Add Airtable to Hasura migration util script.
+- Add Airtable Shelf to B2 to Hasura migrator util script.
+- [**breaking**] Update tweets archive with Hasura data.
+- [**breaking**] Update bookmarks archiving to use Hasura data.
+- [**breaking**] Update bookmarks archive with Hasura data.
+- [**breaking**] Update airtable backup to Hasura backup.
+- [**breaking**] Update github repos archive with Hasura data.
+- [**breaking**] Stackexchange archive with Hasura data.
+- Compile link rot script before runnning.
+- Move dead link check to separate workflow.
+
+### Miscellaneous Tasks
+
+- Update Reame.
+- Install dependencies.
+- Update image method to work for general media.
+- Rename upload script to be dest specific and add content link to response.
+- Add author to B2 upload request.
+- Add Node version.
+- Minor syntax updates.
+- Update ignore file with worker output directories.
+- Minor README update.
+- Add worker name to wrangler config.
+- Minor TS config updates.
+- Add cli bundling options.
+- Update README with new behavior.
+- Add error throw to B2 uploader.
+- Minor syntax fixes.
+- Better comments.
+- Update index to addFiletoRecord module.
+- Move bookmark updating filter outside method.
+- Remove tweets from bookmarks querying.
+- Minor syntax fixes.
+- Improve logging.
+- Ignore test files.
+- Minor error logging syntax updates.
+- Minor filename formatter optimizations.
+- Minor syntax fixes.
+- Minor filename formatter updates.
+- Rename sript to archiver.
+- Minor syntax fixes.
+- Migrate to isomorphic-fetch for better compatibility.
+- Add missing fetch typings.
+- Update B2 uploader client name.
+- Minor organizational updates.
+- Rename main script to archive. Because.
+- Update dir structure to make way for future scripts.
+- Minor syntax fixes.
+- Minor syntax updates.
+- Minor syntax fix.
+- Rename archive script for better distinction.
+- Minor syntax fixes and optimizations.
+- Update README with new functionality.
+- Add meta info to README.
+- Error handling optimizations.
+- Update Action badges on README.
+- Remove "working" logs.
+- Temporarily disable Bookmarks action.
+- Add wasm flag to Bookmarks script.
+- Remove ffmpeg step from Bookmarks Action.
+- Add process exit to Bookmarks script.
+- Update dependencies.
+- Re-enable Bookmarks Action.
+- Update to v1.1.0.
+- Update ffmpeg version.
+- Update ytdl dependency.
+- Minor comments optimizations.
+- Add description and make language singular for GH type.
+- Change GH name type to repository.
+- Change GH creator type to owner.
+- Change formatted repo type name.
+- Rename GH scripts to better match functionality.
+- Add GH starred repos archive Action badge.
+- Minor syntax optimizations.
+- Add Airtable development base for repos and SO favs.
+- Update ignore file.
+- Switch to named imports.
+- Update Node to v16.4.2.
+- Update Actions Node to v16.4.2.
+- Update dependencies.
+- Add more filename formatting cases.
+- Update dependencies.
+- Update dependencies.
+- Update filename cleanup util.
+- Update filename cleanup util with special characters.
+- Update dependencies.
+- Update dependencies.
+- Add new Media base to Airtable backup.
+- Minor typing update.
+- Update dependencies.
+- Update author name.
+- Revert author name change.
+- Improve bookmarks filtering before backup.
+- Further content cleanup.
+- Further article rendering optimizations.
+- Add more page specific content filter to article archiver.
+- Add StackExchange archive action.
+- Minor syntax cleanup.
+- Minor syntax adjustments.
+- Update Node to latest v16 LTS.
+- Minor config updates.
+- Update action to run on push for debugging.
+- Remove debug action.
+- Minor syntax updates.
+- Add bookmarks dead link check script to CI pipeline.
+- Minor optimizations.
+- Update bookmarks typings.
+- Update Airtable schema.
+- Add git cliff config for generating changelog.
+- Minor typing updates.
+- [**breaking**] Remove deprecated typings, scripts, and dependencies.
+- Update project description.
+- Remove dead link script from bookmarks workflow.
+- Rename dead link script.
+- Update workflows to latest Ubuntu LTS version.
+- [**breaking**] Change dead link workflow to run every Monday.
+- Minor syntax fix.
+- Move bookmarks api request auth key to headers.
+- Better error handling.
+- Add changelog generation action.
+
+### Debug
+
+- Run backup script on push and log base url.
+
+### Hotfix
+
+- Install ffmpeg as a global dependency on Bookmarks Action.
+- Install ffmpeg locally and not globally.
+- Update ffmpeg corePath.
+- Correct createFFmpeg option param syntax.
+- Remove ffmpeg exit method.
+- Remove ffmpeg path.
+
+<!-- generated by git-cliff -->
