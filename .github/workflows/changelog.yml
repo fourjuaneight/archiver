@@ -1,0 +1,26 @@
+name: Changelog
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  worker:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Set up git-cliff
+        uses: kenji-miyake/setup-git-cliff@v1
+
+      - name: Generate Changelog
+        run: git cliff -v -o CHANGELOG.md -c cliff.toml
+
+      - name: Update Changelog
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'chore: Update Changelog.'
