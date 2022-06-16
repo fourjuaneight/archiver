@@ -16,7 +16,7 @@ import {
 dotenv.config();
 
 const { BOOKMARKS_API_KEY, STACKEXCHANGE_USER_ID } = process.env;
-const sites = ['askubuntu', 'serverfault', 'stackoverflow', 'superuser'];
+const sites = ['askubuntu', 'dba', 'serverfault', 'stackoverflow', 'superuser'];
 
 // get tags from Bookmarks API
 const getBookmarkTags = async (): Promise<string[]> => {
@@ -78,12 +78,16 @@ const getUserFavQuestions = async (
     return response.items.map(item => {
       const title = decodeHtmlCharCodes(item.title).replace(/&quot;/g, '"');
       const tags = item.tags.filter(tag => bkTags.find(bkTag => bkTag === tag));
+      const siteUrl =
+        siteName === 'dba'
+          ? `https://${siteName}.stackexchange.com`
+          : `https://${siteName}.com`;
 
       return {
         title,
-        question: `https://${siteName}.com/q/${item.question_id}`,
+        question: `${siteUrl}/q/${item.question_id}`,
         answer: item.is_answered
-          ? `https://${siteName}.com/a/${item.accepted_answer_id}`
+          ? `${siteUrl}/a/${item.accepted_answer_id}`
           : '',
         tags,
       };
