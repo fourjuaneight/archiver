@@ -17,10 +17,25 @@ export const addFiletoRecord = async (
   list: string,
   fields: Fields
 ): Promise<Fields> => {
-  const dataUrl = list === 'Reddits' ? (fields.content as string) : fields.url;
+  const isReddit = list === 'Reddits';
+  const dataUrl = isReddit ? (fields.content as string) : fields.url;
   const imgMatch = new RegExp(/^.*(png|jpg|jpeg|webp|gif)$/, 'ig');
-  const imgType = dataUrl.replace(imgMatch, '$1');
+  const vidMatch = new RegExp(/^.*(mp4|mov)$/, 'ig');
   const isImg = dataUrl.match(imgMatch);
+  const isVid = dataUrl.match(vidMatch);
+  let mediaType: string | null = null;
+
+  // find media type
+  switch (true) {
+    case Boolean(isImg):
+      mediaType = dataUrl.replace(imgMatch, '$1');
+      break;
+    case Boolean(isVid):
+      mediaType = dataUrl.replace(vidMatch, '$1');
+      break;
+    default:
+      break;
+  }
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   const type: string = list.toLowerCase();
@@ -29,13 +44,20 @@ export const addFiletoRecord = async (
     comics: { file: imgType, mime: `image/${imgType}` },
     podcasts: { file: 'mp3', mime: 'audio/mpeg' },
     reddits: {
-      file: isImg ? imgType : 'mp4',
-      mime: isImg ? `image/${imgType}` : 'video/mp4',
+      file: mediaType,
+      mime: `${isImg ? 'image' : 'video'}/${mediaType}`,
     },
     videos: { file: 'mp4', mime: 'video/mp4' },
   };
 
   try {
+    if (isReddit && !mediaType) {
+      return {
+        ...fields,
+        archive: '',
+      };
+    }
+
     const fileName = fileNameFmt(fields.title);
     const data = await getContent(fields.title, dataUrl, type);
     const publicUlr = await uploadToB2(
