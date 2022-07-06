@@ -17,6 +17,7 @@ export const addFiletoRecord = async (
   list: string,
   fields: Fields
 ): Promise<Fields> => {
+  const type: string = list.toLowerCase();
   const isReddit = list === 'Reddits';
   const dataUrl = isReddit ? (fields.content as string) : fields.url;
   const imgMatch = new RegExp(/^.*(png|jpg|jpeg|webp|gif)$/, 'ig');
@@ -38,10 +39,9 @@ export const addFiletoRecord = async (
   }
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
-  const type: string = list.toLowerCase();
   const fileType: FileTypes = {
     articles: { file: 'md', mime: 'text/markdown' },
-    comics: { file: imgType, mime: `image/${imgType}` },
+    comics: { file: mediaType, mime: `image/${mediaType}` },
     podcasts: { file: 'mp3', mime: 'audio/mpeg' },
     reddits: {
       file: mediaType,
