@@ -14,13 +14,32 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Use Node 16.15.0
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.15.0
-          cache: npm
+
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Install ffmpeg
         uses: FedericoCarboni/setup-ffmpeg@v1
@@ -32,10 +51,10 @@ jobs:
           chmod a+rx /usr/local/bin/yt-dlp
 
       - name: Compile archive script
-        run: npm run build:archive:bookmarks
+        run: pnpm build:archive:bookmarks
 
       - name: Run archive script
-        run: npm run archive:bookmarks
+        run: pnpm archive:bookmarks
         env:
           CI: true
           HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
