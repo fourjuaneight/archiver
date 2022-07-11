@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { latest } from './helpers/latestTweets';
+import { latest } from './helpers/twitterData';
 import { insertHasuraData, queryHasuraTweets } from './helpers/hasuraData';
 
 import { LatestTweetFmt } from './models/twitter';
