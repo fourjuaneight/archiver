@@ -6,11 +6,13 @@
     "archive:bookmarks": "node --experimental-wasm-threads dist/archive-bookmarks.js",
     "archive:stackexchange": "node dist/archive-stackexchange.js",
     "archive:starred-repos": "node dist/archive-github-stars.js",
+    "archive:twitter-lists": "node dist/archive-twitter-lists.js",
     "archive:tweets": "node dist/archive-tweets.js",
     "backup:hasura": "node dist/backup-hasura.js",
     "build:archive:bookmarks": "tsup src/archive-bookmarks.ts --env.NODE_ENV production --minify",
     "build:archive:stackexchange": "tsup src/archive-stackexchange.ts --env.NODE_ENV production --minify",
     "build:archive:starred-repos": "tsup src/archive-github-stars.ts --env.NODE_ENV production --minify",
+    "build:archive:twitter-lists": "tsup src/archive-twitter-lists.ts --env.NODE_ENV production --minify",
     "build:archive:tweets": "tsup src/archive-tweets.ts --env.NODE_ENV production --minify",
     "build:backup:hasura": "tsup src/backup-hasura.ts --env.NODE_ENV production --minify",
     "build:dead-links": "tsup src/dead-links.ts --env.NODE_ENV production --minify",
@@ -18,8 +20,7 @@
     "clean:node": "rm -rf node_modules",
     "dead-links": "node dist/dead-links.js",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "eslint --fix \"src/**/*.ts\"",
-    "test": "ts-node src/dead-links.ts"
+    "lint": "eslint --fix \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "dotenv": "^8.2.0",
     "isomorphic-fetch": "^3.0.0",
     "jsdom": "^16.5.2",
+    "snoowrap": "^1.23.0",
     "turndown": "^7.0.0",
     "uuid": "^3.3.2",
     "waait": "^1.0.5"
