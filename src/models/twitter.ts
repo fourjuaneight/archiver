@@ -21,6 +21,37 @@ export interface LatestTweetFmt {
   url: string;
 }
 
+export interface TwitterList {
+  id: string;
+  name: string;
+}
+
+export interface TwitterUser {
+  id?: string;
+  name: string;
+  username: string;
+  description: string | null;
+}
+
+export interface TwitterFeed extends TwitterUser {
+  list: string;
+  url: string;
+}
+
+export interface TwitterListResp {
+  data: TwitterList[];
+  meta: {
+    result_count: number;
+  };
+}
+
+export interface TwitterUserResp {
+  data: TwitterUser[];
+  meta: {
+    result_count: number;
+  };
+}
+
 export interface Fields {
   id?: string;
   tweet: string;
@@ -31,5 +62,11 @@ export interface Fields {
 export interface HasuraTWQueryResp {
   data: {
     media_tweets: Fields[];
+  };
+}
+
+export interface HasuraTWFeedQueryResp {
+  data: {
+    feeds_twitter: TwitterFeed[];
   };
 }

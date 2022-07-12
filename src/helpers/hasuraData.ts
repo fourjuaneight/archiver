@@ -1,7 +1,11 @@
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import { Fields, HasuraTWQueryResp } from '../models/twitter';
+import {
+  Fields,
+  HasuraTWFeedQueryResp,
+  HasuraTWQueryResp,
+} from '../models/twitter';
 import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
 import { HasuraErrors } from '../models/hasura';
 import { HasuraSEQueryResp } from '../models/stackexchange';
@@ -370,5 +374,47 @@ export const queryHasuraTweets = async () => {
     return tweetsWithId;
   } catch (error) {
     throw new Error(`(queryHasuraTweets):\n${error}`);
+  }
+};
+
+export const queryHasuraTwitterFeed = async () => {
+  const query = `
+    {
+      feeds_twitter(order_by: {name: asc}) {
+        name
+        username
+        description
+        list
+        url
+      }
+    }
+  `;
+
+  try {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+    const response = await request.json();
+
+    if (response.errors) {
+      const { errors } = response as HasuraErrors;
+
+      throw new Error(
+        `(queryHasuraTwitterFeed):\n${errors
+          .map(err => `${err.extensions.path}: ${err.message}`)
+          .join('\n')}\n${query}`
+      );
+    }
+
+    const feed = (response as HasuraTWFeedQueryResp).data.feeds_twitter;
+
+    return feed;
+  } catch (error) {
+    throw new Error(`(queryHasuraTwitterFeed):\n${error}`);
   }
 };
