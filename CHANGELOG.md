@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2022-07-12
+
+### Bug Fixes
+
+- [Add better typing to array diff and missing key to follows diff check.](https://github.com/fourjuaneight/archiver/commit/36503f8957ee835cd57db048cc5183252360f996)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/9e95cb678c41294a8c3821c1246e0bee1edea50e)
+
 ## [1.2.0] - 2022-07-12
 
 ### Bug Fixes
