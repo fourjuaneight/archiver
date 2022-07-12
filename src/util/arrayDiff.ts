@@ -8,5 +8,5 @@
  *
  * @returns {array}  diff between two arrays
  */
-export const arrayDiff = (arr1: any[], arr2: any[], key: string): any[] =>
+export const arrayDiff = <Arr>(arr1: Arr[], arr2: Arr[], key: string): Arr[] =>
   arr1.filter(item1 => !arr2.some(item2 => item1[key] === item2[key]));

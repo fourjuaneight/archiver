@@ -222,7 +222,11 @@ export const feed = async (): Promise<TwitterFeed[]> => {
     const lists = await twitterLists();
     const members = await Promise.all(lists.map(list => listMembers(list)));
     const allMembersFlat = members.flat();
-    const memberDiff = arrayDiff(following, allMembersFlat) as TwitterFeed[];
+    const memberDiff = arrayDiff(
+      following,
+      allMembersFlat,
+      'username'
+    ) as TwitterFeed[];
 
     if (memberDiff.length) {
       console.info(
