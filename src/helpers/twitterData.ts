@@ -2,12 +2,17 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
+import { arrayDiff } from '../util/arrayDiff';
 import { emojiUnicode } from '../util/emojiUnicode';
 import { expandShortLink } from './expandShortLink';
 
 import {
   LatestTweet,
   LatestTweetFmt,
+  TwitterFeed,
+  TwitterList,
+  TwitterUserResp,
+  TwitterListResp,
   TwitterResponse,
 } from '../models/twitter';
 
@@ -15,6 +20,112 @@ dotenv.config();
 
 let tweets: LatestTweet[] = [];
 const { TWEET_TOKEN, TWEET_USER_ID } = process.env;
+
+/**
+ * Get user lists.
+ * Docs: https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
+ * @function
+ * @async
+ *
+ * @return {TwitterList[]}
+ */
+const twitterLists = async (): Promise<TwitterList[]> => {
+  try {
+    const request = await fetch(
+      `https://api.twitter.com/2/users/${TWEET_USER_ID}/owned_lists`,
+      {
+        headers: {
+          Authorization: `Bearer ${TWEET_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { data }: TwitterListResp = await request.json();
+
+    if (data.length === 0) {
+      throw new Error('No lists found.');
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(`(twitterLists):\n${error}`);
+  }
+};
+
+/**
+ * Get list members.
+ * Docs: https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
+ * @function
+ * @async
+ *
+ * @param {TwitterList} listID
+ * @return {TwitterFeed[]}
+ */
+const listMembers = async (list: TwitterList): Promise<TwitterFeed[]> => {
+  try {
+    const request = await fetch(
+      `https://api.twitter.com/2/lists/${list.id}/members?user.fields=name,username,description`,
+      {
+        headers: {
+          Authorization: `Bearer ${TWEET_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { data }: TwitterUserResp = await request.json();
+
+    if (data.length === 0) {
+      throw new Error('No list members found.');
+    }
+
+    return data.map<TwitterFeed>(user => ({
+      ...user,
+      description: user.description || null,
+      username: `@${user.username}`,
+      list: list.name,
+      url: `https://twitter.com/${user.username}`,
+    }));
+  } catch (error) {
+    throw new Error(`(listMembers):\n${error}`);
+  }
+};
+
+/**
+ * Get user follows.
+ * Docs: https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
+ * @function
+ * @async
+ *
+ * @return {TwitterFeed[]}
+ */
+const userFollows = async (): Promise<TwitterFeed[]> => {
+  try {
+    const request = await fetch(
+      `https://api.twitter.com/2/users/${TWEET_USER_ID}/following?user.fields=name,username,description`,
+      {
+        headers: {
+          Authorization: `Bearer ${TWEET_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const { data }: TwitterUserResp = await request.json();
+
+    if (data.length === 0) {
+      throw new Error('No list members found.');
+    }
+
+    return data.map<TwitterFeed>(user => ({
+      ...user,
+      description: user.description || null,
+      username: `@${user.username}`,
+      list: '',
+      url: `https://twitter.com/${user.username}`,
+    }));
+  } catch (error) {
+    throw new Error(`(userFollows):\n${error}`);
+  }
+};
 
 /**
  * Get the lastest Tweets from the last 24 hours.
@@ -99,6 +210,39 @@ const expandTweets = (
 };
 
 /**
+ * Get latest user list members from Twitter API, formatted.
+ * @function
+ * @async
+ *
+ * @return {TwitterFeed[]}
+ */
+export const feed = async (): Promise<TwitterFeed[]> => {
+  try {
+    const following = await userFollows();
+    const lists = await twitterLists();
+    const members = await Promise.all(lists.map(list => listMembers(list)));
+    const allMembersFlat = members.flat();
+    const memberDiff = arrayDiff(following, allMembersFlat) as TwitterFeed[];
+
+    if (memberDiff.length) {
+      console.info(
+        `${memberDiff.length} users found not in lists.`,
+        memberDiff
+      );
+    }
+
+    return allMembersFlat.map<TwitterFeed>(user => {
+      // removes id prop
+      const { id, ...rest } = user;
+
+      return rest;
+    });
+  } catch (error) {
+    throw new Error(`(twitterData - feed):\n${error}`);
+  }
+};
+
+/**
  * Get latest tweets from Twitter API, formatted.
  * @function
  * @async
@@ -120,6 +264,6 @@ export const latest = async (): Promise<LatestTweetFmt[] | null> => {
 
     return null;
   } catch (error) {
-    throw new Error(`(latest):\n${error}`);
+    throw new Error(`(twitterData - latest):\n${error}`);
   }
 };
