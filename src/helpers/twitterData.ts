@@ -42,7 +42,7 @@ const twitterLists = async (): Promise<TwitterList[]> => {
     );
     const { data }: TwitterListResp = await request.json();
 
-    if (data.length === 0) {
+    if (data?.length === 0) {
       throw new Error('No lists found.');
     }
 
@@ -74,7 +74,7 @@ const listMembers = async (list: TwitterList): Promise<TwitterFeed[]> => {
     );
     const { data }: TwitterUserResp = await request.json();
 
-    if (data.length === 0) {
+    if (data?.length === 0) {
       throw new Error('No list members found.');
     }
 
@@ -111,7 +111,7 @@ const userFollows = async (): Promise<TwitterFeed[]> => {
     );
     const { data }: TwitterUserResp = await request.json();
 
-    if (data.length === 0) {
+    if (data?.length === 0) {
       throw new Error('No list members found.');
     }
 
@@ -259,7 +259,7 @@ export const latest = async (): Promise<LatestTweetFmt[] | null> => {
 
     console.info(chalk.green('[SUCCESS]'), 'Latest tweets retrieved.');
 
-    if (tweets.length > 0) {
+    if (tweets?.length > 0) {
       const lastFmt: LatestTweetFmt[] = await formatTweets(tweets);
       const lastExp: LatestTweetFmt[] = await expandTweets(lastFmt);
 
