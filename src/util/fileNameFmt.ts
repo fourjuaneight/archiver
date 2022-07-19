@@ -25,7 +25,7 @@ export const fileNameFmt = (name: string): string => {
     .replace(/\s——\s/g, '-')
     .replace(/…\s/g, '_')
     .replace(/[-|\\]+/g, '-')
-    .replace(/\s&\s/g, 'and')
+    .replace(/\s&\s/g, '_and_')
     .replace(/&/g, 'n')
     .replace(/[!@#$%^*()+=[\]{};'’:"”“,.<>/?]+/g, '')
     .replace(/\s/g, '_')
