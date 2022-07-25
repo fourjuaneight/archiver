@@ -13,10 +13,10 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Use Node 16.15.0
+      - name: Use Node 16.15.1
         uses: actions/setup-node@v3
         with:
-          node-version: 16.15.0
+          node-version: 16.15.1
 
       - uses: pnpm/action-setup@v2.0.1
         name: Install pnpm
@@ -41,6 +41,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Check syntax
+        run: npm run format && npm run lint
+
       - name: Install ffmpeg
         uses: FedericoCarboni/setup-ffmpeg@v1
         id: setup-ffmpeg
@@ -51,10 +54,10 @@ jobs:
           chmod a+rx /usr/local/bin/yt-dlp
 
       - name: Compile archive script
-        run: pnpm build:archive:bookmarks
+        run: npm run build:archive:bookmarks
 
       - name: Run archive script
-        run: pnpm archive:bookmarks
+        run: npm run archive:bookmarks
         env:
           CI: true
           HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}

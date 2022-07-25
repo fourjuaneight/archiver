@@ -13,10 +13,10 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Use Node 16.15.0
+      - name: Use Node 16.15.1
         uses: actions/setup-node@v3
         with:
-          node-version: 16.15.0
+          node-version: 16.15.1
 
       - uses: pnpm/action-setup@v2.0.1
         name: Install pnpm
@@ -41,11 +41,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Check syntax
+        run: npm run format && npm run lint
+
       - name: Compile
-        run: pnpm build:archive:tweets
+        run: npm run build:archive:tweets
 
       - name: Run
-        run: pnpm archive:tweets
+        run: npm run archive:tweets
         env:
           HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
           HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
