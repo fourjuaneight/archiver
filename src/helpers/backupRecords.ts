@@ -1,6 +1,6 @@
 import { uploadToB2 } from './uploadContentB2';
 
-import { Fields, Shelf } from '../models/archive';
+import { BackupData } from '../models/archive';
 
 /**
  * Saves Hasura record response to a local JSON file.
@@ -8,12 +8,12 @@ import { Fields, Shelf } from '../models/archive';
  * @async
  *
  * @param {string} list database list
- * @param {Fields[] | Shelf[]} records record object
+ * @param {BackupData} records record object
  * @return {string} B2 backup link
  */
 export const backupRecords = async (
   list: string,
-  records: Fields[] | Shelf[]
+  records: BackupData
 ): Promise<string> => {
   const table: string = list.toLowerCase();
 

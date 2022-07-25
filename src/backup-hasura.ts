@@ -1,7 +1,7 @@
 import { backupRecords } from './helpers/backupRecords';
 import { queryHasuraBackup } from './helpers/hasuraData';
 
-import { Fields, Shelf } from './models/archive';
+import { BackupData } from './models/archive';
 
 /**
  * Save Hasura lists data to local JSON files.
@@ -9,13 +9,10 @@ import { Fields, Shelf } from './models/archive';
  * @async
  *
  * @param {string} list database list
- * @param {Fields[] | Shelf[]} data database data
+ * @param {BackupData} data database data
  * @return {void}
  */
-const backup = async (
-  list: string,
-  data: Fields[] | Shelf[]
-): Promise<void> => {
+const backup = async (list: string, data: BackupData): Promise<void> => {
   try {
     await backupRecords(list, data);
   } catch (error) {

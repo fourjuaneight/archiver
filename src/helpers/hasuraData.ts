@@ -117,6 +117,26 @@ export const updateHasuraData = async (
 export const queryHasuraBackup = async () => {
   const query = `
     {
+      meta_categories {
+        name
+        table
+        schema
+      }
+      meta_genres {
+        name
+        table
+        schema
+      }
+      meta_platforms {
+        name
+        table
+        schema
+      }
+      meta_tags {
+        name
+        table
+        schema
+      }
       bookmarks_articles {
         archive
         author
@@ -166,6 +186,27 @@ export const queryHasuraBackup = async () => {
         title
         url
       }
+      media_books {
+        title
+        author
+        genre
+      }
+      media_games {
+        title
+        studio
+        genre
+        platform
+      }
+      media_movies {
+        title
+        director
+        genre
+      }
+      media_shows {
+        title
+        director
+        genre
+      }
       media_shelf {
         category
         comments
@@ -175,6 +216,24 @@ export const queryHasuraBackup = async () => {
         genre
         name
         rating
+      }
+      records_bookstores {
+        name
+        location
+        url
+      }
+      records_clients {
+        name
+        company
+        stack
+        start
+        end
+      }
+      records_jobs {
+        company
+        position
+        start
+        end
       }
     }
   `;

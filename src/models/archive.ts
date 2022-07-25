@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface B2AuthResp {
   absoluteMinimumPartSize: number;
   accountId: string;
@@ -56,6 +57,12 @@ export interface B2UploadTokens {
   downloadUrl: string;
 }
 
+export interface Meta {
+  name: string;
+  table: string;
+  schema: string;
+}
+
 export interface Fields {
   author?: string;
   archive?: string;
@@ -85,6 +92,31 @@ export interface FileTypes {
   [key: string]: FileTypeOps;
 }
 
+export interface MediaBooks {
+  title: string;
+  author: string;
+  genre: string;
+}
+
+export interface MediaGames {
+  title: string;
+  studio: string;
+  genre: string;
+  platform: string;
+}
+
+export interface MediaMovies {
+  title: string;
+  director: string;
+  genre: string;
+}
+
+export interface MediaShows {
+  title: string;
+  director: string;
+  genre: string;
+}
+
 export interface Shelf {
   category: string;
   comments: string;
@@ -95,6 +127,39 @@ export interface Shelf {
   name: string;
   rating: number;
 }
+
+export interface RecordsBookstores {
+  name: string;
+  location: string;
+  url: string;
+}
+
+export interface RecordsClients {
+  name: string;
+  company: string;
+  stack: string[];
+  start: string;
+  end: string | null;
+}
+
+export interface RecordsJobs {
+  company: string;
+  position: string;
+  start: string;
+  end: string | null;
+}
+
+export type BackupData =
+  | Meta[]
+  | Fields[]
+  | MediaBooks[]
+  | MediaGames[]
+  | MediaMovies[]
+  | MediaShows[]
+  | Shelf[]
+  | RecordsBookstores[]
+  | RecordsClients[]
+  | RecordsJobs[];
 
 export interface HasuraBKQueryResp {
   data: {
@@ -110,13 +175,24 @@ export interface HasuraBKQueryResp {
 
 export interface HasuraBackupQueryResp {
   data: {
-    articles: Fields[];
-    comics: Fields[];
-    podcasts: Fields[];
-    reddits: Fields[];
-    tweets: Fields[];
-    videos: Fields[];
-    shelf: Shelf[];
-    [key: string]: Fields[] | Shelf[];
+    meta_categories: Meta[];
+    meta_genres: Meta[];
+    meta_platforms: Meta[];
+    meta_tags: Meta[];
+    bookmarks_articles: Fields[];
+    bookmarks_comics: Fields[];
+    bookmarks_podcasts: Fields[];
+    bookmarks_reddits: Fields[];
+    bookmarks_tweets: Fields[];
+    bookmarks_videos: Fields[];
+    media_books: MediaBooks[];
+    media_games: MediaGames[];
+    media_movies: MediaMovies[];
+    media_shows: MediaShows[];
+    media_shelf: Shelf[];
+    records_bookstores: RecordsBookstores[];
+    records_clients: RecordsClients[];
+    records_jobs: RecordsJobs[];
+    [key: string]: BackupData;
   };
 }
