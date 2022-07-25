@@ -2,15 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.1] - 2022-07-12
+## [1.3.0] - 2022-07-25
 
 ### Bug Fixes
 
 - [Add better typing to array diff and missing key to follows diff check.](https://github.com/fourjuaneight/archiver/commit/36503f8957ee835cd57db048cc5183252360f996)
+- [Add optional chaining on request response.](https://github.com/fourjuaneight/archiver/commit/3f000298bdcd0dfd3d4b37293ea31abf4f8a6571)
+- [Minor syntax optimizations.](https://github.com/fourjuaneight/archiver/commit/13d98d959ba91b2ec8f760604017f5ddd90d686a)
+
+### Features
+
+- [Expand Hasura backup coverage.](https://github.com/fourjuaneight/archiver/commit/789acf30b030d14ac5a22fd34c7abb030faf7859)
 
 ### Miscellaneous Tasks
 
 - [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/9e95cb678c41294a8c3821c1246e0bee1edea50e)
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/134a81f055dde9aa92c3056053d5eebd78621f51)
 
 ## [1.2.0] - 2022-07-12
 
