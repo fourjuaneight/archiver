@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/03e4c623b462d5c2fce2b720948da7790e4c59a1)
+- [Update node version and add format/lint step to actions.](https://github.com/fourjuaneight/archiver/commit/ba81086e80fa085dbda4d6a21913737c2262f88b)
+
 ## [1.3.0] - 2022-07-25
 
 ### Bug Fixes
