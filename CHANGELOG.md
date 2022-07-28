@@ -2,12 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [1.3.2] - 2022-07-28
+
+### Bug Fixes
+
+- [Add missing env var import to action.](https://github.com/fourjuaneight/archiver/commit/cb13f25de59bab6dfb5d0ab457011de4e87fbb17)
+
+### Features
+
+- [Use meta worker for tags.](https://github.com/fourjuaneight/archiver/commit/1f9f7df26caa1186f0dfdf05b119bc5a38355464)
+- [Skip scripts compile and run as TS via esno.](https://github.com/fourjuaneight/archiver/commit/13022fcdf23f158e1892192bd148c7446723a946)
 
 ### Miscellaneous Tasks
 
 - [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/03e4c623b462d5c2fce2b720948da7790e4c59a1)
 - [Update node version and add format/lint step to actions.](https://github.com/fourjuaneight/archiver/commit/ba81086e80fa085dbda4d6a21913737c2262f88b)
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/e99528989032b3eb58f26c899642904ac09962ae)
 
 ## [1.3.0] - 2022-07-25
 
