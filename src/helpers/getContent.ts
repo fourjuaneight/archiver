@@ -77,8 +77,10 @@ export const getArticle = async (
 
     // convert to MD
     const markdown = turndownService.turndown(article?.content ?? '');
+    const cleanMD = markdown.replace(/([‘’]+)/g, `'`).replace(/([“”]+)/g, `"`);
+    const finalMD = `# ${name}\n\n${cleanMD}`;
     // convert to buffer
-    const buffer = Buffer.from(markdown, 'utf8');
+    const buffer = Buffer.from(finalMD, 'utf8');
 
     return buffer;
   } catch (error) {
