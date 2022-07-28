@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import {
-  BookmarkTagsResponse,
+  MetaResponse,
   StackExchangeData,
   StackExchangeResponse,
 } from './models/stackexchange';
@@ -15,29 +15,33 @@ import {
 
 dotenv.config();
 
-const { BOOKMARKS_API_KEY, STACKEXCHANGE_USER_ID } = process.env;
+const { META_API_KEY, STACKEXCHANGE_USER_ID } = process.env;
 const sites = ['askubuntu', 'dba', 'serverfault', 'stackoverflow', 'superuser'];
 
 // get tags from Bookmarks API
-const getBookmarkTags = async (): Promise<string[]> => {
+const getTags = async (): Promise<string[]> => {
   try {
-    const request = await fetch('https://bookmarks.villela.co', {
+    const request = await fetch('https://meta.villela.co', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Key: `${BOOKMARKS_API_KEY}`,
+        Key: `${META_API_KEY}`,
       },
       body: JSON.stringify({
-        type: 'Tags',
-        tagList: 'stackexchange',
+        type: 'Query',
+        table: 'tags',
+        data: {
+          schema: 'development',
+          table: 'stack_exchange',
+        },
       }),
     });
-    const response: BookmarkTagsResponse = await request.json();
-    const tagsArray = response.tags;
+    const response: MetaResponse = await request.json();
+    const tagsArray = response.items.map(item => item.name);
 
     return tagsArray;
   } catch (error) {
-    throw new Error(`(getBookmarkTags):\n${error}`);
+    throw new Error(`(getTags):\n${error}`);
   }
 };
 
@@ -59,7 +63,7 @@ const getUserFavQuestions = async (
     const endpoint = `https://api.stackexchange.com/2.3/users/${userId}/favorites?order=desc&sort=added&site=${siteName}`;
     const request = await fetch(endpoint);
     const response: StackExchangeResponse = await request.json();
-    const bkTags = await getBookmarkTags();
+    const bkTags = await getTags();
 
     const decodeHtmlCharCodes = (str: string): string =>
       str.replace(/(&#(\d+);)/g, (match, capture, charCode) =>

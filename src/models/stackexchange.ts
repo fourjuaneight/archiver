@@ -49,6 +49,18 @@ export interface BookmarkTagsResponse {
   location: string;
 }
 
+export interface Meta {
+  id?: string;
+  name: string;
+  table: string;
+  schema: string;
+}
+
+export interface MetaResponse {
+  items: Meta[];
+  location: string;
+}
+
 export interface HasuraSEQueryResp {
   data: {
     development_stack_exchange: {
