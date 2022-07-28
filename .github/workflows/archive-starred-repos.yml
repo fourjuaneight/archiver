@@ -44,9 +44,6 @@ jobs:
       - name: Check syntax
         run: npm run format && npm run lint
 
-      - name: Compile
-        run: npm run build:archive:starred-repos
-
       - name: Run
         run: npm run archive:starred-repos
         env:

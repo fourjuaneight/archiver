@@ -44,13 +44,9 @@ jobs:
       - name: Check syntax
         run: npm run format && npm run lint
 
-      - name: Compile
-        run: npm run build:archive:stackexchange
-
       - name: Run
         run: npm run archive:stackexchange
         env:
-          BOOKMARKS_API_KEY: ${{secrets.BOOKMARKS_API_KEY}}
           HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
           HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
           META_API_KEY: ${{secrets.META_API_KEY}}

@@ -44,9 +44,6 @@ jobs:
       - name: Check syntax
         run: npm run format && npm run lint
 
-      - name: Compile script
-        run: npm run build:dead-links
-
       - name: Run script
         run: npm run dead-links
         env:

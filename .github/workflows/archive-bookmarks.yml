@@ -53,9 +53,6 @@ jobs:
           wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
           chmod a+rx /usr/local/bin/yt-dlp
 
-      - name: Compile archive script
-        run: npm run build:archive:bookmarks
-
       - name: Run archive script
         run: npm run archive:bookmarks
         env:
