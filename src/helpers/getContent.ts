@@ -33,7 +33,7 @@ export const getArticle = async (
 
       if (els.length > 0) {
         els.forEach(el => {
-          doc.parentNode?.removeChild(el);
+          el.remove();
         });
       }
     });
@@ -57,8 +57,16 @@ export const getArticle = async (
     const cleanDoc = removeEls(document, [
       // WIRED
       'div.newsletter-subscribe-form',
+      "div[class^='RecircMostPopularContiner']",
+      'div[data-attr-viewport-monitor]',
       "div[class^='NewsletterSubscribeFormWrapper']",
+      'div[data-testid="NewsletterSubscribeFormWrapper"]',
       "div[class^='GenericCalloutWrapper']",
+      'div[data-testid="GenericCallout"]',
+      "aside[class^='Sidebar']",
+      'aside[data-testid="SidebarEmbed"]',
+      "div[class^='ContributorsWrapper']",
+      'div[data-testid="Contributors"]',
       // The Atlantic
       "p[class^='ArticleRelatedContentLink']",
       "div[class^='ArticleRelatedContentModule']",
@@ -71,18 +79,25 @@ export const getArticle = async (
     // add document to Readability
     const reader = new Readability(cleanDoc);
     const article = reader.parse();
+    const toDom = new JSDOM(article?.content as string);
+    const { document: newDom } = toDom.window;
 
     // cleanup article
     turndownService.remove(['figure', 'img', 'picture', 'video', 'iframe']);
 
     // convert to MD
-    const markdown = turndownService.turndown(article?.content ?? '');
-    const cleanMD = markdown.replace(/([‘’]+)/g, `'`).replace(/([“”]+)/g, `"`);
+    const markdown = turndownService.turndown(newDom);
+    let cleanMD = markdown.replace(/([‘’]+)/g, `'`).replace(/([“”]+)/g, `"`);
+
+    if (url.includes('wired')) {
+      cleanMD = cleanMD.replace(/\n\*\s\*\s\*.*/gs, '');
+    }
+
     const finalMD = `# ${name}\n\n${cleanMD}`;
     // convert to buffer
-    const buffer = Buffer.from(finalMD, 'utf8');
+    // const buffer = Buffer.from(finalMD, 'utf8');
 
-    return buffer;
+    return finalMD;
   } catch (error) {
     throw new Error(`(getArticle) - ${name}:\n${error}`);
   }
