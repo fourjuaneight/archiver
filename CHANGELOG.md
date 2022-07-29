@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.4] - 2022-07-29
+
+### Bug Fixes
+
+- [Sign version tag commits.](https://github.com/fourjuaneight/archiver/commit/65b03c70d5e66b29c2525879fcd7193c6faa6adc)
+
+### Features
+
+- [Add title and format quotes on bookmark article archives.](https://github.com/fourjuaneight/archiver/commit/ff391e256c39727c6740295220b50667aed32a45)
+- [Optimize bookmarked article extraction.](https://github.com/fourjuaneight/archiver/commit/ff3106d338a7e9498a495dd5e920cd625b8ea138)
+- [Add default commit message when version bumping.](https://github.com/fourjuaneight/archiver/commit/6a2ab469032103f719d2764c259da208819b3d40)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/e5f085b8624de8e6a3ce49734925baa6db5bd228)
+- [Update version in package file.](https://github.com/fourjuaneight/archiver/commit/41e1c650b7d81c7b5a611200e6d3d812650aecf8)
+- [Update to version 1.3.3.](https://github.com/fourjuaneight/archiver/commit/aa79c7f36e257cdaa31de35dc3c5f1af3eb22618)
+- [Update to v1.3.4.](https://github.com/fourjuaneight/archiver/commit/a258cb47fda4065564053a4934c76d67281edcb8)
+
 ## [1.3.2] - 2022-07-28
 
 ### Bug Fixes
