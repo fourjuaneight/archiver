@@ -30,7 +30,7 @@ export const fileNameFmt = (name: string): string => {
     .replace(/\s&\s/g, '_and_')
     .replace(/&/g, '_and_')
     .replace('?', '')
-    .replace(/[!@#$%^*()+=[\]{};'’:"”“,.<>/?]+/g, '')
+    .replace(/[!@#$%^*()+=[\]{};'’‘:"”“,.<>/?]+/g, '')
     .replace(/\s/g, '_')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]+/g, '')
