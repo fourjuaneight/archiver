@@ -186,6 +186,36 @@ export const queryHasuraBackup = async () => {
         title
         url
       }
+      feeds_podcasts {
+        title
+        category
+        url
+        rss
+      }
+      feeds_reddit {
+        name
+        description
+        url
+      }
+      feeds_twitter {
+        name
+        username
+        description
+        list
+        url
+      }
+      feeds_websites {
+        title
+        category
+        url
+        rss
+      }
+      feeds_youtube {
+        title
+        category
+        url
+        rss
+      }
       media_books {
         title
         author
@@ -201,6 +231,27 @@ export const queryHasuraBackup = async () => {
         title
         director
         genre
+      }
+      media_music {
+        title
+        artist
+        album
+        genre
+        year
+      }
+      media_mtg {
+        name
+        colors
+        type
+        set
+        set_name
+        oracle_string
+        flavor_string
+        rarity
+        collector_number
+        artist
+        image
+        back
       }
       media_shows {
         title

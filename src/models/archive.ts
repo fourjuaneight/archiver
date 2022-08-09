@@ -92,6 +92,27 @@ export interface FileTypes {
   [key: string]: FileTypeOps;
 }
 
+export interface FeedReddit {
+  name: string;
+  description: string | null;
+  url: string;
+}
+
+export interface FeedTwitter {
+  name: string;
+  username: string;
+  description: string | null;
+  list: string | null;
+  url: string;
+}
+
+export interface FeedWeb {
+  title: string;
+  category: string;
+  url: string;
+  rss: string;
+}
+
 export interface MediaBooks {
   title: string;
   author: string;
@@ -109,6 +130,29 @@ export interface MediaMovies {
   title: string;
   director: string;
   genre: string;
+}
+
+export interface MediaMusic {
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  year: number;
+}
+
+export interface MediaMTG {
+  name: string;
+  colors: string[] | null;
+  type: string | null;
+  set: string;
+  set_name: string;
+  oracle_string: string | null;
+  flavor_string: string | null;
+  rarity: string;
+  collector_number: number;
+  artist: string;
+  image: string;
+  back: string | null;
 }
 
 export interface MediaShows {
@@ -155,6 +199,8 @@ export type BackupData =
   | MediaBooks[]
   | MediaGames[]
   | MediaMovies[]
+  | MediaMusic[]
+  | MediaMTG[]
   | MediaShows[]
   | Shelf[]
   | RecordsBookstores[]
@@ -185,9 +231,16 @@ export interface HasuraBackupQueryResp {
     bookmarks_reddits: Fields[];
     bookmarks_tweets: Fields[];
     bookmarks_videos: Fields[];
+    feeds_podcasts: FeedWeb[];
+    feeds_reddit: FeedReddit[];
+    feeds_twitter: FeedTwitter[];
+    feeds_websites: FeedWeb[];
+    feeds_youtube: FeedWeb[];
     media_books: MediaBooks[];
     media_games: MediaGames[];
     media_movies: MediaMovies[];
+    media_music: MediaMusic[];
+    media_mtg: MediaMTG[];
     media_shows: MediaShows[];
     media_shelf: Shelf[];
     records_bookstores: RecordsBookstores[];
