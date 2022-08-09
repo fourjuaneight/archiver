@@ -13,7 +13,8 @@
     "clean:node": "rm -rf node_modules",
     "dead-links": "esno --no-cache src/dead-links.ts",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "eslint --fix \"src/**/*.ts\""
+    "lint": "eslint --fix \"src/**/*.ts\"",
+    "test": "esno --no-cache test.ts"
   },
   "repository": {
     "type": "git",
