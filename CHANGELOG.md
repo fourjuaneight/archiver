@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2022-08-09
+
+### Features
+
+- [Add plex music archiving script.](https://github.com/fourjuaneight/archiver/commit/89cae664424d158e602a623f3ac1b0dcda8a16e5)
+- [Add more data to archive from hasura.](https://github.com/fourjuaneight/archiver/commit/463345b0ab66b637148fc9b348b636368ea89a59)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/26c58611c84c434c4b3aff92e3a5bdf5dcfb20bd)
+- [Further filename formatting optimizations.](https://github.com/fourjuaneight/archiver/commit/e50fb8a503615ec3a7ee71a3253681bcb17dc69b)
+- [Minor filename formatting optimizations.](https://github.com/fourjuaneight/archiver/commit/1cd0d1407611f6ece60c4e44d5448f223a428599)
+- [Update to v1.4.0.](https://github.com/fourjuaneight/archiver/commit/ddf775f7a5d9a67b1b55d73dfe1bd6a8060797d0)
+
 ## [1.3.4] - 2022-07-29
 
 ### Bug Fixes
