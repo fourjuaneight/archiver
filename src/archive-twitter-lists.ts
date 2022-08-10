@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
-import { feed } from './helpers/twitterData';
 import { insertHasuraData, queryHasuraTwitterFeed } from './helpers/hasuraData';
+import { feed } from './helpers/twitterData';
 
 (async () => {
   try {

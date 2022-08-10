@@ -1,8 +1,7 @@
 import chalk from 'chalk';
 
-import { latest } from './helpers/latestStarredRepos';
 import { insertHasuraData } from './helpers/hasuraData';
-
+import { latest } from './helpers/latestStarredRepos';
 import { CleanRepo } from './models/github';
 
 // Upload latest starred repos to Hasura table.

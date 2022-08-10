@@ -1,7 +1,7 @@
 import chalk from 'chalk';
+import { isAfter, parseISO, subHours } from 'date-fns';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
-import { isAfter, parseISO, subHours } from 'date-fns';
 
 import { CleanRepo, LatestStars, StarredRepositories } from '../models/github';
 

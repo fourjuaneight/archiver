@@ -1,14 +1,14 @@
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
+import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
+import { HasuraErrors } from '../models/hasura';
+import { HasuraSEQueryResp } from '../models/stackexchange';
 import {
   Fields,
   HasuraTWFeedQueryResp,
   HasuraTWQueryResp,
 } from '../models/twitter';
-import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
-import { HasuraErrors } from '../models/hasura';
-import { HasuraSEQueryResp } from '../models/stackexchange';
 
 dotenv.config();
 

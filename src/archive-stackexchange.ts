@@ -4,14 +4,14 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import {
+  insertHasuraData,
+  queryHasuraStackExchange,
+} from './helpers/hasuraData';
+import {
   MetaResponse,
   StackExchangeData,
   StackExchangeResponse,
 } from './models/stackexchange';
-import {
-  insertHasuraData,
-  queryHasuraStackExchange,
-} from './helpers/hasuraData';
 
 dotenv.config();
 

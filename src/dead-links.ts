@@ -2,7 +2,6 @@ import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 
 import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
-
 import { Fields } from './models/archive';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;

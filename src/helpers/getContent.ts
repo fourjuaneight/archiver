@@ -1,9 +1,8 @@
-import { readFileSync } from 'fs';
-
-import fetch from 'isomorphic-fetch';
-import TurndownService from 'turndown';
-import { JSDOM, VirtualConsole } from 'jsdom';
 import { Readability } from '@mozilla/readability';
+import { readFileSync } from 'fs';
+import fetch from 'isomorphic-fetch';
+import { JSDOM, VirtualConsole } from 'jsdom';
+import TurndownService from 'turndown';
 
 import { deleteFiles } from '../util/deleteFile';
 import { fileNameFmt } from '../util/fileNameFmt';

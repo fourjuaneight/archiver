@@ -2,19 +2,18 @@ import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
-import { arrayDiff } from '../util/arrayDiff';
-import { emojiUnicode } from '../util/emojiUnicode';
-import { expandShortLink } from './expandShortLink';
-
 import {
   LatestTweet,
   LatestTweetFmt,
   TwitterFeed,
   TwitterList,
-  TwitterUserResp,
   TwitterListResp,
   TwitterResponse,
+  TwitterUserResp,
 } from '../models/twitter';
+import { arrayDiff } from '../util/arrayDiff';
+import { emojiUnicode } from '../util/emojiUnicode';
+import { expandShortLink } from './expandShortLink';
 
 dotenv.config();
 

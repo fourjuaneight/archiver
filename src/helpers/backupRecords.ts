@@ -1,6 +1,5 @@
-import { uploadToB2 } from './uploadContentB2';
-
 import { BackupData } from '../models/archive';
+import { uploadToB2 } from './uploadContentB2';
 
 /**
  * Saves Hasura record response to a local JSON file.

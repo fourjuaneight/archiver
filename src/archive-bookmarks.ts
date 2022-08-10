@@ -2,9 +2,8 @@ import chalk from 'chalk';
 
 import { addFiletoRecord } from './helpers/addFiletoRecord';
 import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
-import { toCapitalized } from './util/toCapitalized';
-
 import { Fields } from './models/archive';
+import { toCapitalized } from './util/toCapitalized';
 
 /**
  * Archive media to B2 and update record on Hasura.

@@ -1,7 +1,7 @@
 import chalk from 'chalk';
+import { createHash } from 'crypto';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
-import { createHash } from 'crypto';
 
 import {
   B2AuthResp,

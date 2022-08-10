@@ -1,8 +1,7 @@
+import { Fields, FileTypes } from '../models/archive';
 import { fileNameFmt } from '../util/fileNameFmt';
 import { getContent } from './getContent';
 import { uploadToB2 } from './uploadContentB2';
-
-import { Fields, FileTypes } from '../models/archive';
 
 /**
  * Get Hasura bookmarks, archive media, then update record.
