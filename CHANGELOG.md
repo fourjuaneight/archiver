@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.1] - 2022-08-10
+
+### Features
+
+- [Add import order config to prettier.](https://github.com/fourjuaneight/archiver/commit/e5ff58475c136abfaa62ee29e39e15dfb36ad644)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/c64a18ebfa480cd24b3d08c61afec36d163b729d)
+- [Update dependencies and remove deprecated ones.](https://github.com/fourjuaneight/archiver/commit/fff8ff6ff28b4a566e5be450532b264a769145b3)
+- [Apply new formatting.](https://github.com/fourjuaneight/archiver/commit/6edaf4aa3b79e8e90579e23aaa93abfee1a7d00a)
+- [Update to v1.4.1.](https://github.com/fourjuaneight/archiver/commit/6cfc4cb91437de025e23aa5930749dd5011fba9b)
+
 ## [1.4.0] - 2022-08-09
 
 ### Features
