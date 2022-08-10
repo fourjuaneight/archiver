@@ -146,8 +146,8 @@ export interface MediaMTG {
   type: string | null;
   set: string;
   set_name: string;
-  oracle_string: string | null;
-  flavor_string: string | null;
+  oracle_string?: string | null;
+  flavor_string?: string | null;
   rarity: string;
   collector_number: number;
   artist: string;

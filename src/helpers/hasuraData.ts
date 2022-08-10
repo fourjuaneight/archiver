@@ -245,8 +245,6 @@ export const queryHasuraBackup = async () => {
         type
         set
         set_name
-        oracle_string
-        flavor_string
         rarity
         collector_number
         artist
