@@ -243,6 +243,8 @@ export const queryHasuraBackup = async () => {
         name
         colors
         type
+        oracle_text
+        flavor_text
         set
         set_name
         rarity
