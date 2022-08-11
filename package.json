@@ -29,7 +29,6 @@
   "homepage": "https://github.com/fourjuaneight/archiver#readme",
   "dependencies": {
     "@mozilla/readability": "^0.4.1",
-    "chalk": "^4.1.0",
     "date-fns": "^2.21.1",
     "dotenv": "^8.2.0",
     "isomorphic-fetch": "^3.0.0",
