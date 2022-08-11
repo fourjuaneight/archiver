@@ -98,7 +98,7 @@ export const getArticle = async (
 
     return finalMD;
   } catch (error) {
-    throw new Error(`(getArticle) - ${name}:\n${error}`);
+    throw new Error(`[getArticle][${name}]: ${error}`);
   }
 };
 
@@ -119,7 +119,7 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
 
     return Buffer.from(data);
   } catch (error) {
-    throw new Error(`(getMedia) - ${name}:\n${error}`);
+    throw new Error(`[getMedia][${name}]: ${error}`);
   }
 };
 
@@ -148,7 +148,7 @@ export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
 
     return buffer;
   } catch (error) {
-    throw new Error(`(getYTVid) - '${name}':\n${error}`);
+    throw new Error(`[getYTVid][${name}]: ${error}`);
   }
 };
 

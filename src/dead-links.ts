@@ -1,8 +1,8 @@
-import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
 
 import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
 import { Fields } from './models/archive';
+import logger from './util/logger';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
@@ -17,7 +17,7 @@ const deadLinks = async (url: string): Promise<boolean> => {
 
     return false;
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), `(deadLinks) - '${url}':\n${error}`);
+    logger.error(`[deadLinks][${url}]:${error}`);
 
     return true;
   }
@@ -42,10 +42,9 @@ const updateRecords = async (
     const deadFound = updated.filter(({ dead }) => dead);
 
     if (deadFound.length > 0) {
-      console.info(
-        chalk.yellow('[INFO]'),
-        `${deadFound.length} dead links found in ${category}`,
-        deadFound.map(({ url }) => url)
+      logger.info(
+        deadFound.map(({ url }) => url),
+        `[updateRecords][${category}]: ${deadFound.length} dead links found`
       );
 
       const operations = deadFound.map(({ dead, id }) =>
@@ -54,13 +53,10 @@ const updateRecords = async (
 
       await Promise.all(operations);
     } else {
-      console.info(
-        chalk.yellow('[INFO]'),
-        `No dead links found in ${category}`
-      );
+      logger.info(`[updateRecords][${category}]: No dead links found`);
     }
   } catch (error) {
-    throw new Error(`(updateRecords) ${category}:\n${error}`);
+    throw new Error(`[updateRecords][${category}]:${error}`);
   }
 };
 
@@ -77,7 +73,7 @@ const updateRecords = async (
 
     process.exit(0);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

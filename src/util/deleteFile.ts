@@ -18,6 +18,6 @@ export const deleteFiles = async (files: string[]): Promise<void> => {
 
     return;
   } catch (error) {
-    throw new Error(`(deleteFiles):\n${error}`);
+    throw new Error(`[deleteFiles]: ${error}`);
   }
 };

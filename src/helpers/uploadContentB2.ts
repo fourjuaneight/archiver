@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import { createHash } from 'crypto';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
@@ -11,6 +10,7 @@ import {
   B2UploadTokens,
   B2UpUrlResp,
 } from '../models/archive';
+import logger from '../util/logger';
 
 dotenv.config();
 
@@ -45,7 +45,7 @@ const authTokens = async (): Promise<B2AuthTokens> => {
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(`(authTokens):\n${results.status}: ${msg}`);
+      throw new Error(`[authTokens]: ${results.status} - ${msg}`);
     }
 
     const results: B2AuthResp = await response.json();
@@ -58,7 +58,7 @@ const authTokens = async (): Promise<B2AuthTokens> => {
 
     return data;
   } catch (error) {
-    throw new Error(`(authTokens):\n${error}`);
+    throw new Error(`[authTokens]: ${error}`);
   }
 };
 
@@ -91,7 +91,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens> => {
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(`(getUploadUrl):\n${response.status}: ${msg}`);
+      throw new Error(`[getUploadUrl]: ${response.status} - ${msg}`);
     }
 
     const results: B2UpUrlResp = await response.json();
@@ -104,7 +104,7 @@ const getUploadUrl = async (): Promise<B2UploadTokens> => {
       downloadUrl: authData?.downloadUrl ?? '',
     };
   } catch (error) {
-    throw new Error(`(getUploadUrl):\n${error}`);
+    throw new Error(`[getUploadUrl]: ${error}`);
   }
 };
 
@@ -145,18 +145,15 @@ export const uploadToB2 = async (
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(`(uploadToB2) - ${name}:\n${results.status}: ${msg}`);
+      throw new Error(`[uploadToB2][${name}]: ${results.status} - ${msg}`);
     }
 
     const results: B2UploadResp = await response.json();
 
-    console.info(
-      chalk.green('[SUCCESS]'),
-      `Uploaded '${results.fileName}' to B2.`
-    );
+    logger.info(`Uploaded '${results.fileName}' to B2.`);
 
     return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
-    throw new Error(`(uploadToB2) - ${name}:\n${error}`);
+    throw new Error(`[uploadToB2][${name}]: ${error}`);
   }
 };

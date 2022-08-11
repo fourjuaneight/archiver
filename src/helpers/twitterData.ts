@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
@@ -13,6 +12,7 @@ import {
 } from '../models/twitter';
 import { arrayDiff } from '../util/arrayDiff';
 import { emojiUnicode } from '../util/emojiUnicode';
+import logger from '../util/logger';
 import { expandShortLink } from './expandShortLink';
 
 dotenv.config();
@@ -47,7 +47,7 @@ const twitterLists = async (): Promise<TwitterList[]> => {
 
     return data;
   } catch (error) {
-    throw new Error(`(twitterLists):\n${error}`);
+    throw new Error(`[twitterLists]: ${error}`);
   }
 };
 
@@ -85,7 +85,7 @@ const listMembers = async (list: TwitterList): Promise<TwitterFeed[]> => {
       url: `https://twitter.com/${user.username}`,
     }));
   } catch (error) {
-    throw new Error(`(listMembers):\n${error}`);
+    throw new Error(`[listMembers]: ${error}`);
   }
 };
 
@@ -122,7 +122,7 @@ const userFollows = async (): Promise<TwitterFeed[]> => {
       url: `https://twitter.com/${user.username}`,
     }));
   } catch (error) {
-    throw new Error(`(userFollows):\n${error}`);
+    throw new Error(`[userFollows]: ${error}`);
   }
 };
 
@@ -165,7 +165,7 @@ const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
         return twitterResponse;
       });
   } catch (error) {
-    throw new Error(`(latestTweets):\n${error}`);
+    throw new Error(`[latestTweets]: ${error}`);
   }
 };
 
@@ -228,10 +228,7 @@ export const feed = async (): Promise<TwitterFeed[]> => {
     ) as TwitterFeed[];
 
     if (memberDiff.length) {
-      console.info(
-        `${memberDiff.length} users found not in lists.`,
-        memberDiff
-      );
+      logger.info(`${memberDiff.length} users found not in lists.`);
     }
 
     return allMembersFlat.map<TwitterFeed>(user => {
@@ -241,7 +238,7 @@ export const feed = async (): Promise<TwitterFeed[]> => {
       return rest;
     });
   } catch (error) {
-    throw new Error(`(twitterData - feed):\n${error}`);
+    throw new Error(`[twitterData - feed]: ${error}`);
   }
 };
 
@@ -256,7 +253,7 @@ export const latest = async (): Promise<LatestTweetFmt[] | null> => {
   try {
     await latestTweets();
 
-    console.info(chalk.green('[SUCCESS]'), 'Latest tweets retrieved.');
+    logger.info('Latest tweets retrieved.');
 
     if (tweets?.length > 0) {
       const lastFmt: LatestTweetFmt[] = await formatTweets(tweets);
@@ -267,6 +264,6 @@ export const latest = async (): Promise<LatestTweetFmt[] | null> => {
 
     return null;
   } catch (error) {
-    throw new Error(`(twitterData - latest):\n${error}`);
+    throw new Error(`[twitterData - latest]: ${error}`);
   }
 };

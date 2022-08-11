@@ -1,8 +1,7 @@
-import chalk from 'chalk';
-
 import { insertHasuraData } from './helpers/hasuraData';
 import { latest } from './helpers/latestStarredRepos';
 import { CleanRepo } from './models/github';
+import logger from './util/logger';
 
 // Upload latest starred repos to Hasura table.
 (async () => {
@@ -14,10 +13,10 @@ import { CleanRepo } from './models/github';
     if (repos && repos.length > 0) {
       await insertHasuraData('development_github', repos);
     } else {
-      console.info(chalk.yellow('[INFO]'), 'No new stars to upload.');
+      logger.info('No new stars to upload.');
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

@@ -1,7 +1,6 @@
-import chalk from 'chalk';
-
 import { insertHasuraData, queryHasuraTwitterFeed } from './helpers/hasuraData';
 import { feed } from './helpers/twitterData';
+import logger from './util/logger';
 
 (async () => {
   try {
@@ -21,13 +20,10 @@ import { feed } from './helpers/twitterData';
     if (twitterFeedToArchive.length > 0) {
       await insertHasuraData('feeds_twitter', twitterFeedToArchive);
     } else {
-      console.info(
-        chalk.yellow('[INFO]'),
-        'No new Twitter accounts to upload.'
-      );
+      logger.info('No new Twitter accounts to upload.');
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

@@ -22,6 +22,6 @@ export const ytdl = async (url: string, name: string): Promise<void> => {
       throw new Error(stderr);
     }
   } catch (error) {
-    throw new Error(`(ytdl):\n${error}`);
+    throw new Error(`[ytdl]: ${error}`);
   }
 };

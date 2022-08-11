@@ -1,8 +1,7 @@
-import chalk from 'chalk';
-
 import { insertHasuraData, queryHasuraTweets } from './helpers/hasuraData';
 import { latest } from './helpers/twitterData';
 import { LatestTweetFmt } from './models/twitter';
+import logger from './util/logger';
 
 // Upload latest tweets to Hasura table.
 (async () => {
@@ -23,10 +22,10 @@ import { LatestTweetFmt } from './models/twitter';
     if (tweetsToArchive.length > 0) {
       await insertHasuraData('media_tweets', tweetsToArchive);
     } else {
-      console.info(chalk.yellow('[INFO]'), 'No new tweets to upload.');
+      logger.info('No new tweets to upload.');
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

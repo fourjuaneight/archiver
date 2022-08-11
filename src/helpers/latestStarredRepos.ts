@@ -1,9 +1,9 @@
-import chalk from 'chalk';
 import { isAfter, parseISO, subHours } from 'date-fns';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import { CleanRepo, LatestStars, StarredRepositories } from '../models/github';
+import logger from '../util/logger';
 
 dotenv.config();
 
@@ -98,7 +98,7 @@ const latestStarredRepos = (
         return githubResponse;
       });
   } catch (error) {
-    throw new Error(`(latestStarredRepos):\n${error}`);
+    throw new Error(`[latestStarredRepos]: ${error}`);
   }
 };
 
@@ -113,7 +113,7 @@ export const latest = async (): Promise<CleanRepo[] | null> => {
   try {
     await latestStarredRepos();
 
-    console.info(chalk.green('[SUCCESS]'), 'Latest stars retrieved.');
+    logger.info('Latest stars retrieved.');
 
     if (stars.length > 0) {
       return stars as CleanRepo[];
@@ -121,6 +121,6 @@ export const latest = async (): Promise<CleanRepo[] | null> => {
 
     return null;
   } catch (error) {
-    throw new Error(`(latest):\n${error}`);
+    throw new Error(`[latest]: ${error}`);
   }
 };

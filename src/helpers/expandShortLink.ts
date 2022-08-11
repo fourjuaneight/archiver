@@ -1,5 +1,6 @@
-import chalk from 'chalk';
 import fetch from 'isomorphic-fetch';
+
+import logger from '../util/logger';
 
 /**
  * Expand shortend URLs.
@@ -14,7 +15,7 @@ const expandLinks = async (url: string): Promise<string> => {
     const response: Response = await fetch(url);
 
     if (response.status !== 200 || !response.url) {
-      console.info(chalk.cyan('[INFO]'), `Unable to expand '${url}'`, {
+      logger.info(`[expandLinks][${url}]: Unable to expand.`, {
         code: response.status,
         type: response.type,
         text: response.statusText,
@@ -25,7 +26,7 @@ const expandLinks = async (url: string): Promise<string> => {
 
     return response.url;
   } catch (error) {
-    console.error(chalk.red('[ERROR]'), `Expanding '${url}':\n${error}`);
+    logger.error(`[expandLinks][${url}]: ${error}`);
 
     return url;
   }

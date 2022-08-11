@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { promises } from 'fs';
 
+import logger from './util/logger';
+
 const { readFile, writeFile } = promises;
 
 interface Album {
@@ -119,7 +121,7 @@ const data = async () => {
 
     return music;
   } catch (error) {
-    throw new Error(`(data):\n${error}`);
+    throw new Error(`[data]: ${error}`);
   }
 };
 
@@ -129,4 +131,4 @@ data()
 
     return writeFile('./music.json', json);
   })
-  .catch(error => console.error(error));
+  .catch(error => logger.error(error));

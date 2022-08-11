@@ -1,6 +1,7 @@
 import { backupRecords } from './helpers/backupRecords';
 import { queryHasuraBackup } from './helpers/hasuraData';
 import { BackupData } from './models/archive';
+import logger from './util/logger';
 
 /**
  * Save Hasura lists data to local JSON files.
@@ -15,7 +16,7 @@ const backup = async (list: string, data: BackupData): Promise<void> => {
   try {
     await backupRecords(list, data);
   } catch (error) {
-    throw new Error(`(backup):\n${error}`);
+    throw new Error(`[backup]: ${error}`);
   }
 };
 
@@ -28,7 +29,7 @@ const backup = async (list: string, data: BackupData): Promise<void> => {
 
     await Promise.all(operations);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

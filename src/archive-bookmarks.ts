@@ -1,8 +1,7 @@
-import chalk from 'chalk';
-
 import { addFiletoRecord } from './helpers/addFiletoRecord';
 import { queryHasuraBookmarks, updateHasuraData } from './helpers/hasuraData';
 import { Fields } from './models/archive';
+import logger from './util/logger';
 import { toCapitalized } from './util/toCapitalized';
 
 /**
@@ -43,7 +42,7 @@ const backupRecord = async (
   if (filteredRecords.length > 0) {
     await archiveRecord(list, filteredRecords);
   } else {
-    console.info(chalk.yellow('[INFO]'), `No records to update in ${list}.`);
+    logger.info(`No records to update in ${list}.`);
   }
 };
 
@@ -55,10 +54,8 @@ const backupRecord = async (
       .map(list => backupRecord(bookmarks, list));
 
     await Promise.all(backups);
-
-    process.exit(0);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

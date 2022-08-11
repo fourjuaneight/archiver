@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import chalk from 'chalk';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
@@ -12,6 +11,7 @@ import {
   StackExchangeData,
   StackExchangeResponse,
 } from './models/stackexchange';
+import logger from './util/logger';
 
 dotenv.config();
 
@@ -41,7 +41,7 @@ const getTags = async (): Promise<string[]> => {
 
     return tagsArray;
   } catch (error) {
-    throw new Error(`(getTags):\n${error}`);
+    throw new Error(`[getTags]: ${error}`);
   }
 };
 
@@ -71,10 +71,7 @@ const getUserFavQuestions = async (
       );
 
     if (response.items?.length === 0) {
-      console.info(
-        chalk.yellow('[INFO]'),
-        `(${siteName}) - No new questions found.`
-      );
+      logger.info(`[${siteName}]: No new questions found.`);
 
       return [];
     }
@@ -97,7 +94,7 @@ const getUserFavQuestions = async (
       };
     });
   } catch (error) {
-    throw new Error(`(getUserFavQuestions):\n${error}`);
+    throw new Error(`[getUserFavQuestions]: ${error}`);
   }
 };
 
@@ -119,10 +116,10 @@ const getUserFavQuestions = async (
     if (newQs && newQs.length > 0) {
       await insertHasuraData('development_stack_exchange', newQs);
     } else {
-      console.info(chalk.yellow('[INFO]'), 'No new questions to upload.');
+      logger.info('No new questions to upload.');
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     process.exit(1);
   }
 })();
