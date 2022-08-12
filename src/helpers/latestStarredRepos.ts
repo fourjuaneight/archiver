@@ -113,7 +113,7 @@ export const latest = async (): Promise<CleanRepo[] | null> => {
   try {
     await latestStarredRepos();
 
-    logger.info('Latest stars retrieved.');
+    logger.info('[latestStarredRepos] [latest]: Latest stars retrieved.');
 
     if (stars.length > 0) {
       return stars as CleanRepo[];

@@ -26,6 +26,6 @@ export const backupRecords = async (
 
     return backupLink;
   } catch (error) {
-    throw new Error(`[backupRecords][${table}]: ${error}`);
+    throw new Error(`[backupRecords] [${table}]: ${error}`);
   }
 };

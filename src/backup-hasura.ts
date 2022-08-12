@@ -29,7 +29,7 @@ const backup = async (list: string, data: BackupData): Promise<void> => {
 
     await Promise.all(operations);
   } catch (error) {
-    logger.error(error);
+    logger.error(`[backup-hasura] ${error}`);
     process.exit(1);
   }
 })();

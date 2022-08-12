@@ -70,6 +70,6 @@ export const addFiletoRecord = async (
       archive: publicUlr,
     };
   } catch (error) {
-    throw new Error(`[addFiletoRecord][${list}][${fields.title}]: ${error}`);
+    throw new Error(`[addFiletoRecord] [${list}] [${fields.title}]: ${error}`);
   }
 };

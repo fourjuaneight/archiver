@@ -61,13 +61,13 @@ export const insertHasuraData = async (
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[insertHasuraData][${list}]: ${errors
+        `[insertHasuraData] [${list}]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
     }
   } catch (error) {
-    throw new Error(`[insertHasuraData][${list}]: ${error}`);
+    throw new Error(`[insertHasuraData] [${list}]: ${error}`);
   }
 };
 
@@ -104,13 +104,13 @@ export const updateHasuraData = async (
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[updateHasuraData][${list}]: ${errors
+        `[updateHasuraData] [${list}]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
     }
   } catch (error) {
-    throw new Error(`[updateHasuraData][${list}]: ${error}`);
+    throw new Error(`[updateHasuraData] [${list}]: ${error}`);
   }
 };
 

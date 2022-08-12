@@ -22,10 +22,10 @@ import logger from './util/logger';
     if (tweetsToArchive.length > 0) {
       await insertHasuraData('media_tweets', tweetsToArchive);
     } else {
-      logger.info('No new tweets to upload.');
+      logger.info('[archive-tweets]: No new tweets to upload.');
     }
   } catch (error) {
-    logger.error(error);
+    logger.error(`[archive-tweets] ${error}`);
     process.exit(1);
   }
 })();

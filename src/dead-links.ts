@@ -17,7 +17,7 @@ const deadLinks = async (url: string): Promise<boolean> => {
 
     return false;
   } catch (error) {
-    logger.error(`[deadLinks][${url}]:${error}`);
+    logger.error(`[dead-links] [deadLinks] [${url}]: ${error}`);
 
     return true;
   }
@@ -44,7 +44,7 @@ const updateRecords = async (
     if (deadFound.length > 0) {
       logger.info(
         deadFound.map(({ url }) => url),
-        `[updateRecords][${category}]: ${deadFound.length} dead links found`
+        `[dead-links] [updateRecords] [${category}]: ${deadFound.length} dead links found`
       );
 
       const operations = deadFound.map(({ dead, id }) =>
@@ -53,10 +53,12 @@ const updateRecords = async (
 
       await Promise.all(operations);
     } else {
-      logger.info(`[updateRecords][${category}]: No dead links found`);
+      logger.info(
+        `[dead-links] [updateRecords] [${category}]: No dead links found`
+      );
     }
   } catch (error) {
-    throw new Error(`[updateRecords][${category}]:${error}`);
+    throw new Error(`[updateRecords] [${category}]: ${error}`);
   }
 };
 
@@ -73,7 +75,7 @@ const updateRecords = async (
 
     process.exit(0);
   } catch (error) {
-    logger.error(error);
+    logger.error(`[dead-links] ${error}`);
     process.exit(1);
   }
 })();

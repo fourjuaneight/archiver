@@ -20,10 +20,12 @@ import logger from './util/logger';
     if (twitterFeedToArchive.length > 0) {
       await insertHasuraData('feeds_twitter', twitterFeedToArchive);
     } else {
-      logger.info('No new Twitter accounts to upload.');
+      logger.info(
+        '[archive-twitter-lists]: No new Twitter accounts to upload.'
+      );
     }
   } catch (error) {
-    logger.error(error);
+    logger.error(`[archive-twitter-lists] ${error}`);
     process.exit(1);
   }
 })();

@@ -145,15 +145,17 @@ export const uploadToB2 = async (
       const results: B2Error = await response.json();
       const msg = results.message || results.code;
 
-      throw new Error(`[uploadToB2][${name}]: ${results.status} - ${msg}`);
+      throw new Error(`[uploadToB2] [${name}]: ${results.status} - ${msg}`);
     }
 
     const results: B2UploadResp = await response.json();
 
-    logger.info(`Uploaded '${results.fileName}' to B2.`);
+    logger.info(
+      `[uploadContentB2] [uploadToB2]: Uploaded '${results.fileName}'.`
+    );
 
     return `${authData?.downloadUrl}/file/${BUCKET_NAME}/${results.fileName}`;
   } catch (error) {
-    throw new Error(`[uploadToB2][${name}]: ${error}`);
+    throw new Error(`[uploadToB2] [${name}]: ${error}`);
   }
 };

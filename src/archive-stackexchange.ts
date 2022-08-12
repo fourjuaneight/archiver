@@ -71,7 +71,9 @@ const getUserFavQuestions = async (
       );
 
     if (response.items?.length === 0) {
-      logger.info(`[${siteName}]: No new questions found.`);
+      logger.info(
+        `[archive-stackexchange] [getUserFavQuestions] [${siteName}]: No new questions found.`
+      );
 
       return [];
     }
@@ -116,10 +118,10 @@ const getUserFavQuestions = async (
     if (newQs && newQs.length > 0) {
       await insertHasuraData('development_stack_exchange', newQs);
     } else {
-      logger.info('No new questions to upload.');
+      logger.info('[archive-stackexchange]: No new questions to upload.');
     }
   } catch (error) {
-    logger.error(error);
+    logger.error(`[archive-stackexchange] ${error}`);
     process.exit(1);
   }
 })();

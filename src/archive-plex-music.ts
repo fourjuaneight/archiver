@@ -125,10 +125,14 @@ const data = async () => {
   }
 };
 
-data()
-  .then(music => {
+(async () => {
+  try {
+    const music = await data();
     const json = JSON.stringify(music, null, 2);
 
-    return writeFile('./music.json', json);
-  })
-  .catch(error => logger.error(error));
+    await writeFile('./music.json', json);
+  } catch (error) {
+    logger.error(`[archive-plex-music] ${error}`);
+    process.exit(1);
+  }
+})();

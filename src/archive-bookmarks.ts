@@ -42,7 +42,9 @@ const backupRecord = async (
   if (filteredRecords.length > 0) {
     await archiveRecord(list, filteredRecords);
   } else {
-    logger.info(`No records to update in ${list}.`);
+    logger.info(
+      `[archive-bookmarks] [backupRecord]: No records to update in ${list}.`
+    );
   }
 };
 

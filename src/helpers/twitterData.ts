@@ -228,7 +228,9 @@ export const feed = async (): Promise<TwitterFeed[]> => {
     ) as TwitterFeed[];
 
     if (memberDiff.length) {
-      logger.info(`${memberDiff.length} users found not in lists.`);
+      logger.info(
+        `[twitterData] [feed]: ${memberDiff.length} users found not in lists.`
+      );
     }
 
     return allMembersFlat.map<TwitterFeed>(user => {
@@ -253,7 +255,7 @@ export const latest = async (): Promise<LatestTweetFmt[] | null> => {
   try {
     await latestTweets();
 
-    logger.info('Latest tweets retrieved.');
+    logger.info('[twitterData] [latest]: Latest tweets retrieved.');
 
     if (tweets?.length > 0) {
       const lastFmt: LatestTweetFmt[] = await formatTweets(tweets);

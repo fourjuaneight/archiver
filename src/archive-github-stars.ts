@@ -13,10 +13,10 @@ import logger from './util/logger';
     if (repos && repos.length > 0) {
       await insertHasuraData('development_github', repos);
     } else {
-      logger.info('No new stars to upload.');
+      logger.info('[archive-github-stars]: No new stars to upload.');
     }
   } catch (error) {
-    logger.error(error);
+    logger.error(`[archive-github-stars] ${error}`);
     process.exit(1);
   }
 })();

@@ -15,18 +15,21 @@ const expandLinks = async (url: string): Promise<string> => {
     const response: Response = await fetch(url);
 
     if (response.status !== 200 || !response.url) {
-      logger.info(`[expandLinks][${url}]: Unable to expand.`, {
-        code: response.status,
-        type: response.type,
-        text: response.statusText,
-      });
+      logger.info(
+        `[expandShortLink] [expandLinks] [${url}]: Unable to expand.`,
+        {
+          code: response.status,
+          type: response.type,
+          text: response.statusText,
+        }
+      );
 
       return url;
     }
 
     return response.url;
   } catch (error) {
-    logger.error(`[expandLinks][${url}]: ${error}`);
+    logger.error(`[expandLinks] [${url}]: ${error}`);
 
     return url;
   }
