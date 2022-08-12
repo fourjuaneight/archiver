@@ -55,13 +55,18 @@ export const insertHasuraData = async (
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[insertHasuraData] [${list}]: ${errors
+        `[query] [${list}]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
@@ -98,13 +103,18 @@ export const updateHasuraData = async (
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[updateHasuraData] [${list}]: ${errors
+        `[query] [${list}]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
@@ -298,13 +308,18 @@ export const queryHasuraBackup = async () => {
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[queryHasuraBackup]: ${errors
+        `[query]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
@@ -386,13 +401,18 @@ export const queryHasuraBookmarks = async () => {
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[queryHasuraBookmarks]: ${errors
+        `[query]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
@@ -425,13 +445,18 @@ export const queryHasuraStackExchange = async () => {
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[queryHasuraStackExchange]: ${errors
+        `[query]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
@@ -463,13 +488,18 @@ export const queryHasuraTweets = async () => {
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[queryHasuraTweets]: ${errors
+        `[query]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
@@ -509,13 +539,18 @@ export const queryHasuraTwitterFeed = async () => {
       },
       body: JSON.stringify({ query }),
     });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
     const response = await request.json();
 
     if (response.errors) {
       const { errors } = response as HasuraErrors;
 
       throw new Error(
-        `[queryHasuraTwitterFeed]: ${errors
+        `[query]: ${errors
           .map(err => `${err.extensions.path}: ${err.message}`)
           .join('\n')}\n${query}`
       );
