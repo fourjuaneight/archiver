@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.3] - 2022-08-16
+
+### Bug Fixes
+
+- [Trigger changelog action on new tags.](https://github.com/fourjuaneight/archiver/commit/9d4e86f2a49fce7bcfbd3c87b8e78d226e80e02d)
+
+### Miscellaneous Tasks
+
+- [Update to v1.4.3.](https://github.com/fourjuaneight/archiver/commit/23f4661b03832367aec53f0ca61eaf440f08db70)
+
+## [1.4.2] - 2022-08-16
+
+### Bug Fixes
+
+- [Remove undefined column in hasura query.](https://github.com/fourjuaneight/archiver/commit/4c4e6c6e0af67fadbecb467a7ddb49c34e342edf)
+
+### Features
+
+- [Add logger util method.](https://github.com/fourjuaneight/archiver/commit/76a2be86322d6d5858634cc9047e3be32c9b6bcb)
+- [Catch hasura fetch errors.](https://github.com/fourjuaneight/archiver/commit/7dc09aa58584f539208c6e9b969959cdf0130096)
+- [Add release generation to changelog action.](https://github.com/fourjuaneight/archiver/commit/69cbb0c80a0b4fb8e2efaa97b9f1ff8214689834)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/9e5da6abac71eefc6cc2a64c155ad98d7984f41f)
+- [Minor hasura query updates.](https://github.com/fourjuaneight/archiver/commit/7d93d473c94d809765e2ecffe1bbb944baf169b4)
+- [Update to new logger and other logging optimizations.](https://github.com/fourjuaneight/archiver/commit/184941256ade5328dd577dd167c1d37dda29e0f8)
+- [Remove deprecated dependency.](https://github.com/fourjuaneight/archiver/commit/7eac688f8f7941d3fc01a484da8a6a3c7969b39a)
+- [Minor logging optimizations.](https://github.com/fourjuaneight/archiver/commit/1ed2b0bc79f382f7a5af8eb3dcb261dd762dd3b2)
+- [Update to v1.4.2.](https://github.com/fourjuaneight/archiver/commit/447a41d677968493271ce58cb72e9bf4b18d0be4)
+
 ## [1.4.1] - 2022-08-10
 
 ### Features
