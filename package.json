@@ -1,6 +1,6 @@
 {
   "name": "archiver",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Node script to upload bookmarked media to S3 or B2. Runs daily via cron on a GitHub Action.",
   "scripts": {
     "archive:bookmarks": "esno --no-cache src/archive-bookmarks.ts",
