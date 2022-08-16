@@ -1,8 +1,9 @@
 name: Changelog
 
 on:
-  label:
-    types: [created]
+  push:
+    tags:
+      - "*"
 
 jobs:
   worker:
