@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.4] - 2022-08-16
+
+### Bug Fixes
+
+- [Update vars when generating release notes.](https://github.com/fourjuaneight/archiver/commit/d54704532535a507a8baf3f6c6788168e687f6dd)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/9669ef887a44382c7f4c000fb17e1af56f7f2794)
+- [Update to v1.4.4.](https://github.com/fourjuaneight/archiver/commit/708bb9e6ccc730d7ef735d0ebbd615c7a318291d)
+
 ## [1.4.3] - 2022-08-16
 
 ### Bug Fixes
