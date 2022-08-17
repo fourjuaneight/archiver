@@ -9,7 +9,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 // check for dead links
 const deadLinks = async (url: string): Promise<boolean> => {
   try {
-    const response: Response = await fetch(url);
+    const response: Response = await fetch(url, {
+      method: 'HEAD',
+    });
 
     if (response.status === 404) {
       return true;
