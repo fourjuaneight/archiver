@@ -18,8 +18,13 @@ jobs:
         with:
           node-version: 16.15.1
 
-      - uses: pnpm/action-setup@v2.0.1
-        name: Install pnpm
+      - name: Use Go 1.19
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.19"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
         id: pnpm-install
         with:
           version: 7
@@ -52,6 +57,9 @@ jobs:
         run: |
           wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
           chmod a+rx /usr/local/bin/yt-dlp
+
+      - name: Install lux
+        run: go install github.com/iawia002/lux@latest
 
       - name: Run archive script
         run: npm run archive:bookmarks
