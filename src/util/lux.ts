@@ -14,7 +14,9 @@ const asyncExec = promisify(exec);
  */
 export const lux = async (url: string, name: string): Promise<void> => {
   try {
-    const { stderr } = await asyncExec(`lux -O "${name}" ${url}`);
+    const { stderr } = await asyncExec(
+      `/usr/local/bin/lux -O "${name}" ${url}`
+    );
 
     if (stderr) {
       throw new Error(stderr);
