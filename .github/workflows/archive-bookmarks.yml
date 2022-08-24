@@ -59,7 +59,9 @@ jobs:
           chmod a+rx /usr/local/bin/yt-dlp
 
       - name: Install lux
-        run: go install github.com/iawia002/lux@latest
+        run: |
+          go install github.com/iawia002/lux@latest
+          which lux
 
       - name: Run archive script
         run: npm run archive:bookmarks
