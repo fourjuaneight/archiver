@@ -6,7 +6,7 @@ import TurndownService from 'turndown';
 
 import { deleteFiles } from '../util/deleteFile';
 import { fileNameFmt } from '../util/fileNameFmt';
-import { lux } from '../util/lux';
+import { ytdl } from '../util/ytdl';
 
 const turndownService = new TurndownService();
 
@@ -134,11 +134,11 @@ export const getMedia = async (name: string, url: string): Promise<Buffer> => {
  */
 export const getYTVid = async (name: string, url: string): Promise<Buffer> => {
   const fileName = fileNameFmt(name);
-  const filePath = `output-${fileName}.mp4`;
+  const filePath = `${fileName}.mp4`;
 
   try {
     // get media
-    await lux(url, filePath);
+    await ytdl(url, filePath);
 
     // get buffer from saved file
     const buffer = readFileSync(filePath);
