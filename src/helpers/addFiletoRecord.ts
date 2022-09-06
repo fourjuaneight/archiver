@@ -19,7 +19,7 @@ export const addFiletoRecord = async (
   const type: string = list.toLowerCase();
   const isReddit = list === 'Reddits';
   const dataUrl = isReddit ? (fields.content as string) : fields.url;
-  const imgMatch = new RegExp(/^.*(png|jpg|jpeg|webp|gif)$/, 'ig');
+  const imgMatch = new RegExp(/^.*(png|jpg|jpeg|webp|gif|gifv)$/, 'ig');
   const vidMatch = new RegExp(/^.*(mp4|mov)$/, 'ig');
   const isImg = dataUrl.match(imgMatch);
   const isVid = dataUrl.match(vidMatch);
