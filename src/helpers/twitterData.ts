@@ -18,7 +18,7 @@ import { expandShortLink } from './expandShortLink';
 dotenv.config();
 
 let tweets: LatestTweet[] = [];
-const { TWEET_TOKEN, TWEET_USER_ID } = process.env;
+const { TWEET_TOKEN, TWEET_USER_ID, TWEET_USERNAME } = process.env;
 
 /**
  * Get user lists.
@@ -180,7 +180,7 @@ const formatTweets = (rawTweets: LatestTweet[]): LatestTweetFmt[] => {
   const formatted: LatestTweetFmt[] = rawTweets.map((twt: LatestTweet) => ({
     tweet: emojiUnicode(twt.text),
     date: twt.created_at,
-    url: `https://twitter.com/fourjuaneight/status/${twt.id}`,
+    url: `https://twitter.com/${TWEET_USERNAME}/status/${twt.id}`,
   }));
 
   return formatted;

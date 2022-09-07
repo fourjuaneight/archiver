@@ -8,7 +8,7 @@ import logger from '../util/logger';
 dotenv.config();
 
 let stars: any[] = [];
-const { GH_TOKEN } = process.env;
+const { GH_TOKEN, GH_USERNAME } = process.env;
 
 /**
  * Get the lastest GitHub starred repositories.
@@ -35,7 +35,7 @@ const latestStarredRepos = (
     body: JSON.stringify({
       query: `
         query {
-          user(login: "fourjuaneight") {
+          user(login: "${GH_USERNAME}") {
             starredRepositories(${filterParams}) {
               edges {
                 node {
