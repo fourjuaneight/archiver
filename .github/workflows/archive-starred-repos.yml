@@ -48,5 +48,6 @@ jobs:
         run: npm run archive:starred-repos
         env:
           GH_TOKEN: ${{secrets.GH_TOKEN}}
+          GH_USERNAME: ${{secrets.GH_USERNAME}}
           HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
           HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
