@@ -1,9 +1,5 @@
 name: Archive Twitter Lists
 
-on:
-  schedule:
-    - cron: "0 */6 * * *"
-
 jobs:
   archive-twitter-lists:
     runs-on: ubuntu-20.04

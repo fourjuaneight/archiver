@@ -1,9 +1,5 @@
 name: Archive Tweets
 
-on:
-  schedule:
-    - cron: "0 5 * * *"
-
 jobs:
   archive-tweets:
     runs-on: ubuntu-20.04
