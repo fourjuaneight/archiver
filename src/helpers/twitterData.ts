@@ -11,7 +11,6 @@ import {
   TwitterUserResp,
 } from '../models/twitter';
 import { arrayDiff } from '../util/arrayDiff';
-import { emojiUnicode } from '../util/emojiUnicode';
 import logger from '../util/logger';
 import { expandShortLink } from './expandShortLink';
 
@@ -178,7 +177,7 @@ const latestTweets = (pagination?: string): Promise<TwitterResponse> => {
  */
 const formatTweets = (rawTweets: LatestTweet[]): LatestTweetFmt[] => {
   const formatted: LatestTweetFmt[] = rawTweets.map((twt: LatestTweet) => ({
-    tweet: emojiUnicode(twt.text),
+    tweet: twt.text,
     date: twt.created_at,
     url: `https://twitter.com/${TWEET_USERNAME}/status/${twt.id}`,
   }));
