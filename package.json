@@ -14,6 +14,7 @@
     "dead-links": "esno --no-cache src/dead-links.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint --fix \"src/**/*.ts\"",
+    "manga": "esno --no-cache src/mangadex.ts",
     "prepare": "husky install",
     "runner": "esno --no-cache test.ts"
   },
