@@ -50,4 +50,5 @@ jobs:
           HASURA_ADMIN_SECRET: ${{secrets.HASURA_ADMIN_SECRET}}
           HASURA_ENDPOINT: ${{secrets.HASURA_ENDPOINT}}
           TWEET_USER_ID: ${{secrets.TWEET_USER_ID}}
+          TWEET_USERNAME: ${{secrets.TWEET_USERNAME}}
           TWEET_TOKEN: ${{secrets.TWEET_TOKEN}}
