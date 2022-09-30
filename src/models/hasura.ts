@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface HasuraMutationResp {
   [key: string]: {
     returning: {
@@ -20,4 +21,17 @@ export interface HasuraErrors {
     };
     message: string;
   }[];
+}
+
+export interface MangaFeed {
+  author: string;
+  id?: string;
+  mangadex_id: string;
+  title: string;
+}
+
+export interface HasuraMangaFeedQueryResp {
+  data: {
+    feeds_manga: MangaFeed[];
+  };
 }

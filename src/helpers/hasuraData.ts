@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
 
 import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
-import { HasuraErrors } from '../models/hasura';
+import { HasuraErrors, HasuraMangaFeedQueryResp } from '../models/hasura';
 import { HasuraSEQueryResp } from '../models/stackexchange';
 import {
   Fields,
@@ -514,6 +514,51 @@ export const queryHasuraTweets = async () => {
     return tweetsWithId;
   } catch (error) {
     throw new Error(`[queryHasuraTweets]: ${error}`);
+  }
+};
+
+export const queryHasuraMangaFeed = async () => {
+  const query = `
+    {
+      feeds_manga(order_by: {title: asc}) {
+        title
+        author
+        mangadex_id
+      }
+    }
+  `;
+
+  try {
+    const request = await fetch(`${HASURA_ENDPOINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    if (request.status !== 200) {
+      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
+    }
+
+    const response = await request.json();
+
+    if (response.errors) {
+      const { errors } = response as HasuraErrors;
+
+      throw new Error(
+        `[query]: ${errors
+          .map(err => `${err.extensions.path}: ${err.message}`)
+          .join('\n')}\n${query}`
+      );
+    }
+
+    const feed = (response as HasuraMangaFeedQueryResp).data.feeds_manga;
+
+    return feed;
+  } catch (error) {
+    throw new Error(`[queryHasuraMangaFeed]: ${error}`);
   }
 };
 
