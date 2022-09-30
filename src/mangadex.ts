@@ -74,6 +74,7 @@ interface MangaError {
 
 interface MangaChapter {
   title: string;
+  author: string;
   chapter: string;
   url: string;
   date: string;
@@ -82,9 +83,13 @@ interface MangaChapter {
 const endpoint = (mangaID: string) =>
   `https://api.mangadex.org/manga/${mangaID}/feed?limit=100&includes[]=scanlation_group&includes[]=user&order[volume]=desc&order[chapter]=desc&offset=0&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&contentRating[]=pornographic&translatedLanguage[]=en`;
 
-export const getManga = async (id: string): Promise<MangaChapter[]> => {
+// Get chapter details from Mangadex ID.
+export const getManga = async (
+  mangaID: string,
+  author: string
+): Promise<MangaChapter[]> => {
   try {
-    const request = await fetch(endpoint(id), {
+    const request = await fetch(endpoint(mangaID), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -108,6 +113,7 @@ export const getManga = async (id: string): Promise<MangaChapter[]> => {
     const cleanChapters: MangaChapter[] = chapters
       .map(({ attributes }) => ({
         title: attributes.title,
+        author,
         chapter: attributes.chapter,
         url: attributes.externalUrl,
         date: attributes.readableAt,
