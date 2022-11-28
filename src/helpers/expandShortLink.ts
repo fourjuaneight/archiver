@@ -11,8 +11,15 @@ import logger from '../util/logger';
  * @returns {string} expanded URL
  */
 const expandLinks = async (url: string): Promise<string> => {
+  // timeout after 15s
+  const timeout: number = 15000;
+
   try {
-    const response: Response = await fetch(url);
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    const response: Response = await fetch(url, { signal: controller.signal });
+
+    clearTimeout(id);
 
     if (response.status !== 200 || !response.url) {
       logger.info(
