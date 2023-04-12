@@ -4,8 +4,6 @@
 ![dead-links](https://github.com/fourjuaneight/archiver/actions/workflows/dead-links.yml/badge.svg)<br/>
 ![github-stars](https://github.com/fourjuaneight/archiver/actions/workflows/archive-starred-repos.yml/badge.svg)<br/>
 ![stackexchange](https://github.com/fourjuaneight/archiver/actions/workflows/archive-stackexchange.yml/badge.svg)<br/>
-![twitter-lists](https://github.com/fourjuaneight/archiver/actions/workflows/archive-twitter-lists.yml/badge.svg)<br/>
-![tweets](https://github.com/fourjuaneight/archiver/actions/workflows/archive-tweet.yml/badge.svg)<br/>
 ![hasura](https://github.com/fourjuaneight/archiver/actions/workflows/backup-hasura.yml/badge.svg)<br/>
 
 I like hoarding data online. These are a colletion of scripts that ensure this crap doesn't get lost. Here's what they do:
