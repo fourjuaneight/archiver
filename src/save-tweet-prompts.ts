@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { subDays } from 'date-fns';
 import dotenv from 'dotenv';
 import fetch from 'isomorphic-fetch';
@@ -59,7 +60,7 @@ const latestTweets = (
   }
 };
 
-const latest = async (userID: string): Promise<LatestTweet[]> => {
+export const latest = async (userID: string): Promise<LatestTweet[]> => {
   try {
     await latestTweets(userID);
 

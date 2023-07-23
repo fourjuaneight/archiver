@@ -103,7 +103,7 @@ const getUserFavQuestions = async (
 // Upload latest StackExchange questions to Hasura table.
 (async () => {
   try {
-    // get formatted tweets
+    // get formatted questions
     const currQs = await queryHasuraStackExchange();
     const favQsBySite = sites.map(site =>
       getUserFavQuestions(`${STACKEXCHANGE_USER_ID}`, site)

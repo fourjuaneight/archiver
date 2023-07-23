@@ -14,7 +14,7 @@ import logger from '../util/logger';
 
 dotenv.config();
 
-const APP_KEY_ID = process.env.B2_APP_KEY_ID;
+const KEY_ID = process.env.B2_APP_KEY_ID;
 const APP_KEY = process.env.B2_APP_KEY;
 const BUCKET_ID = process.env.B2_BUCKET_ID;
 const BUCKET_NAME = process.env.B2_BUCKET_NAME;
@@ -28,7 +28,7 @@ const BUCKET_NAME = process.env.B2_BUCKET_NAME;
  * @returns {B2AuthTokens} api endpoint, auth token, and download url
  */
 const authTokens = async (): Promise<B2AuthTokens> => {
-  const token = Buffer.from(`${APP_KEY_ID}:${APP_KEY}`).toString('base64');
+  const token = Buffer.from(`${KEY_ID}:${APP_KEY}`).toString('base64');
   const options = {
     headers: {
       Authorization: `Basic ${token}`,
