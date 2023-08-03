@@ -23,7 +23,8 @@ jobs:
         id: pnpm-install
         with:
           version: 8
-          run_install: false
+          run_install: |
+            - args: [--no-frozen-lockfile]
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -37,9 +38,6 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Install ffmpeg
         uses: FedericoCarboni/setup-ffmpeg@v2
