@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.5] - 2024-02-24
+
+### Bug Fixes
+
+- [Use HEAD method when checking for dead links.](https://github.com/fourjuaneight/archiver/commit/440e222ac5a628ba54e9815f1cda961f9272a326)
+- [Add dependency location.](https://github.com/fourjuaneight/archiver/commit/6ace7c7d9cf2076ee3d303236253147488ce47f3)
+- [Replacing lux with ytdl.](https://github.com/fourjuaneight/archiver/commit/5ea89703a3c517c3392d063f017f8434585025f8)
+- [Add missing env var from action file.](https://github.com/fourjuaneight/archiver/commit/e3b67d7559748c1fb325c127f59189fb7dd9c9cb)
+- [Add missing username on tweets archive.](https://github.com/fourjuaneight/archiver/commit/632405bad4f86510204678439913fe7876bbbb2d)
+- [Remove tweets unicode conversion.](https://github.com/fourjuaneight/archiver/commit/5616d541dbbfb1c30188da943ed5c3798d85fe39)
+- [Add a 15s timeout abort on expanding url requests.](https://github.com/fourjuaneight/archiver/commit/7b21a862c0e37caf2e4b76e809b47475bebcf903)
+
+### Features
+
+- [Add golang and lux to archive bookmarks action.](https://github.com/fourjuaneight/archiver/commit/53a3aee0b0a85fe9990e6c1422f485d67de6bf15)
+- [Add lux util method.](https://github.com/fourjuaneight/archiver/commit/15647409efa805c7e2304b028ee2f26d3c0c4ea2)
+- [Replace yt-dlp with lux.](https://github.com/fourjuaneight/archiver/commit/42b14219a0e89bcee152d1029eb1265fd72e59ca)
+- [Update username strings to env vars.](https://github.com/fourjuaneight/archiver/commit/d7f4f742f3115b40a91d09ffc43bb3d440e05bdc)
+- [Add initial mangadex archive script.](https://github.com/fourjuaneight/archiver/commit/bea3fe31d519868fec9488ce69fcfc7d9fde1d8d)
+- [Add manga feed Hasura query.](https://github.com/fourjuaneight/archiver/commit/a7f00a7ce4a4e206169f7a39a6135a08a8d6bf19)
+- [Add tweet to prompt script.](https://github.com/fourjuaneight/archiver/commit/835657018dcf2dd84b6a6c2c5c75057e0748388c)
+- [Add action to verify no secrets are leaked.](https://github.com/fourjuaneight/archiver/commit/9694f35805c53197e0bc8f058cb60c2791b2c82e)
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/f3b71ee9ad1d8e99760961e2b60af4f5ddb7e81a)
+- [Print dependency path.](https://github.com/fourjuaneight/archiver/commit/5d162ea5f393a30d1b2425071fa1f036df6543ad)
+- [Add gifv media type to bookmarks archive script.](https://github.com/fourjuaneight/archiver/commit/06f4b22efc4fa99aa87c99575ea6051d0cea6470)
+- [Disable twitter actions.](https://github.com/fourjuaneight/archiver/commit/108fdc1be9a7b147bb6537dfd0ce192b394905e2)
+- [Re-enable twitter archive actions.](https://github.com/fourjuaneight/archiver/commit/cbe8a56c93ee5a07f20d599c68ba8ef4cb63986f)
+- [Remove static list of mangas.](https://github.com/fourjuaneight/archiver/commit/4a88aa527ad9755197301e10e11774ec8766fc3d)
+- [Minor mangadex syntax updates.](https://github.com/fourjuaneight/archiver/commit/a5bb447075e25be98e1f4f80d9a50f2754ab7533)
+- [Remove deprecate step in actions.](https://github.com/fourjuaneight/archiver/commit/38882931188e6a143093b74e238d987ecef222b4)
+- [Update action step.](https://github.com/fourjuaneight/archiver/commit/16a9e66435815a34b510b89583d0a9f31106df2a)
+- [Remove deprecated actions.](https://github.com/fourjuaneight/archiver/commit/fff22288efaad5049da56885f77343b5a09b97a9)
+- [Update dependencies.](https://github.com/fourjuaneight/archiver/commit/4c1e81146277e18d5cec97398f628eb442564989)
+- [Minor syntax fixes.](https://github.com/fourjuaneight/archiver/commit/1b6da3afc68907bd2f8e763d096ab1e04d8eb35a)
+- [Update workflow pnpm to v8.](https://github.com/fourjuaneight/archiver/commit/ff5ff797eb18dfd513e6a381e1994a5f698efa36)
+- [Use pnpm setup action to install dependnecies.](https://github.com/fourjuaneight/archiver/commit/fb2b996a0603ec0f9339d7e7a3edc67fd301c6ce)
+- [Update dependencies.](https://github.com/fourjuaneight/archiver/commit/fb0915e5a5894549b644b16197a1dd809aa0f6fe)
+- [Update to v1.4.5.](https://github.com/fourjuaneight/archiver/commit/b4f2b2531c48cf8b97534c2c5b2afc39b2f2cc4f)
+
 ## [1.4.4] - 2022-08-16
 
 ### Bug Fixes
@@ -103,9 +145,14 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/e99528989032b3eb58f26c899642904ac09962ae)
+
+## [.1.3.1] - 2022-07-25
+
+### Miscellaneous Tasks
+
 - [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/03e4c623b462d5c2fce2b720948da7790e4c59a1)
 - [Update node version and add format/lint step to actions.](https://github.com/fourjuaneight/archiver/commit/ba81086e80fa085dbda4d6a21913737c2262f88b)
-- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/e99528989032b3eb58f26c899642904ac09962ae)
 
 ## [1.3.0] - 2022-07-25
 
