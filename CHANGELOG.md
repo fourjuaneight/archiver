@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0] - 2024-02-26
+
+### Miscellaneous Tasks
+
+- [Update Changelog.](https://github.com/fourjuaneight/archiver/commit/23a3b29524f7c3d43b4da988352a4848fe810aac)
+- [Remove deprecated twitter scripts.](https://github.com/fourjuaneight/archiver/commit/c90d50c01273763bfbcf732c062a139a5a7713dd)
+- [Update to v1.5.0.](https://github.com/fourjuaneight/archiver/commit/c7bc238d326f8bccdceec0ca6c96544c34a5f496)
+
 ## [1.4.5] - 2024-02-24
 
 ### Bug Fixes
