@@ -74,7 +74,6 @@ export interface Fields {
   subreddit?: string;
   tags: string[];
   title?: string;
-  tweet?: string;
   url: string;
 }
 
@@ -95,14 +94,6 @@ export interface FileTypes {
 export interface FeedReddit {
   name: string;
   description: string | null;
-  url: string;
-}
-
-export interface FeedTwitter {
-  name: string;
-  username: string;
-  description: string | null;
-  list: string | null;
   url: string;
 }
 
@@ -213,7 +204,6 @@ export interface HasuraBKQueryResp {
     comics: Fields[];
     podcasts: Fields[];
     reddits: Fields[];
-    tweets: Fields[];
     videos: Fields[];
     [key: string]: Fields[];
   };
@@ -229,11 +219,9 @@ export interface HasuraBackupQueryResp {
     bookmarks_comics: Fields[];
     bookmarks_podcasts: Fields[];
     bookmarks_reddits: Fields[];
-    bookmarks_tweets: Fields[];
     bookmarks_videos: Fields[];
     feeds_podcasts: FeedWeb[];
     feeds_reddit: FeedReddit[];
-    feeds_twitter: FeedTwitter[];
     feeds_websites: FeedWeb[];
     feeds_youtube: FeedWeb[];
     media_books: MediaBooks[];

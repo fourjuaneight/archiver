@@ -4,11 +4,6 @@ import fetch from 'isomorphic-fetch';
 import { HasuraBackupQueryResp, HasuraBKQueryResp } from '../models/archive';
 import { HasuraErrors, HasuraMangaFeedQueryResp } from '../models/hasura';
 import { HasuraSEQueryResp } from '../models/stackexchange';
-import {
-  Fields,
-  HasuraTWFeedQueryResp,
-  HasuraTWQueryResp,
-} from '../models/twitter';
 
 dotenv.config();
 
@@ -181,13 +176,6 @@ export const queryHasuraBackup = async () => {
         title
         url
       }
-      bookmarks_tweets {
-        dead
-        tags
-        tweet
-        url
-        user
-      }
       bookmarks_videos {
         archive
         creator
@@ -205,13 +193,6 @@ export const queryHasuraBackup = async () => {
       feeds_reddit {
         name
         description
-        url
-      }
-      feeds_twitter {
-        name
-        username
-        description
-        list
         url
       }
       feeds_websites {
@@ -372,14 +353,6 @@ export const queryHasuraBookmarks = async () => {
         title
         url
       }
-      tweets: bookmarks_tweets(order_by: {tweet: asc}) {
-        dead
-        id
-        tags
-        tweet
-        url
-        user
-      }
       videos: bookmarks_videos(order_by: {title: asc}) {
         archive
         creator
@@ -468,55 +441,6 @@ export const queryHasuraStackExchange = async () => {
   }
 };
 
-export const queryHasuraTweets = async () => {
-  const query = `
-    {
-      media_tweets(order_by: {date: desc}) {
-        date
-        tweet
-        url
-      }
-    }
-  `;
-
-  try {
-    const request = await fetch(`${HASURA_ENDPOINT}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
-      },
-      body: JSON.stringify({ query }),
-    });
-
-    if (request.status !== 200) {
-      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
-    }
-
-    const response = await request.json();
-
-    if (response.errors) {
-      const { errors } = response as HasuraErrors;
-
-      throw new Error(
-        `[query]: ${errors
-          .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')}\n${query}`
-      );
-    }
-
-    const tweets = (response as HasuraTWQueryResp).data.media_tweets;
-    const tweetsWithId: Fields[] = tweets.map(tweet => ({
-      ...tweet,
-      id: tweet.url.split('/').pop(),
-    }));
-
-    return tweetsWithId;
-  } catch (error) {
-    throw new Error(`[queryHasuraTweets]: ${error}`);
-  }
-};
-
 export const queryHasuraMangaFeed = async () => {
   const query = `
     {
@@ -559,52 +483,5 @@ export const queryHasuraMangaFeed = async () => {
     return feed;
   } catch (error) {
     throw new Error(`[queryHasuraMangaFeed]: ${error}`);
-  }
-};
-
-export const queryHasuraTwitterFeed = async () => {
-  const query = `
-    {
-      feeds_twitter(order_by: {name: asc}) {
-        name
-        username
-        description
-        list
-        url
-      }
-    }
-  `;
-
-  try {
-    const request = await fetch(`${HASURA_ENDPOINT}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Hasura-Admin-Secret': `${HASURA_ADMIN_SECRET}`,
-      },
-      body: JSON.stringify({ query }),
-    });
-
-    if (request.status !== 200) {
-      throw new Error(`[fetch]: ${request.status} - ${request.statusText}`);
-    }
-
-    const response = await request.json();
-
-    if (response.errors) {
-      const { errors } = response as HasuraErrors;
-
-      throw new Error(
-        `[query]: ${errors
-          .map(err => `${err.extensions.path}: ${err.message}`)
-          .join('\n')}\n${query}`
-      );
-    }
-
-    const feed = (response as HasuraTWFeedQueryResp).data.feeds_twitter;
-
-    return feed;
-  } catch (error) {
-    throw new Error(`[queryHasuraTwitterFeed]: ${error}`);
   }
 };

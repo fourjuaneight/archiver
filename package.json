@@ -6,8 +6,6 @@
     "archive:bookmarks": "esno --no-cache src/archive-bookmarks.ts",
     "archive:stackexchange": "esno --no-cache src/archive-stackexchange.ts",
     "archive:starred-repos": "esno --no-cache src/archive-github-stars.ts",
-    "archive:twitter-lists": "esno --no-cache src/archive-twitter-lists.ts",
-    "archive:tweets": "esno --no-cache src/archive-tweets.ts",
     "backup:hasura": "esno --no-cache src/backup-hasura.ts",
     "clean": "rm -rf dist",
     "clean:node": "rm -rf node_modules",
@@ -16,8 +14,7 @@
     "lint": "eslint --fix \"src/**/*.ts\"",
     "manga": "esno --no-cache src/mangadex.ts",
     "prepare": "husky install",
-    "runner": "esno --no-cache test.ts",
-    "save:tweet-prompts": "esno --no-cache src/save-tweet-prompts.ts"
+    "runner": "esno --no-cache test.ts"
   },
   "repository": {
     "type": "git",

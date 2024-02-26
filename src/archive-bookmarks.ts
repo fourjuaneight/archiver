@@ -51,9 +51,9 @@ const backupRecord = async (
 (async () => {
   try {
     const bookmarks = await queryHasuraBookmarks();
-    const backups = Object.keys(bookmarks)
-      .filter(list => list !== 'tweets')
-      .map(list => backupRecord(bookmarks, list));
+    const backups = Object.keys(bookmarks).map(list =>
+      backupRecord(bookmarks, list)
+    );
 
     await Promise.all(backups);
   } catch (error) {

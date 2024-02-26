@@ -36,8 +36,8 @@ const convertEmoji = (emojiString: string): string => {
  * Takes a string and replaces unicode
  * @function
  *
- * @param {string} tweet tweet string with emojies
- * @return {string} tweet with unicode emojies
+ * @param {string} str string with emojies
+ * @return {string} with unicode emojies
  */
-export const emojiUnicode = (tweet: string): string =>
-  tweet.replace(emojiRange, (p1: string) => `${convertEmoji(p1)}`);
+export const emojiUnicode = (str: string): string =>
+  str.replace(emojiRange, (p1: string) => `${convertEmoji(p1)}`);

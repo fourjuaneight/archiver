@@ -72,7 +72,6 @@ const updateRecords = async (
     await updateRecords('comics', records.comics);
     await updateRecords('podcasts', records.podcasts);
     await updateRecords('reddits', records.reddits);
-    await updateRecords('tweets', records.tweets);
     await updateRecords('videos', records.videos);
 
     process.exit(0);
